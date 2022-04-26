@@ -132,7 +132,7 @@ const SearchBar = ({ label = 'Sort by', value, onChange }) => {
           }
           onClick={() => { setOpen(true); setFocussed(true) }}
         >
-          <Typography className={classes.label}>{data.filter(obj => obj.value == sort)?.[0]?.label}</Typography>
+          <Typography className={classes.label}>{data.filter(obj => obj.value == sort)?.[0]?.label || 'Sort by'}</Typography>
           {isFocussed ? <ExpandLessIcon htmlColor={theme.palette.secondary.main} /> : <ExpandMoreIcon htmlColor={theme.palette.secondary.main} />}
         </Box>
         {open ? (

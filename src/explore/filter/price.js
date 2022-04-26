@@ -21,7 +21,6 @@ export default function FilterItem(props) {
 
     }
     return (
-        <div className={classes.box}>
             <Grid justifyContent="space-between" container>
                 <Typography className={classes.filterBox}>
                     <img className={classes.filter} src={Images.filter} />
@@ -46,7 +45,6 @@ export default function FilterItem(props) {
                     />
                 </Typography>
             </Grid>
-        </div>
     )
 };
 const BootstrapInput = withStyles((theme) => ({
@@ -125,12 +123,6 @@ const IOSSwitch = withStyles((theme) => ({
     );
 });
 const useStyle = makeStyles((theme) => ({
-    box: {
-        flex: 1,
-        background: '#fff',
-        borderRadius: '20px',
-        padding: '30px',
-    },
     filterBox: {
         display: 'flex',
         alignItems: 'center',

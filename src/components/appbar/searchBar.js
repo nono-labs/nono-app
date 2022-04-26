@@ -75,6 +75,7 @@ const useStyles = makeStyles(theme => ({
     border: '2px solid #000000',
     boxSizing: 'border-box',
     borderRadius: '10px',
+    background: '#fff',
     transition: theme.transitions.create("all", {
       easing: theme.transitions.easing.easeIn,
       duration: theme.transitions.duration.shortest
