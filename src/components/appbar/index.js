@@ -69,7 +69,7 @@ const SideBar = props => {
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
-                        className={classes.menuButton}
+                        className={classes.menuButton} 
                     >
                         <MenuIcon htmlColor={theme.custom.palette.noteBackground.default} />
                     </IconButton>

@@ -4,7 +4,7 @@ import { red, amber, grey } from "@material-ui/core/colors";
 import Fonts from "@/assets/fonts";
 const fontFamilyArchivoBlack = {
   fontFamily: [
-    "ArchivoBlack",
+    "Archivo Black",
     "Arial",
     "sans-serif",
     '"Apple Color Emoji"',
@@ -19,8 +19,8 @@ const theme = createTheme({
       main: '#e5e5e5'
     },
     secondary: {
-      main: amber[500],
-      light: "#feefc3"
+      main: '#62929E',
+      // light: "#feefc3"
     },
     error: {
       main: red.A400
@@ -47,9 +47,7 @@ const theme = createTheme({
 
   },
   typography: {
-    // fontFamily: "Poppins",
-    // ...fontFamilyArchivoBlack,
-
+    fontFamily: 'Barlow'
   },
 
   overrides: {
@@ -69,6 +67,7 @@ const theme = createTheme({
         href: 'none',
         variant: 'text',
         textTransform: 'none',
+
       },
       text: {
         color: '#000',
