@@ -4,6 +4,8 @@ import Images from '@/constant'
 
 const Home = React.lazy(() => import("@/home"));
 const Explore = React.lazy(() => import("@/explore"));
+const Details = React.lazy(() => import("@/components/Details"));
+
 export const routesList = [
   {
     path: '/home',
@@ -37,7 +39,10 @@ const RouterPage = ({ initialRoute }) => (
     {/* <Route path="/" element={<Home />} > */}
     <Route path="*" element={<Navigate to="/home" />}></Route>
     <Route index path="/home" element={<Home />} />
-    <Route path="/explore/*" element={<Explore />} />
+    <Route path="/explore" element={<Explore />} />
+
+    <Route index path="/explore/details" element={<Details />} />
+
     {/* </Route> */}
   </Routes>
 );

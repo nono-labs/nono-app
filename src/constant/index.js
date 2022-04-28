@@ -12,6 +12,9 @@ import nft from '@/assets/img/nft.svg';
 import weth from '@/assets/img/weth.svg';
 import rewardBanner from '@/assets/img/rewardBanner.svg';
 import filter from '@/assets/img/filter.svg';
+import filter1 from '@/assets/img/filter1.svg';
+import deleteIcon from '@/assets/img/deleteIcon.svg';
+import addIcon from '@/assets/img/addIcon.svg';
 
 export default {
     logo,
@@ -27,6 +30,9 @@ export default {
     nft,
     weth,
     rewardBanner,
-    filter
+    filter,
+    filter1,
+    deleteIcon,
+    addIcon,
 }
   

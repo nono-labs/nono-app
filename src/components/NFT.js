@@ -7,6 +7,7 @@ import clsx from "clsx";
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 300,
+        margin: '0 6px 30px',
         borderRadius: '10px',
         border: '1px solid #000000',
         position: 'relative',
@@ -84,7 +85,7 @@ export default function NFT(props) {
     const classes = useStyles();
 
     return (
-        <Card variant="outlined" className={classes.root}>
+        <Card variant="outlined" style={props.style} className={classes.root}>
             <div style={{ position: 'relative' }}>
                 <CardMedia
                     component="img"

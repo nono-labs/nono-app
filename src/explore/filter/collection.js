@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { makeStyles, withStyles, Grid, Typography, Chip, InputBase, TextField, MenuItem } from '@material-ui/core'
+import { makeStyles, withStyles, Grid, Typography, Chip, IconButton, TextField, MenuItem } from '@material-ui/core'
 import Images from '@/constant'
-
+import FaceIcon from '@material-ui/icons/Face';
+import CollectionModal from './collectionModal'
 export default function FilterItem(props) {
     const classes = useStyle();
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
     const [sort, setSort] = React.useState(10);
+    const [open, setOpen] = React.useState(false);
 
     const minPriceChange = ev => {
         setMinPrice(Number(ev.target.value));
@@ -20,29 +22,25 @@ export default function FilterItem(props) {
 
     }
     return (
-            <Grid className={classes.box} justifyContent="space-between" container>
-                <Typography className={classes.filterBox}>
-                    <span>Collection</span>
-                    <div>
-                  <Typography
-                    paragraph
-                    style={{  fontWeight: "bold" }}
-                    align="left"
-                  >
-                    {<Chip style={{marginRight:10,marginBottom:10}} label={"Min. Price:"+1} onDelete={() => setMinPrice("")} color="primary" /> }
-                    {<Chip style={{marginRight:10,marginBottom:10}} label={"Max. Price:"+2} onDelete={() => setMaxPrice("")} color="primary" />}
-                  </Typography>
-                </div>
-              </Typography>
-            </Grid>
+        <Grid className={classes.box} justifyContent="space-between" container>
+            <div className={classes.filterBox}>
+                <span>Collection</span>
+                {<Chip color="default" variant="outlined" icon={<img src={Images.filter1} />} deleteIcon={<img src={Images.deleteIcon} />} className={classes.chip} label={"Min. Price:" + 1} onDelete={() => setMinPrice("")} />}
+                {<Chip color="default" variant="outlined" icon={<FaceIcon />} deleteIcon={<img src={Images.deleteIcon} />} className={classes.chip} label={"Max. Price:" + 2} onDelete={() => setMaxPrice("")} />}
+                <IconButton onClick={()=>setOpen(true)} classes={{ root: classes.addIcon }}>
+                    <img src={Images.addIcon} />
+                </IconButton>
+            </div>
+            <CollectionModal open={open} setOpen={setOpen} />
+        </Grid>
     )
 };
 
 
 const useStyle = makeStyles((theme) => ({
     box: {
-        marginTop: 20
-    }, 
+        marginTop: 20,
+    },
     filterBox: {
         display: 'flex',
         alignItems: 'center',
@@ -52,73 +50,24 @@ const useStyle = makeStyles((theme) => ({
         lineHeight: '32px',
         paddingLeft: 62,
     },
-    filter: {
-        width: '32px',
-        marginRight: '30px',
-
-    },
-    filterItem: {
-        fontFamily: 'Barlow',
-        fontWeight: 600,
-        fontSize: '18px',
-        lineHeight: '32px',
-        color: '#000',
-        display: 'flex',
-        alignItems: 'center',
-    },
-    priceBox: {
-        marginLeft: '30px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
+    chip: {
+        background: '#fff',
+        border: '0.5px solid #000000',
+        boxSizing: 'border-box',
+        borderRadius: '50px',
         marginBottom: 0,
-        '& span': {
-            paddingRight: 15,
-        },
-        '& img': {
-            width: '18px',
-            margin: '0 4px',
-        }
-    },
-    itemsTotal: {
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: '32px',
-        marginRight: '50px',
-
-    },
-    grew: {
-        display: 'flex', 
-        alignItems: 'center'
-    },
-    select: {
-        width: '200px',
-
+        marginLeft: 15,
         root: {
-            width: '200px',
-            border: '2px solid #62929E',
-            borderRadius: '50px',
-            backgroundColor: theme.palette.common.white,
+            background: '#fff',
 
-        },
-        input: {
-            borderRadius: '50px',
-            backgroundColor: theme.palette.common.white,
-            '&:focus': {
-                borderRadius: '50px',
-            },
         },
         select: {
-            borderRadius: '50px',
-        },
-        selectMenu: {
-            borderRadius: '50px',
-            background: 'red'
-        },
-       
-        
-    }
+            background: '#fff',
 
-
-
+        }
+    },
+    addIcon: {
+        padding: 0,
+        marginLeft: 15,
+    },
 }))

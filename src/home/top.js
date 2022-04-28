@@ -56,7 +56,6 @@ export default function TopCollections(props) {
                         ))}
                     </TableBody>
                 </Table>
-
         </Card>
     )
 };
@@ -67,7 +66,6 @@ const useStyle = makeStyles((theme) => ({
         background: '#fff',
         padding: '100px',
         margin:`${theme.custom.palette.defaultspacing} 0px`,
-
     },
     title: {
         fontFamily: 'Archivo Black',
