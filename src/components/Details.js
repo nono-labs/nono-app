@@ -14,38 +14,15 @@ import {
   TableHead,
   IconButton,
 } from "@material-ui/core";
-import DashboardIcon from "@material-ui/icons//Dashboard";
-import PeopleIcon from "@material-ui/icons/People";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import RefreshIcon from "@material-ui/icons/Refresh";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+
 import ShareIcon from "@material-ui/icons/Share";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
-import ShopIcon from "@material-ui/icons/Shop";
-import LocalOfferIcon from "@material-ui/icons/LocalOffer";
-import FormatAlignLeftIcon from "@material-ui/icons/FormatAlignLeft";
-import ListIcon from '@material-ui/icons/List';
-import AcUnitIcon from "@material-ui/icons/AcUnit";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import ShowChartIcon from '@material-ui/icons/ShowChart';
-import DetailsIcon from "@material-ui/icons/Details";
-import CompareArrowsIcon from "@material-ui/icons/CompareArrows";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Images from '@/constant'
-import Alert from '@material-ui/lab/Alert';
+
+import Images from "@/constant";
+import CachedIcon from "@material-ui/icons/Cached";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 // import OfferForm from './OfferForm';
 import { useNavigate } from "react-router-dom";
-import {
-  useParams
-} from "react-router-dom";
+import { useParams } from "react-router-dom";
 function useInterval(callback, delay) {
   const savedCallback = React.useRef();
 
@@ -67,13 +44,13 @@ function useInterval(callback, delay) {
 }
 // const api = extjs.connect("https://boundary.ic0.app/");
 
-const shorten = a => {
+const shorten = (a) => {
   return a.substring(0, 12) + "...";
 };
 
 const Detail = (props) => {
   let { tokenid } = useParams();
-//   let { index, canister} = extjs.decodeTokenId(tokenid);
+  //   let { index, canister} = extjs.decodeTokenId(tokenid);
   const navigate = useNavigate();
   const [floor, setFloor] = React.useState("");
   const [listing, setListing] = React.useState(false);
@@ -87,39 +64,42 @@ const Detail = (props) => {
     props.list(tokenid, 0, props.loader, _afterList);
   };
   const _refresh = async () => {
-    await fetch("https://us-central1-entrepot-api.cloudfunctions.net/api/token/"+tokenid).then(r => r.json()).then(r => {
-      setListing({
-        price : BigInt(r.price),
-        time : r.time,
+    await fetch(
+      "https://us-central1-entrepot-api.cloudfunctions.net/api/token/" + tokenid
+    )
+      .then((r) => r.json())
+      .then((r) => {
+        setListing({
+          price: BigInt(r.price),
+          time: r.time,
+        });
+        setOwner(r.owner);
+        setTransactions(r.transactions);
       });
-      setOwner(r.owner);
-      setTransactions(r.transactions);
-    });
-  }
+  };
   const _afterList = async () => {
     await _refresh();
   };
   const _afterBuy = async () => {
     await _refresh();
-  }
+  };
   const closeOfferForm = () => {
     setOpenOfferForm(false);
   };
-  const getFloorDelta = amount => {
+  const getFloorDelta = (amount) => {
     if (!floor) return "-";
-    var fe = (floor*100000000);
+    var fe = floor * 100000000;
     var ne = Number(amount);
-    if (ne > fe){
-      return (((ne-fe)/ne)*100).toFixed(2)+"% above";
-    } else if (ne < fe) {      
-      return ((1-(ne/fe))*100).toFixed(2)+"% below";
-    } else return "-"
+    if (ne > fe) {
+      return (((ne - fe) / ne) * 100).toFixed(2) + "% above";
+    } else if (ne < fe) {
+      return ((1 - ne / fe) * 100).toFixed(2) + "% below";
+    } else return "-";
   };
   const makeOffer = async () => {
     setOpenOfferForm(true);
   };
-  
-  
+
   const cancelOffer = async () => {
     // props.loader(true, "Cancelling offer...");
     // props.loader(false);
@@ -128,39 +108,49 @@ const Detail = (props) => {
     //   "Your offer was cancelled successfully!"
     // );
   };
-  
-  const displayImage = tokenid => {
-        return (
-          <img
-            src={Images.nft}
-            alt=""
-            className={classes.nftImage}
-            style={{
-              border:"none",
-              maxWidth:700,
-              maxHeight:"100%",
-              cursor: "pointer",
-              height: "100%",
-              width: "100%",
-              marginLeft:"auto",
-              marginRight:"auto",
-              display: "block",
-              objectFit: "contain",
-            }}
-          />
-        )
+
+  const displayImage = (tokenid) => {
+    return (
+      <img
+        src={Images.nft}
+        alt=""
+        className={classes.nftImage}
+        style={{
+          border: "none",
+          maxWidth: 700,
+          maxHeight: "100%",
+          cursor: "pointer",
+          height: "100%",
+          width: "100%",
+          marginLeft: "auto",
+          marginRight: "auto",
+          display: "block",
+          objectFit: "contain",
+        }}
+      />
+    );
   };
 
   return (
-      <div className={classes.container}>
-        <div className={classes.contennt}>
+    <div className={classes.container}>
+      <div className={classes.contennt}>{displayImage(tokenid)}</div>
+      <div className={classes.contennt}>
+        <div className={classes.header}>
+          <div className={classes.headerTop}>
+            <span>Meebit #9110</span>
+            <div className={classes.extends}>
+              <FavoriteBorderIcon htmlColor="#62929E" />
+              <span>1.3K</span>
+              <div className={classes.borderLine} />
 
-        {displayImage(tokenid)}
-        </div>
-        <div className={classes.contennt}>
-        4124124
+              <ShareIcon htmlColor="#62929E" />
+              <div className={classes.borderLine} />
+              <CachedIcon htmlColor="#62929E" />
+            </div>
+          </div>
         </div>
       </div>
+    </div>
   );
 };
 export default Detail;
@@ -209,7 +199,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   container: {
-      display: 'flex',
+    display: "flex",
     // padding: "20px 120px 120px",
     // [theme.breakpoints.down("md")]: {
     //   padding: "110px 66px",
@@ -222,14 +212,14 @@ const useStyles = makeStyles((theme) => ({
     // },
   },
   contennt: {
-    width: 'calc(50% - 20px)',
-    height: '900px',
-    marginRight: '50px',
-    '&:first-child': {
-        background: '#fff'
+    width: "calc(50% - 20px)",
+    height: "900px",
+    marginRight: "50px",
+    "&:first-child": {
+      background: "#fff",
     },
-    '&:last-child': {
-        marginRight: 0
+    "&:last-child": {
+      marginRight: 0,
     },
   },
   nftImage: {
@@ -256,7 +246,48 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     fontSize: theme.typography.pxToRem(20),
     fontWeight: "bold",
-    marginLeft : 20
+    marginLeft: 20,
+  },
+  header: {
+    width: "100%",
+    background: "#fff",
+    borderRadius: "20px",
+    padding: "30px 50px",
+  },
+  headerTop: {
+    fontFamily: "Archivo",
+    fontStyle: "normal",
+    fontWeight: 900,
+    fontSize: "36px",
+    lineHeight: "36px",
+    color: "#000000",
+    display: "flex",
+  },
+  extends: {
+    height: "32px",
+    border: "2px solid #62929E",
+    borderRadius: "50px",
+    display: "flex",
+    alignItems: "center",
+    marginLeft: '50px',
+    "& svg": {
+      margin: "0 6px",
+    },
+    "& span": {
+      fontFamily: "Barlow",
+      fontStyle: "normal",
+      fontWeight: 600,
+      fontSize: "18px",
+      lineHeight: "32px",
+      /* identical to box height, or 100% */
+
+      color: "#62929E",
+      marginRight: "6px",
+    },
+  },
+  borderLine: {
+    width: "2px",
+    height: "32px",
+    background: "#62929E",
   },
 }));
-

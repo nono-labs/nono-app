@@ -13,6 +13,15 @@ const fontFamilyArchivoBlack = {
   ].join(",")
 };
 const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
   type: 'light',
   palette: {
     primary: {
@@ -20,7 +29,6 @@ const theme = createTheme({
     },
     secondary: {
       main: '#62929E',
-      // light: "#feefc3"
     },
     error: {
       main: red.A400
@@ -71,10 +79,11 @@ const theme = createTheme({
       },
       text: {
         color: '#000',
-        minWidth: '160px',
+        // minWidth: '160px',
         height: '40px',
         padding: '0 23px',
         fontFamily: 'Archivo Black',
+        
       },
     },
   

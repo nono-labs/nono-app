@@ -20,7 +20,7 @@ export default function Explore(props) {
                 item
                 style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, 300px)",
+                    gridTemplateColumns: "repeat(auto-fill, 260px)",
                     justifyContent: "space-between",
                 }}
             >

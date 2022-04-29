@@ -3,6 +3,7 @@ import { makeStyles, Button } from '@material-ui/core'
 import TopCollections from './top';
 import NFT from '@/components/NFT';
 import Images from '@/constant'
+import clsx from "clsx";
 
 export default function Home(props) {
     console.log('home')
@@ -16,8 +17,8 @@ export default function Home(props) {
                         50% trading fee income will be used for $NONO buyback<br />
                         List your NFT or explore the market to get started</div>
                     <div className={classes.box}>
-                        <Button  component="span" textAllCaps={false} disableRipple={true} classes={{ root: classes.buttonAsset }}>List an NFT</Button>
-                        <Button  component="span" disableRipple={true} >Explore NFTs</Button>
+                        <Button component="span" textAllCaps={false} disableRipple={true} classes={{ root: classes.buttonAsset, text: classes.button }}>List an NFT</Button>
+                        <Button component="span" disableRipple={true} classes={{ text: classes.button }} >Explore NFTs</Button>
                     </div>
                 </div>
                 <NFT />
@@ -25,14 +26,14 @@ export default function Home(props) {
             <TopCollections />
             <div className={classes.itemCenter}>
                 <div className={classes.left}>
-                    <div className={classes.title}>Ready to Get Your Rewards?</div>
+                    <div className={clsx(classes.title,classes.titleBottom)}>Ready to Get Your Rewards?</div>
                     <div className={classes.subTitle}>
-                    Our Users Should Be Our Holders,<br />
+                        Our Users Should Be Our Holders,<br />
                     And They All Deserves Our Profit Shares.
                     </div>
                     <div className={classes.box}>
-                        <Button   textAllCaps={false} disableRipple={true} classes={{ root: classes.buttonAsset }}>Claim Your Rewards</Button>
-                        <Button disableRipple={true}>Learn More</Button>
+                        <Button textAllCaps={false} disableRipple={true} classes={{ root: classes.buttonAsset, text: classes.button }}>Claim Your Rewards</Button>
+                        <Button disableRipple={true} classes={{ text: classes.button }} >Learn More</Button>
                     </div>
                 </div>
                 <img className={classes.rewardImg} src={Images.rewardBanner} />
@@ -51,7 +52,7 @@ const useStyle = makeStyles((theme) => ({
         padding: '69px 50px 69px 100px',
         alignItems: 'center',
         flexWrap: 'wrap',
-        [theme.breakpoints.between('sm', 'md')]: {
+        [theme.breakpoints.down('md')]: {
             padding: theme.custom.palette.mdspacing,
         },
     },
@@ -67,6 +68,11 @@ const useStyle = makeStyles((theme) => ({
             }
         },
     },
+    left: {
+        [theme.breakpoints.down('md')]: {
+            marginBottom: theme.custom.palette.mdspacing,
+        },
+    },
     title: {
         fontFamily: 'Archivo Black',
         fontWeight: 400,
@@ -74,10 +80,14 @@ const useStyle = makeStyles((theme) => ({
         lineHeight: '54px',
         color: '#000000',
         paddingBottom: '50px',
-        [theme.breakpoints.between('sm', 'md')]: {
-            paddingBottom: theme.custom.palette.mdspacing,
-            fontSize: '24px',
-
+        [theme.breakpoints.down('md')]: {
+            paddingTop: '30px',
+            paddingBottom: '23px',
+        },
+    },
+    titleBottom: {
+        [theme.breakpoints.down('md')]: {
+            paddingTop: '0px',
         },
     },
     subTitle: {
@@ -90,16 +100,31 @@ const useStyle = makeStyles((theme) => ({
         [theme.breakpoints.between('sm', 'md')]: {
             paddingBottom: theme.custom.palette.mdspacing,
         },
+        [theme.breakpoints.down('md')]: {
+            fontSize: '16px',
+            paddingBottom: '13px',
+        },
     },
     buttonAsset: {
         background: '#000',
         color: '#fff',
         marginRight: '30px',
+        [theme.breakpoints.down('md')]: {
+            marginRight: '10px',
+        },
         '&:hover': {
             background: '#000',
         }
     },
+    button: {
+        [theme.breakpoints.down('md')]: {
+            padding: '0 14px',
+        },
+    },
     rewardImg: {
-       marginRight: '237px', 
+        marginRight: '50px',
+        [theme.breakpoints.down('md')]: {
+            marginRight: 50,
+        },
     }
 }))
