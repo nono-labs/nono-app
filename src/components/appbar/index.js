@@ -4,11 +4,12 @@ import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { CssBaseline, makeStyles, useTheme, Drawer, Hidden, AppBar, List, ListItemText, Toolbar, useMediaQuery, Button, IconButton, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/SearchOutlined';
-import {routesList} from '@/router'
+import { routesList } from '@/router'
 import ListItem from '@material-ui/core/ListItem';
 import Images from '@/constant'
 import SearchBar from './searchBar';
 import SwitchWallet from '../switchWallet';
+import TextBtn from '@/components/btn';
 
 const SideBar = props => {
     const menuId = "primary-search-account-menu";
@@ -69,10 +70,11 @@ const SideBar = props => {
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
-                        className={classes.menuButton} 
+                        className={classes.menuButton}
                     >
                         <MenuIcon htmlColor={theme.custom.palette.noteBackground.default} />
                     </IconButton>
+                    {!isSearchShowingInMobile && <img className={classes.logoCenter} src={Images.logo} />}
                     {isMobile ? (
                         isSearchShowingInMobile &&
                         <SearchContainer onSearchClose={() => setSearchShowing(false)} />
@@ -81,8 +83,9 @@ const SideBar = props => {
                     )}
                     <Hidden xsDown implementation="css">
                         <div className={classes.rightBox}>
-                            <Button onClick={handleIsConnect} textAllCaps={false} disableRipple={true} startIcon={connect && <img src={Images.asset} />} classes={{ root: classes.buttonAsset }}>Connect</Button>
-                            <Button disableRipple={true} startIcon={<img src={Images.eth} />}>Ethereum</Button>
+                            <TextBtn style={{marginRight: '20px'}} startIcon={connect && Images.asset} text='Connect'  onClick={handleIsConnect}  />
+                            <TextBtn startIcon={Images.eth} text='Ethereum'  />
+
                         </div>
                     </Hidden>
                     <Hidden smUp implementation="css">
@@ -90,6 +93,7 @@ const SideBar = props => {
                             <div className={classes.rightBoxMobile}>
                                 <IconButton
                                     aria-label="search"
+                                    className={classes.searchIcon}
                                     aria-controls={menuId}
                                     onClick={() => setSearchShowing(true)}
                                 >
@@ -117,6 +121,7 @@ const SideBar = props => {
                             keepMounted: true,
                         }}
                     >
+                        <div className={classes.toolbarBox} />
                         {drawer}
                     </Drawer>
                 </Hidden>
@@ -149,7 +154,6 @@ const useStyles = makeStyles((theme) => ({
     },
     appBar: {
         ...theme.custom.fontFamily.archivo,
-
         zIndex: 9999,
         background: '#fff',
         color: '#000',
@@ -167,8 +171,10 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         display: 'flex',
         justifyContent: 'space-between',
-
+        position: 'relative',
     },
+    toolbarBox: theme.mixins.toolbar,
+
     menuButton: {
         marginRight: theme.spacing(2),
         [theme.breakpoints.up('sm')]: {
@@ -182,11 +188,16 @@ const useStyles = makeStyles((theme) => ({
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        [theme.breakpoints.down('xs')]: {
+            width: '80%',
+            alignItems: 'flex-start',
+            paddingLeft: '30px'
+        },
     },
     logo: {
         margin: '50px 0 100px 0',
-        display: 'flex',
+        display: 'none',
         cursor: 'pointer',
         '& img': {
             width: '24px',
@@ -199,11 +210,26 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '18px',
         },
         [theme.breakpoints.up('sm')]: {
-            display: 'block',
+            display: 'flex',
+        },
+    },
+    logoCenter: {
+        position: 'absolute',
+        left: '50%',
+        width: '45px',
+        transform: 'translateX(-50%)',
+        [theme.breakpoints.up('sm')]: {
+            display: 'none',
         },
     },
     navLink: {
         textDecoration: 'none',
+    },
+    searchIcon: {
+        background: '#e5e5e5',
+        width: '28px',
+        height: '28px',
+        marginRight: 17,
     },
     menuList: {
         height: '40px',
@@ -225,7 +251,6 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '14px',
             color: '#fff',
         }
-
     },
     menuListActive: {
         background: '#fff',
@@ -242,18 +267,10 @@ const useStyles = makeStyles((theme) => ({
     rightBox: {
         display: 'flex',
     },
-    buttonAsset: {
-        background: '#000',
-        color: '#fff',
-        marginRight: '30px',
-        '&:hover': {
-            background: '#000',
-        }
-    },
+
     rightBoxMobile: {
         display: 'flex',
         alignItems: 'center',
-
         '& .rightIcon:first-child': {
             background: '#000',
             marginRight: '17px'

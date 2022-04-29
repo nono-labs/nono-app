@@ -4,7 +4,7 @@ import TopCollections from './top';
 import NFT from '@/components/NFT';
 import Images from '@/constant'
 import clsx from "clsx";
-
+import TextBtn from '@/components/btn';
 export default function Home(props) {
     console.log('home')
     const classes = useStyle();
@@ -17,8 +17,8 @@ export default function Home(props) {
                         50% trading fee income will be used for $NONO buyback<br />
                         List your NFT or explore the market to get started</div>
                     <div className={classes.box}>
-                        <Button component="span" textAllCaps={false} disableRipple={true} classes={{ root: classes.buttonAsset, text: classes.button }}>List an NFT</Button>
-                        <Button component="span" disableRipple={true} classes={{ text: classes.button }} >Explore NFTs</Button>
+                        <TextBtn className={classes.btnSpace} onClick={() => { }} text={'List an NFT'} />
+                        <TextBtn text={'Explore NFTs'} />
                     </div>
                 </div>
                 <NFT />
@@ -26,14 +26,14 @@ export default function Home(props) {
             <TopCollections />
             <div className={classes.itemCenter}>
                 <div className={classes.left}>
-                    <div className={clsx(classes.title,classes.titleBottom)}>Ready to Get Your Rewards?</div>
+                    <div className={clsx(classes.title, classes.titleBottom)}>Ready to Get Your Rewards?</div>
                     <div className={classes.subTitle}>
                         Our Users Should Be Our Holders,<br />
                     And They All Deserves Our Profit Shares.
                     </div>
                     <div className={classes.box}>
-                        <Button textAllCaps={false} disableRipple={true} classes={{ root: classes.buttonAsset, text: classes.button }}>Claim Your Rewards</Button>
-                        <Button disableRipple={true} classes={{ text: classes.button }} >Learn More</Button>
+                        <TextBtn className={classes.btnSpace} onClick={() => { }} text={'Claim Your Rewards'} />
+                        <TextBtn text={'Learn More'} />
                     </div>
                 </div>
                 <img className={classes.rewardImg} src={Images.rewardBanner} />
@@ -105,26 +105,16 @@ const useStyle = makeStyles((theme) => ({
             paddingBottom: '13px',
         },
     },
-    buttonAsset: {
-        background: '#000',
-        color: '#fff',
-        marginRight: '30px',
-        [theme.breakpoints.down('md')]: {
-            marginRight: '10px',
-        },
-        '&:hover': {
-            background: '#000',
-        }
-    },
-    button: {
-        [theme.breakpoints.down('md')]: {
-            padding: '0 14px',
-        },
-    },
     rewardImg: {
         marginRight: '50px',
         [theme.breakpoints.down('md')]: {
             marginRight: 50,
+        },
+    },
+    btnSpace: {
+        marginRight: '50px',
+        [theme.breakpoints.down('md')]: {
+            marginRight: '20px',
         },
     }
 }))

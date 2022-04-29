@@ -68,29 +68,34 @@ const theme = createTheme({
     },
     MuiButton: {
       root: {
-        background: '#fff',
-        border: '0.5px solid #000000',
-        boxSizing: 'border-box',
-        borderRadius: '10px',
-        href: 'none',
-        variant: 'text',
-        textTransform: 'none',
+        // background: '#fff',
+        // border: '0.5px solid #000000',
+        // boxSizing: 'border-box',
+        // borderRadius: '10px',
+        // href: 'none',
+        // variant: 'text',
+        // textTransform: 'none',
 
       },
-      text: {
-        color: '#000',
-        // minWidth: '160px',
-        height: '40px',
-        padding: '0 23px',
-        fontFamily: 'Archivo Black',
-        
-      },
+      // text: {
+      //   color: '#000',
+      //   // minWidth: '160px',
+      //   height: '40px',
+      //   padding: '0 23px',
+      //   fontFamily: 'Archivo Black',
+      // },
     },
   
   },
   custom: {
     fontFamily: {
       archivo: fontFamilyArchivoBlack,
+      archivoBlack: {
+        fontFamily: 'Archivo Black',
+        fontStyle: 'normal',
+        fontWeight: 400,
+        fontSize: '14px',
+      }
     },
     palette: {
       iconColor: "#5f6368",
@@ -123,6 +128,8 @@ const theme = createTheme({
       defaultspacing: '50px',
       mdspacing: '20px',
       smspacing: '10px',
+      radius10: '10px',
+      radius5: '5px',
     }
   }
   

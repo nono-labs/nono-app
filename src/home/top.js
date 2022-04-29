@@ -12,6 +12,7 @@ import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Images from '@/constant'
+import TextBtn from '@/components/btn';
 
 export default function TopCollections(props) {
     console.log('home')
@@ -33,7 +34,7 @@ export default function TopCollections(props) {
         <Card variant="outlined" className={classes.root}>
             <Typography style={{ textAlign: 'center' }} className={classes.title} >Top Collections</Typography>
             <Table classes={{ root: classes.head }} aria-label="caption table">
-                <caption style={{ padding: 0 }}><Grid justifyContent="center" direction="row" alignItems="center" container><Button className={classes.buttonAsset}>View All</Button></Grid></caption>
+                <caption style={{ padding: 0 }}><Grid justifyContent="center" direction="row" alignItems="center" container><TextBtn className={classes.buttonAsset} text='TextBtn' /></Grid></caption>
                 <TableHead>
                     <TableRow>
                         <StyledTableCell>Collection</StyledTableCell>
@@ -143,14 +144,6 @@ const useStyle = makeStyles((theme) => ({
             paddingTop: '12px',
             marginBottom: theme.custom.palette.mdspacing,
         },
-    },
-    buttonAsset: {
-        background: '#000',
-        color: '#fff',
-        marginTop: '100px',
-        '&:hover': {
-            background: '#000',
-        }
     },
     head: {
         [theme.breakpoints.down('md')]: {
