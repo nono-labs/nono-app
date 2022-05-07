@@ -13,10 +13,20 @@ import {
   TableRow,
   TableHead,
   IconButton,
+  Box,
+  Chip,
+  Divider,
 } from "@material-ui/core";
-
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import ImageIcon from '@material-ui/icons/Image';
+import WorkIcon from '@material-ui/icons/Work';
+import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import ShareIcon from "@material-ui/icons/Share";
-
+import Btn from '@/components/btn'
 import Images from "@/constant";
 import CachedIcon from "@material-ui/icons/Cached";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -80,34 +90,8 @@ const Detail = (props) => {
   const _afterList = async () => {
     await _refresh();
   };
-  const _afterBuy = async () => {
-    await _refresh();
-  };
-  const closeOfferForm = () => {
-    setOpenOfferForm(false);
-  };
-  const getFloorDelta = (amount) => {
-    if (!floor) return "-";
-    var fe = floor * 100000000;
-    var ne = Number(amount);
-    if (ne > fe) {
-      return (((ne - fe) / ne) * 100).toFixed(2) + "% above";
-    } else if (ne < fe) {
-      return ((1 - ne / fe) * 100).toFixed(2) + "% below";
-    } else return "-";
-  };
-  const makeOffer = async () => {
-    setOpenOfferForm(true);
-  };
 
-  const cancelOffer = async () => {
-    // props.loader(true, "Cancelling offer...");
-    // props.loader(false);
-    // props.alert(
-    //   "Offer cancelled",
-    //   "Your offer was cancelled successfully!"
-    // );
-  };
+
 
   const displayImage = (tokenid) => {
     return (
@@ -117,40 +101,138 @@ const Detail = (props) => {
         className={classes.nftImage}
         style={{
           border: "none",
-          maxWidth: 700,
+          // maxWidth: 700,
           maxHeight: "100%",
           cursor: "pointer",
-          height: "100%",
-          width: "100%",
-          marginLeft: "auto",
-          marginRight: "auto",
-          display: "block",
-          objectFit: "contain",
+          // height: "100%",
+          // width: "100%",
+          // marginLeft: "auto",
+          // marginRight: "auto",
+          // display: "block",
+          // objectFit: "contain",
         }}
       />
     );
   };
 
   return (
-    <div className={classes.container}>
-      <div className={classes.contennt}>{displayImage(tokenid)}</div>
-      <div className={classes.contennt}>
-        <div className={classes.header}>
-          <div className={classes.headerTop}>
-            <span>Meebit #9110</span>
-            <div className={classes.extends}>
+    <Box className={classes.container}>
+      <Box className={classes.contennt}>{displayImage(tokenid)}</Box>
+      <Box className={classes.contennt}>
+        <Box className={classes.header}>
+          <Grid container>
+            <Typography className={classes.Archivo900}>Meebit #9110</Typography>
+            <Grid lg={'auto'} alignItems={'center'} container className={classes.extends}>
               <FavoriteBorderIcon htmlColor="#62929E" />
               <span>1.3K</span>
-              <div className={classes.borderLine} />
-
+              <Divider className={classes.borderLine} orientation="vertical" flexItem />
               <ShareIcon htmlColor="#62929E" />
-              <div className={classes.borderLine} />
+              <Divider className={classes.borderLine} orientation="vertical" flexItem />
               <CachedIcon htmlColor="#62929E" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Grid>
+          </Grid>
+          <List className={classes.root}>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  <ImageIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Photos" secondary={<a>123412</a>} />
+            </ListItem>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  <ImageIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+            </ListItem>
+          </List>
+        </Box>
+        {/* content */}
+        <Box className={classes.header} mt={'30px'}>
+          <Typography component="div">
+            <Box fontSize={18} mb={'10px'} textAlign="justify">About</Box>
+            <Box className={classes.barlow400} mb={'20px'} textAlign="justify">
+              Meebit #9110
+              The Meebits are 20,000 unique 3D voxel characters, created by a custom generative algorithm, then registered on the Ethereum blockchain.
+              The NFT contract the governs ownership is a standard ERC-721 that works with any compatible service or exchange.
+              Also inc
+              luded in the contract is a custom marketplace that supports like-kind trading of up to 100 Meebits per transaction, along with all the standard buy, bid and ask transactions.
+            </Box>
+            <Box fontSize={18} mb={'10px'} textAlign="justify">Properties</Box>
+            <Box className={classes.chipBox}>
+              <Chip label="Hair Color: Dark" variant="outlined" />
+              <Chip label="Pants Color: Denim " variant="outlined" />
+              <Chip label="Shirt Color: Black" variant="outlined" />
+              <Chip label="Type: Human " variant="outlined" />
+              <Chip label="Shoes Color: Grey" variant="outlined" />
+              <Chip label="Basic" variant="outlined" />
+              <Chip label="Basic" variant="outlined" />
+              <Chip label="Basic" variant="outlined" />
+              <Chip label="Basic" variant="outlined" />
+              <Chip label="BasiBasicBasicBasicBasicBasicBasicc" variant="outlined" />
+            </Box>
+            <Box fontSize={18} mt={'10px'} mb={'10px'} textAlign="justify">Contract Details</Box>
+            <Grid container>
+              <Grid item xs={3}>
+                <Box>Blockchain</Box>
+                <Box className={classes.barlow400}>Ethereum</Box>
+              </Grid>
+              <Grid item xs={3}>
+                <Box>Token Standard</Box>
+                <Box className={classes.barlow400}>ERC-721</Box>
+              </Grid>
+              <Grid item xs={3}>
+                <Box>Contract Address</Box>
+                <Box className={classes.barlowA}><a>0xsa383...c95503</a></Box>
+              </Grid>
+              <Grid item xs={3}>
+                <Box>Token Id</Box>
+                <Box className={classes.barlow400}>9110</Box>
+              </Grid>
+            </Grid>
+          </Typography>
+        </Box>
+        <Box component="div" className={classes.header} mt={'30px'}>
+          <Typography component="div">
+            <Grid container alignItems='flex-end' justifyContent='space-between'>
+              <Box >
+                <Box fontSize={18} mb={'10px'} textAlign="justify">List Price</Box>
+                <Grid alignItems='center' container>
+                  <Box className={classes.imgBox}>
+                    <img src={Images.eth} />
+                  </Box>
+                  <Typography className={classes.price}>0.67</Typography>
+                  <Box>
+                    <Typography className={classes.priceDetail}>($654.32)</Typography>
+                    <Typography className={classes.priceDetail}>Expires in 16d 22h 10m</Typography>
+                  </Box>
+                </Grid>
+              </Box>
+              <Box><Btn text='Activities' /></Box>
+            </Grid>
+            <Grid  container alignItems='flex-end' justifyContent='space-between'>
+              <Box mt={'30px'}>
+                <Box fontSize={18} mb={'10px'} textAlign="justify">Best Offer</Box>
+                <Grid alignItems='center' container>
+                  <Box className={classes.imgBox}>
+                    <img src={Images.eth} />
+                  </Box>
+                  <Typography className={classes.price}>0.67</Typography>
+                  <Box>
+                    <Typography className={classes.priceDetail}>($654.32)</Typography>
+                    <Typography className={classes.priceDetail}>Expires in 16d 22h 10m</Typography>
+                  </Box>
+                </Grid>
+              </Box>
+              <Box><Btn text='Activities' /></Box>
+            </Grid>
+          </Typography>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 export default Detail;
@@ -255,20 +337,18 @@ const useStyles = makeStyles((theme) => ({
     padding: "30px 50px",
   },
   headerTop: {
-    fontFamily: "Archivo",
-    fontStyle: "normal",
-    fontWeight: 900,
-    fontSize: "36px",
-    lineHeight: "36px",
-    color: "#000000",
-    display: "flex",
+    // fontFamily: "Archivo",
+    // fontStyle: "normal",
+    // fontWeight: 900,
+    // fontSize: "36px",
+    // lineHeight: "36px",
+    // color: "#000000",
   },
   extends: {
-    height: "32px",
+    height: "36px",
+    width: 'auto',
     border: "2px solid #62929E",
     borderRadius: "50px",
-    display: "flex",
-    alignItems: "center",
     marginLeft: '50px',
     "& svg": {
       margin: "0 6px",
@@ -286,8 +366,85 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   borderLine: {
-    width: "2px",
-    height: "32px",
     background: "#62929E",
+    width: "2px",
   },
+  root: {
+    display: 'flex',
+    padding: '0',
+    marginTop: '20px',
+    '& .MuiListItem-gutters': {
+      padding: '0',
+      fontFamily: 'Barlow',
+      fontWeight: 600,
+      fontSize: 18,
+      lineHeight: '27px',
+    },
+    '& .MuiListItemText-secondary': {
+      fontStyle: 'italic',
+      color: '#62929E',
+      fontSize: 18,
+      cursor: 'pointer',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+
+    }
+  },
+  title: {
+    fontSize: 18
+  },
+  chipBox: {
+    '& .MuiChip-root': {
+      border: '2px solid #62929E',
+      fontFamily: 'Barlow',
+      fontWeight: 600,
+      fontSize: '14px',
+      lineHeight: '27px',
+      color: '#62929E',
+      marginRight: '10px',
+      marginBottom: '10px',
+    }
+  },
+  Archivo900: {
+    fontFamily: "Archivo",
+    fontStyle: "normal",
+    fontWeight: 900,
+    fontSize: "36px",
+    lineHeight: "36px",
+    color: "#000000",
+  },
+  barlow400: {
+    fontFamily: 'none',
+  },
+  barlowA: {
+    fontStyle: 'italic',
+    color: '#62929E',
+    fontSize: 18,
+    cursor: 'pointer',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
+  },
+  imgBox: {
+    width: '40px',
+    height: '40px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: '10px',
+    '& img': {
+      height: '36px'
+    }
+  },
+  price: {
+    fontSize: 36,
+    lineHeight: '40px',
+    marginRight: '15px',
+  },
+  priceDetail: {
+    fontFamily: 'none',
+    fontSize: 14,
+    lineHeight: '20px',
+  }
 }));

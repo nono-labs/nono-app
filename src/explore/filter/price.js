@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles, withStyles, Grid, Typography, Switch, InputBase, TextField, MenuItem } from '@material-ui/core'
+import { makeStyles, withStyles, Grid, Typography, Switch, InputBase, Hidden, MenuItem } from '@material-ui/core'
 import Images from '@/constant'
 
 import Select from '@/components/select'
@@ -21,6 +21,8 @@ export default function FilterItem(props) {
 
     }
     return (
+        <>
+
             <Grid justifyContent="space-between" container>
                 <Typography className={classes.filterBox}>
                     <img className={classes.filter} src={Images.filter} />
@@ -45,6 +47,8 @@ export default function FilterItem(props) {
                     />
                 </Typography>
             </Grid>
+    
+            </>
     )
 };
 const BootstrapInput = withStyles((theme) => ({
