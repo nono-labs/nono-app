@@ -1,5 +1,5 @@
 import React from "react";
-import domtoimage from "dom-to-image";
+import domtoimage from "../utils/dom-to-image";
 import { saveAs } from "file-saver";
 import { css } from "emotion";
 import Images from "@/constant";
