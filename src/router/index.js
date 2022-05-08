@@ -1,26 +1,28 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import React, { Suspense } from "react";
-import Images from '@/constant'
+import Images from "@/constant";
 
 const Home = React.lazy(() => import("@/home"));
 const Explore = React.lazy(() => import("@/explore"));
 const Details = React.lazy(() => import("@/components/Details"));
 
+const Test = React.lazy(() => import("@/test"));
+
 export const routesList = [
   {
-    path: '/home',
-    pathName: 'Home',
+    path: "/home",
+    pathName: "Home",
     logo: Images.home,
   },
   {
-    path: '/explore',
-    pathName: 'Explore',
+    path: "/explore",
+    pathName: "Explore",
     logo: Images.explore,
-  }
-]
+  },
+];
 const syncRouter = (table) => {
-  let mRouteTable = []
-  table.forEach(route => {
+  let mRouteTable = [];
+  table.forEach((route) => {
     mRouteTable.push({
       path: route.path,
       element: (
@@ -28,11 +30,11 @@ const syncRouter = (table) => {
           {route.component}
         </Suspense>
       ),
-      children: route.children && syncRouter(route.children)
-    })
-  })
-  return mRouteTable
-}
+      children: route.children && syncRouter(route.children),
+    });
+  });
+  return mRouteTable;
+};
 
 const RouterPage = ({ initialRoute }) => (
   <Routes>
@@ -42,6 +44,8 @@ const RouterPage = ({ initialRoute }) => (
     <Route path="/explore" element={<Explore />} />
 
     <Route index path="/explore/details" element={<Details />} />
+
+    <Route path="/test" element={<Test />} />
 
     {/* </Route> */}
   </Routes>
