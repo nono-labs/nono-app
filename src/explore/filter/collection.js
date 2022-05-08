@@ -44,8 +44,6 @@ const useStyle = makeStyles((theme) => ({
     filterBox: {
         display: 'flex',
         alignItems: 'center',
-        fontFamily: 'Barlow',
-        fontWeight: 600,
         fontSize: '18px',
         lineHeight: '32px',
         paddingLeft: 62,

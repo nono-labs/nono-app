@@ -1,7 +1,12 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import React, { Suspense } from "react";
 import Images from '@/constant'
-
+import {
+  Visibility as VisibilityIcon,
+  Home as HomeIcon,
+  Equalizer as EqualizerIcon,
+  Redeem as RedeemIcon,
+} from "@material-ui/icons";
 const Home = React.lazy(() => import("@/home"));
 const Explore = React.lazy(() => import("@/explore"));
 const Details = React.lazy(() => import("@/components/Details"));
@@ -10,12 +15,22 @@ export const routesList = [
   {
     path: '/home',
     pathName: 'Home',
-    logo: Images.home,
+    logo: <HomeIcon />,
   },
   {
     path: '/explore',
     pathName: 'Explore',
-    logo: Images.explore,
+    logo: <VisibilityIcon />,
+  },
+  {
+    path: '/stats',
+    pathName: 'Stats',
+    logo: <EqualizerIcon />,
+  },
+  {
+    path: '/rewards',
+    pathName: 'Rewards',
+    logo: <RedeemIcon />,
   }
 ]
 const syncRouter = (table) => {

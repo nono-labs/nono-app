@@ -173,14 +173,14 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: '800px',
     },
     DialogContent: {
-        fontFamily: "Archivo Black",
+        fontFamily: "ArchivoBlack",
         color: "#000",
         "& header": {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
             paddingBottom: "30px",
-            fontFamily: "Archivo Black",
+            fontFamily: "ArchivoBlack",
             fontStyle: "normal",
             fontWeight: 400,
             fontSize: "24px",
@@ -204,7 +204,6 @@ const useStyles = makeStyles((theme) => ({
     filterBox: {
         display: 'flex',
         alignItems: 'center',
-        fontFamily: 'Barlow',
         fontWeight: 600,
         fontSize: '18px',
         lineHeight: '32px',
@@ -264,17 +263,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 const StyledTableCell = withStyles((theme) => ({
     head: {
-        fontFamily: 'Barlow',
-        fontStyle: 'normal',
-        fontWeight: 600,
         fontSize: '14px',
         borderBottom: 0,
         padding: '14px',
     },
     body: {
-        fontFamily: 'Barlow',
-        fontStyle: 'normal',
-        fontWeight: 600,
         fontSize: '18px',
         borderBottom: 0,
         padding: '9px',

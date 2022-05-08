@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import cx from 'clsx';
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
-import { CssBaseline, makeStyles, useTheme, Drawer, Hidden, AppBar, List, ListItemText, Toolbar, useMediaQuery, Button, IconButton, Typography } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/SearchOutlined';
+import { CssBaseline, makeStyles, useTheme, Drawer, Hidden, AppBar, List, ListItemText, Toolbar, useMediaQuery, ListItem, IconButton, Typography } from '@material-ui/core';
+// import MenuIcon from '@material-ui/icons/Menu';
+// import SearchIcon from '@material-ui/icons/SearchOutlined';
+import {
+    SearchOutlined as SearchIcon,
+    Menu as MenuIcon
+  } from "@material-ui/icons";
 import { routesList } from '@/router'
-import ListItem from '@material-ui/core/ListItem';
 import Images from '@/constant'
 import SearchBar from './searchBar';
 import SwitchWallet from '../switchWallet';
@@ -42,14 +45,15 @@ const SideBar = props => {
         <div>
             <div onClick={() => goTo('/')} className={classes.logo}>
                 <img src={Images.logo} />
-                <span>Nonfungibles</span>
+                <Typography className={classes.logoTitle}>Nonfungibles</Typography>
             </div>
             <List>
                 {routesList.map((routeObj, index) => (
                     <NavLink className={classes.navLink} key={index} to={routeObj.path}>
                         {({ isActive }) => (
                             <ListItem className={cx(classes.menuList, isActive && classes.menuListActive)}>
-                                <img src={routeObj.logo} />
+                                {/* <img src={routeObj.logo} /> */}
+                                {routeObj.logo}
                                 <ListItemText primary={routeObj.pathName} />
                             </ListItem>
                         )}
@@ -208,10 +212,17 @@ const useStyles = makeStyles((theme) => ({
             fontFamily: 'Barlow',
             fontWeight: 900,
             fontSize: '18px',
+            marginTop: '5px',
         },
         [theme.breakpoints.up('sm')]: {
             display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
         },
+    },
+    logoTitle: {
+        fontFamily: 'BarlowBlack',
+        fontSize: '18px',
     },
     logoCenter: {
         position: 'absolute',
@@ -235,21 +246,21 @@ const useStyles = makeStyles((theme) => ({
         height: '40px',
         width: '150px',
         cursor: 'pointer',
-        marginTop: '50px',
+        marginBottom: '50px',
         borderRadius: '10px',
         color: '#fff',
         '& img': {
             width: '18px',
             height: '18px',
-            marginRight: '10px',
         },
-        '& a': {
-            ...theme.custom.fontFamily.archivo,
-            background: 'red',
+        '& span': {
+            // ...theme.custom.fontFamily.archivo,
+            fontFamily: 'ArchivoBlack',
             fontStyle: 'normal',
             fontWeight: 400,
             fontSize: '14px',
-            color: '#fff',
+            marginLeft: '10px',
+
         }
     },
     menuListActive: {

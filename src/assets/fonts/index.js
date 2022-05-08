@@ -1,16 +1,35 @@
 import ArchivoBlackRegularFont from './ArchivoBlack-Regular.ttf';
+import BarlowBoldFont from './Barlow-Bold.ttf';
+import BarlowBlackFont from './Barlow-Black.ttf';
+import BarlowRegularFont from './Barlow-Regular.ttf';
 
-const ArchivoBlackRegular = {
-  fontFamily: "Archivo Black",
-  fontStyle: "normal",
-  fontDisplay: "swap",
-  fontWeight: 400,
+const ArchivoBlack = {
+  fontFamily: "ArchivoBlack",
   src: `
-      local('ArchivoBlack'),
-      local('ArchivoBlack-Regular'),
-      url(${ArchivoBlackRegularFont}) format('ttf')
+      url(${ArchivoBlackRegularFont})
+  `
+}
+const BarlowBold= {
+  fontFamily: "BarlowBold",
+  src: `
+      url(${BarlowBoldFont})
+  `
+}
+const BarlowBlack = {
+  fontFamily: "BarlowBlack",
+  src: `
+      url(${BarlowBlackFont})
+  `
+}
+const BarlowRegular = {
+  fontFamily: "BarlowRegular",
+  src: `
+      url(${BarlowRegularFont})
   `
 }
 export default {
-  ArchivoBlackRegular,
+  ArchivoBlack,
+  BarlowBlack,
+  BarlowBold,
+  BarlowRegular
 };

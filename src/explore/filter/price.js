@@ -61,8 +61,6 @@ const BootstrapInput = withStyles((theme) => ({
         height: 32,
         width: '100px',
         boxSizing: 'border-box',
-        fontFamily: 'Barlow',
-        fontWeight: 600,
         fontSize: '14px',
         textAlign: 'center',
         '&:focus': {
@@ -138,8 +136,6 @@ const useStyle = makeStyles((theme) => ({
 
     },
     filterItem: {
-        fontFamily: 'Barlow',
-        fontWeight: 600,
         fontSize: '18px',
         lineHeight: '32px',
         color: '#000',

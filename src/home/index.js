@@ -74,7 +74,7 @@ const useStyle = makeStyles((theme) => ({
         },
     },
     title: {
-        fontFamily: 'Archivo Black',
+        fontFamily: 'ArchivoBlack',
         fontWeight: 400,
         fontSize: '36px',
         lineHeight: '54px',
@@ -91,8 +91,6 @@ const useStyle = makeStyles((theme) => ({
         },
     },
     subTitle: {
-        fontFamily: 'Barlow',
-        fontWeight: 600,
         fontSize: '18px',
         lineHeight: '27px',
         color: '#333333',

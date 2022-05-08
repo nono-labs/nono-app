@@ -218,7 +218,7 @@ const Detail = (props) => {
                 <Box fontSize={18} mb={'10px'} textAlign="justify">Best Offer</Box>
                 <Grid alignItems='center' container>
                   <Box className={classes.imgBox}>
-                    <img src={Images.eth} />
+                    <img src={Images.weth} />
                   </Box>
                   <Typography className={classes.price}>0.67</Typography>
                   <Box>
@@ -295,7 +295,7 @@ const useStyles = makeStyles((theme) => ({
   },
   contennt: {
     width: "calc(50% - 20px)",
-    height: "900px",
+    // height: "900px",
     marginRight: "50px",
     "&:first-child": {
       background: "#fff",
@@ -305,13 +305,19 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   nftImage: {
-    // [theme.breakpoints.up("md")]: {
+   
+    paddingBottom: '40%',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundSize: 'auto 100%',
+    boxSizing: 'border-box'
     //   minHeight:600,
     // },
     // [theme.breakpoints.down("sm")]: {
     // },
     // [theme.breakpoints.down("xs")]: {
     // },
+    
   },
   iconsBorder: {
     border: "1px solid #E9ECEE",
@@ -415,7 +421,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#000000",
   },
   barlow400: {
-    fontFamily: 'none',
+    fontFamily: 'BarlowRegular',
   },
   barlowA: {
     fontStyle: 'italic',

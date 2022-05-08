@@ -4,12 +4,13 @@ import { red, amber, grey } from "@material-ui/core/colors";
 import Fonts from "@/assets/fonts";
 const fontFamilyArchivoBlack = {
   fontFamily: [
-    "Archivo Black",
-    "Arial",
-    "sans-serif",
-    '"Apple Color Emoji"',
-    '"Segoe UI Emoji"',
-    '"Segoe UI Symbol"'
+    "ArchivoBlack",
+    'BarlowBlack',
+    // "Arial",
+    // "sans-serif",
+    // '"Apple Color Emoji"',
+    // '"Segoe UI Emoji"',
+    // '"Segoe UI Symbol"'
   ].join(",")
 };
 const theme = createTheme({
@@ -25,7 +26,7 @@ const theme = createTheme({
   type: 'light',
   palette: {
     primary: {
-      main: '#e5e5e5'
+      main: '#e5e5e5',
     },
     secondary: {
       main: '#62929E',
@@ -55,43 +56,28 @@ const theme = createTheme({
 
   },
   typography: {
-    fontFamily: 'Barlow'
+    fontFamily: 'BarlowBold',
   },
 
   overrides: {
     MuiCssBaseline: {
       "@global": {
         "@font-face": [
-          Fonts.ArchivoBlackRegular,
+          Fonts.ArchivoBlack,
+          Fonts.BarlowBold,
+          Fonts.BarlowBlack,
+          Fonts.BarlowRegular,
         ]
       }
     },
-    MuiButton: {
-      root: {
-        // background: '#fff',
-        // border: '0.5px solid #000000',
-        // boxSizing: 'border-box',
-        // borderRadius: '10px',
-        // href: 'none',
-        // variant: 'text',
-        // textTransform: 'none',
-
-      },
-      // text: {
-      //   color: '#000',
-      //   // minWidth: '160px',
-      //   height: '40px',
-      //   padding: '0 23px',
-      //   fontFamily: 'Archivo Black',
-      // },
-    },
+   
   
   },
   custom: {
     fontFamily: {
       archivo: fontFamilyArchivoBlack,
       archivoBlack: {
-        fontFamily: 'Archivo Black',
+        fontFamily: 'ArchivoBlack',
         fontStyle: 'normal',
         fontWeight: 400,
         fontSize: '14px',
