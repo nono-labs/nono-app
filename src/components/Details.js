@@ -2,37 +2,29 @@
 import React, { useState } from "react";
 import {
   makeStyles,
-  Container,
   Grid,
   Typography,
-  Button,
-  TableContainer,
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-  TableHead,
-  IconButton,
   Box,
   Chip,
   Divider,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  Avatar,
 } from "@material-ui/core";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/Image';
-import WorkIcon from '@material-ui/icons/Work';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
-import ShareIcon from "@material-ui/icons/Share";
-import Btn from '@/components/btn'
+import {
+  Image as ImageIcon,
+  Share as ShareIcon,
+  Cached as CachedIcon,
+  FavoriteBorder as FavoriteBorderIcon,
+} from "@material-ui/icons";
+import Btn from "@/components/btn";
 import Images from "@/constant";
-import CachedIcon from "@material-ui/icons/Cached";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 // import OfferForm from './OfferForm';
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import clsx from "clsx";
 function useInterval(callback, delay) {
   const savedCallback = React.useRef();
 
@@ -91,43 +83,38 @@ const Detail = (props) => {
     await _refresh();
   };
 
-
-
   const displayImage = (tokenid) => {
-    return (
-      <img
-        src={Images.nft}
-        alt=""
-        className={classes.nftImage}
-        style={{
-          border: "none",
-          // maxWidth: 700,
-          maxHeight: "100%",
-          cursor: "pointer",
-          // height: "100%",
-          // width: "100%",
-          // marginLeft: "auto",
-          // marginRight: "auto",
-          // display: "block",
-          // objectFit: "contain",
-        }}
-      />
-    );
+    return <img src={Images.nft} alt="" className={classes.nftImage} />;
   };
 
   return (
     <Box className={classes.container}>
-      <Box className={classes.contennt}>{displayImage(tokenid)}</Box>
+      <Box className={clsx(classes.contennt, classes.imgMain)}>
+        {displayImage(tokenid)}
+      </Box>
       <Box className={classes.contennt}>
         <Box className={classes.header}>
-          <Grid container>
+          <Grid className={classes.titleBox} container>
             <Typography className={classes.Archivo900}>Meebit #9110</Typography>
-            <Grid lg={'auto'} alignItems={'center'} container className={classes.extends}>
+            <Grid
+              lg={"auto"}
+              alignItems={"center"}
+              container
+              className={classes.extends}
+            >
               <FavoriteBorderIcon htmlColor="#62929E" />
               <span>1.3K</span>
-              <Divider className={classes.borderLine} orientation="vertical" flexItem />
+              <Divider
+                className={classes.borderLine}
+                orientation="vertical"
+                flexItem
+              />
               <ShareIcon htmlColor="#62929E" />
-              <Divider className={classes.borderLine} orientation="vertical" flexItem />
+              <Divider
+                className={classes.borderLine}
+                orientation="vertical"
+                flexItem
+              />
               <CachedIcon htmlColor="#62929E" />
             </Grid>
           </Grid>
@@ -151,17 +138,24 @@ const Detail = (props) => {
           </List>
         </Box>
         {/* content */}
-        <Box className={classes.header} mt={'30px'}>
+        <Box className={classes.header}>
           <Typography component="div">
-            <Box fontSize={18} mb={'10px'} textAlign="justify">About</Box>
-            <Box className={classes.barlow400} mb={'20px'} textAlign="justify">
-              Meebit #9110
-              The Meebits are 20,000 unique 3D voxel characters, created by a custom generative algorithm, then registered on the Ethereum blockchain.
-              The NFT contract the governs ownership is a standard ERC-721 that works with any compatible service or exchange.
-              Also inc
-              luded in the contract is a custom marketplace that supports like-kind trading of up to 100 Meebits per transaction, along with all the standard buy, bid and ask transactions.
+            <Box fontSize={18} mb={"10px"} textAlign="justify">
+              About
             </Box>
-            <Box fontSize={18} mb={'10px'} textAlign="justify">Properties</Box>
+            <Box className={classes.barlow400} mb={"20px"} textAlign="justify">
+              Meebit #9110 The Meebits are 20,000 unique 3D voxel characters,
+              created by a custom generative algorithm, then registered on the
+              Ethereum blockchain. The NFT contract the governs ownership is a
+              standard ERC-721 that works with any compatible service or
+              exchange. Also inc luded in the contract is a custom marketplace
+              that supports like-kind trading of up to 100 Meebits per
+              transaction, along with all the standard buy, bid and ask
+              transactions.
+            </Box>
+            <Box fontSize={18} mb={"10px"} textAlign="justify">
+              Properties
+            </Box>
             <Box className={classes.chipBox}>
               <Chip label="Hair Color: Dark" variant="outlined" />
               <Chip label="Pants Color: Denim " variant="outlined" />
@@ -172,10 +166,11 @@ const Detail = (props) => {
               <Chip label="Basic" variant="outlined" />
               <Chip label="Basic" variant="outlined" />
               <Chip label="Basic" variant="outlined" />
-              <Chip label="BasiBasicBasicBasicBasicBasicBasicc" variant="outlined" />
             </Box>
-            <Box fontSize={18} mt={'10px'} mb={'10px'} textAlign="justify">Contract Details</Box>
-            <Grid container>
+            <Box fontSize={18} mt={"10px"} mb={"10px"} textAlign="justify">
+              Contract Details
+            </Box>
+            <Grid className={classes.contractDetail} container>
               <Grid item xs={3}>
                 <Box>Blockchain</Box>
                 <Box className={classes.barlow400}>Ethereum</Box>
@@ -186,7 +181,9 @@ const Detail = (props) => {
               </Grid>
               <Grid item xs={3}>
                 <Box>Contract Address</Box>
-                <Box className={classes.barlowA}><a>0xsa383...c95503</a></Box>
+                <Box className={classes.barlowA}>
+                  <a>0xsa383...c95503</a>
+                </Box>
               </Grid>
               <Grid item xs={3}>
                 <Box>Token Id</Box>
@@ -195,39 +192,66 @@ const Detail = (props) => {
             </Grid>
           </Typography>
         </Box>
-        <Box component="div" className={classes.header} mt={'30px'}>
+        <Box component="div" className={classes.header}>
           <Typography component="div">
-            <Grid container alignItems='flex-end' justifyContent='space-between'>
-              <Box >
-                <Box fontSize={18} mb={'10px'} textAlign="justify">List Price</Box>
-                <Grid alignItems='center' container>
+            <Grid
+              container
+              alignItems="flex-end"
+              justifyContent="space-between"
+              className={classes.listPriceBox}
+            >
+              <Box>
+                <Box fontSize={18} mb={"10px"} textAlign="justify">
+                  List Price
+                </Box>
+                <Grid alignItems="center" container>
                   <Box className={classes.imgBox}>
                     <img src={Images.eth} />
                   </Box>
                   <Typography className={classes.price}>0.67</Typography>
                   <Box>
-                    <Typography className={classes.priceDetail}>($654.32)</Typography>
-                    <Typography className={classes.priceDetail}>Expires in 16d 22h 10m</Typography>
+                    <Typography className={classes.priceDetail}>
+                      ($654.32)
+                    </Typography>
+                    <Typography className={classes.priceDetail}>
+                      Expires in 16d 22h 10m
+                    </Typography>
                   </Box>
                 </Grid>
               </Box>
-              <Box><Btn text='Activities' /></Box>
+              <Box>
+                <Btn text="Activities" />
+              </Box>
             </Grid>
-            <Grid  container alignItems='flex-end' justifyContent='space-between'>
-              <Box mt={'30px'}>
-                <Box fontSize={18} mb={'10px'} textAlign="justify">Best Offer</Box>
-                <Grid alignItems='center' container>
+            <Grid
+              container
+              alignItems="flex-end"
+              justifyContent="space-between"
+              className={classes.listPriceBox}
+
+            >
+              <Box mt={"30px"}>
+                <Box fontSize={18} mb={"10px"} textAlign="justify">
+                  Best Offer
+                </Box>
+                <Grid alignItems="center" container>
                   <Box className={classes.imgBox}>
                     <img src={Images.weth} />
                   </Box>
                   <Typography className={classes.price}>0.67</Typography>
                   <Box>
-                    <Typography className={classes.priceDetail}>($654.32)</Typography>
-                    <Typography className={classes.priceDetail}>Expires in 16d 22h 10m</Typography>
+                    <Typography className={classes.priceDetail}>
+                      ($654.32)
+                    </Typography>
+                    <Typography className={classes.priceDetail}>
+                      Expires in 16d 22h 10m
+                    </Typography>
                   </Box>
                 </Grid>
               </Box>
-              <Box><Btn text='Activities' /></Box>
+              <Box> 
+                <Btn text="Activities" />
+              </Box>
             </Grid>
           </Typography>
         </Box>
@@ -282,21 +306,25 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     display: "flex",
-    // padding: "20px 120px 120px",
-    // [theme.breakpoints.down("md")]: {
-    //   padding: "110px 66px",
-    // },
-    // [theme.breakpoints.down("sm")]: {
-    //   padding: "5px 5px",
-    // },
-    // [theme.breakpoints.down("xs")]: {
-    //   padding: "5px 5px",
-    // },
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+    },
   },
   contennt: {
-    width: "calc(50% - 20px)",
-    // height: "900px",
+    width: "calc(50% - 25px)",
+    borderRadius: "10px",
     marginRight: "50px",
+    [theme.breakpoints.down("md")]: {
+      width: "calc(50% - 10px)",
+      marginRight: "20px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      marginRight: 0,
+      "&:first-child": {
+        marginBottom: "10px",
+      },
+    },
     "&:first-child": {
       background: "#fff",
     },
@@ -304,21 +332,16 @@ const useStyles = makeStyles((theme) => ({
       marginRight: 0,
     },
   },
-  nftImage: {
-   
-    paddingBottom: '40%',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundSize: 'auto 100%',
-    boxSizing: 'border-box'
-    //   minHeight:600,
-    // },
-    // [theme.breakpoints.down("sm")]: {
-    // },
-    // [theme.breakpoints.down("xs")]: {
-    // },
-    
+  imgMain: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    "& img": {
+      width: "100%",
+      maxHeight: "100%",
+    },
   },
+  nftImage: {},
   iconsBorder: {
     border: "1px solid #E9ECEE",
     borderRadius: "5px",
@@ -341,34 +364,62 @@ const useStyles = makeStyles((theme) => ({
     background: "#fff",
     borderRadius: "20px",
     padding: "30px 50px",
+    marginTop: "30px",
+    [theme.breakpoints.down("md")]: {
+      padding: "20px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      padding: "15px",
+      marginTop: "15px",
+    },
+    "&:first-child": {
+      marginTop: "0px",
+    },
   },
-  headerTop: {
-    // fontFamily: "Archivo",
-    // fontStyle: "normal",
-    // fontWeight: 900,
-    // fontSize: "36px",
-    // lineHeight: "36px",
-    // color: "#000000",
+  contractDetail: {
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      flexDirection: "column",
+      "& .MuiGrid-grid-xs-3": {
+        display: "flex",
+        justifyContent: "space-between",
+        maxWidth: "100%",
+      },
+    },
+  },
+  titleBox: {
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
+    },
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "center",
+    },
   },
   extends: {
     height: "36px",
-    width: 'auto',
+    width: "auto",
     border: "2px solid #62929E",
     borderRadius: "50px",
-    marginLeft: '50px',
+    marginLeft: "50px",
+    overflow: "hidden",
+    boxSizing: "border-box",
     "& svg": {
       margin: "0 6px",
     },
     "& span": {
-      fontFamily: "Barlow",
-      fontStyle: "normal",
-      fontWeight: 600,
       fontSize: "18px",
       lineHeight: "32px",
-      /* identical to box height, or 100% */
-
       color: "#62929E",
       marginRight: "6px",
+    },
+    [theme.breakpoints.down("md")]: {
+      marginLeft: "0px",
+      height: "32px",
+      "& span": {
+        lineHeight: "28px",
+        color: "#62929E",
+        marginRight: "6px",
+      },
     },
   },
   borderLine: {
@@ -376,81 +427,132 @@ const useStyles = makeStyles((theme) => ({
     width: "2px",
   },
   root: {
-    display: 'flex',
-    padding: '0',
-    marginTop: '20px',
-    '& .MuiListItem-gutters': {
-      padding: '0',
-      fontFamily: 'Barlow',
-      fontWeight: 600,
+    display: "flex",
+    padding: "0",
+    marginTop: "20px",
+    "& .MuiListItem-gutters": {
+      padding: "0",
       fontSize: 18,
-      lineHeight: '27px',
+      lineHeight: "27px",
     },
-    '& .MuiListItemText-secondary': {
-      fontStyle: 'italic',
-      color: '#62929E',
+    "& .MuiListItemText-secondary": {
+      fontStyle: "italic",
+      color: "#62929E",
       fontSize: 18,
-      cursor: 'pointer',
-      '&:hover': {
-        textDecoration: 'underline',
+      cursor: "pointer",
+      "&:hover": {
+        textDecoration: "underline",
       },
+    },
+    [theme.breakpoints.down("md")]: {
+      marginTop: "10px",
+      fontSize: 16,
 
-    }
+      "& .MuiListItemText-multiline": {
+        margin: 0,
+      },
+      "& .MuiListItem-gutters": {
+        fontSize: 16,
+        lineHeight: "24px",
+      },
+      "& .MuiListItemText-secondary": {
+        fontSize: 16,
+        lineHeight: "24px",
+      },
+      "& .MuiListItemAvatar-root": {
+        minWidth: 0,
+        marginRight: 5,
+      },
+      "& .MuiAvatar-root": {
+        width: "25px",
+        height: "25px",
+        objectFit: "cover",
+      },
+    },
   },
   title: {
-    fontSize: 18
+    fontSize: 18,
   },
   chipBox: {
-    '& .MuiChip-root': {
-      border: '2px solid #62929E',
-      fontFamily: 'Barlow',
+    "& .MuiChip-root": {
+      border: "2px solid #62929E",
+      fontFamily: "Barlow",
       fontWeight: 600,
-      fontSize: '14px',
-      lineHeight: '27px',
-      color: '#62929E',
-      marginRight: '10px',
-      marginBottom: '10px',
-    }
+      fontSize: "14px",
+      lineHeight: "27px",
+      color: "#62929E",
+      marginRight: "10px",
+      marginBottom: "10px",
+    },
   },
   Archivo900: {
-    fontFamily: "Archivo",
-    fontStyle: "normal",
-    fontWeight: 900,
+    fontFamily: "ArchivoBlack",
     fontSize: "36px",
     lineHeight: "36px",
     color: "#000000",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "24px",
+      lineHeight: "24px",
+      marginBottom: "10px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "18px",
+      lineHeight: "18px",
+      marginBottom: "10px",
+    },
   },
   barlow400: {
-    fontFamily: 'BarlowRegular',
+    fontFamily: "BarlowRegular",
   },
   barlowA: {
-    fontStyle: 'italic',
-    color: '#62929E',
+    fontStyle: "italic",
+    color: "#62929E",
     fontSize: 18,
-    cursor: 'pointer',
-    '&:hover': {
-      textDecoration: 'underline'
-    }
+    cursor: "pointer",
+    "&:hover": {
+      textDecoration: "underline",
+    },
   },
   imgBox: {
-    width: '40px',
-    height: '40px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: '10px',
-    '& img': {
-      height: '36px'
-    }
+    width: "40px",
+    height: "40px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: "10px",
+    "& img": {
+      height: "36px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginRight: "5px",
+      "& img": {
+        height: "24px",
+      },
+    },
   },
   price: {
     fontSize: 36,
-    lineHeight: '40px',
-    marginRight: '15px',
+    lineHeight: "40px",
+    marginRight: "15px",
+    [theme.breakpoints.down("sm")]: {
+      marginRight: "5px",
+      fontSize: 24,
+      lineHeight: "24px",
+    },
   },
   priceDetail: {
-    fontFamily: 'none',
+    fontFamily: "none",
     fontSize: 14,
-    lineHeight: '20px',
+    lineHeight: "20px",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 10,
+      lineHeight: "12px",
+    },
+  },
+  listPriceBox: {
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: 'column',
+      alignItems: 'flex-start'
+    },
   }
 }));

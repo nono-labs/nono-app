@@ -112,7 +112,7 @@ const SideBar = props => {
                 </Toolbar>
             </AppBar>
             <nav aria-label='mailbox folders'>
-                <Hidden smUp implementation="css">
+                <Hidden  smUp implementation="css">
                     <Drawer
                         variant="temporary"
                         anchor={'left'}
@@ -130,7 +130,7 @@ const SideBar = props => {
                     </Drawer>
                 </Hidden>
                 <Hidden xsDown implementation="css">
-                    <Drawer style={{ border: 0 }} classes={{
+                    <Drawer style={{ border: 0,}} classes={{
                         paper: classes.drawerPaper,
                     }} variant="permanent" open>
                         {drawer}
@@ -157,14 +157,13 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     appBar: {
-        ...theme.custom.fontFamily.archivo,
-        zIndex: 9999,
+        fontFamily: 'ArchivoBlack',
+        zIndex: 999,
         background: '#fff',
         color: '#000',
         fontStyle: 'normal',
         fontWeight: '400',
         fontSize: '14px',
-        // boxShadow: 'none',
         [theme.breakpoints.up('sm')]: {
             width: `calc(100% - ${drawerWidth}px)`,
             marginLeft: drawerWidth,
@@ -198,6 +197,9 @@ const useStyles = makeStyles((theme) => ({
             alignItems: 'flex-start',
             paddingLeft: '30px'
         },
+        [theme.breakpoints.down('sm')]: {
+            marginTop: '50px'
+        },
     },
     logo: {
         margin: '50px 0 100px 0',
@@ -209,8 +211,6 @@ const useStyles = makeStyles((theme) => ({
             marginRight: '10px'
         },
         '& span': {
-            fontFamily: 'Barlow',
-            fontWeight: 900,
             fontSize: '18px',
             marginTop: '5px',
         },
@@ -254,7 +254,6 @@ const useStyles = makeStyles((theme) => ({
             height: '18px',
         },
         '& span': {
-            // ...theme.custom.fontFamily.archivo,
             fontFamily: 'ArchivoBlack',
             fontStyle: 'normal',
             fontWeight: 400,

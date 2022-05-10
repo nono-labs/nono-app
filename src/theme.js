@@ -1,18 +1,6 @@
 import { createTheme } from "@material-ui/core/styles";
 import { red, amber, grey } from "@material-ui/core/colors";
-
 import Fonts from "@/assets/fonts";
-const fontFamilyArchivoBlack = {
-  fontFamily: [
-    "ArchivoBlack",
-    'BarlowBlack',
-    // "Arial",
-    // "sans-serif",
-    // '"Apple Color Emoji"',
-    // '"Segoe UI Emoji"',
-    // '"Segoe UI Symbol"'
-  ].join(",")
-};
 const theme = createTheme({
   breakpoints: {
     values: {
@@ -74,15 +62,6 @@ const theme = createTheme({
   
   },
   custom: {
-    fontFamily: {
-      archivo: fontFamilyArchivoBlack,
-      archivoBlack: {
-        fontFamily: 'ArchivoBlack',
-        fontStyle: 'normal',
-        fontWeight: 400,
-        fontSize: '14px',
-      }
-    },
     palette: {
       iconColor: "#5f6368",
       background: "#000",

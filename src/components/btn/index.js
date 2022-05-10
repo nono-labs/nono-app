@@ -15,7 +15,7 @@ export default function TextBtn(props) {
 
 const useStyle = makeStyles((theme) => ({
     buttonText: {
-        ...theme.custom.fontFamily.archivoBlack,
+        fontFamily: 'ArchivoBlack',
         alignItems: 'center',
         cursor: 'pointer',
         boxSizing: 'border-box',
@@ -33,6 +33,9 @@ const useStyle = makeStyles((theme) => ({
             padding: '0 8px',
             fontSize: '13px',
             borderRadius: theme.custom.palette.radius5,
+        },
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '14px',
         },
         '& img': {
             display: 'inline-black',

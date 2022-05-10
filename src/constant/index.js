@@ -5,6 +5,8 @@ import stats from '@/assets/img/menus/stats.svg';
 import reward from '@/assets/img/menus/reward.svg';
 import asset from '@/assets/img/asset.svg';
 import eth from '@/assets/img/eth.svg';
+import ethw from '@/assets/img/ethw.svg';
+
 import avatar from '@/assets/img/avatar.svg';
 import metamask from '@/assets/img/metaMask.svg';
 import walletConnect from '@/assets/img/walletConnect.svg';
@@ -15,6 +17,9 @@ import filter from '@/assets/img/filter.svg';
 import filter1 from '@/assets/img/filter1.svg';
 import deleteIcon from '@/assets/img/deleteIcon.svg';
 import addIcon from '@/assets/img/addIcon.svg';
+import filterMobile from '@/assets/img/filterMobile.svg';
+import traitClose from '@/assets/img/traitClose.svg';
+import traitAdd from '@/assets/img/traitAdd.svg';
 
 export default {
     logo,
@@ -24,6 +29,7 @@ export default {
     reward,
     asset,
     eth,
+    ethw,
     avatar,
     metamask,
     walletConnect,
@@ -34,5 +40,8 @@ export default {
     filter1,
     deleteIcon,
     addIcon,
+    filterMobile,
+    traitClose,
+    traitAdd,
 }
   
