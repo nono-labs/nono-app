@@ -38,10 +38,10 @@ const theme = createTheme({
   },
   padding: {
     md50: '50px',
-    md20: '20px'
-  },
-  transitions: {
-
+    md30: '30px',
+    md20: '20px',
+    md15: '15px',
+    md10:  '10px',
   },
   typography: {
     fontFamily: 'BarlowBold',

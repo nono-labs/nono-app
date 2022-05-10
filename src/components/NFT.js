@@ -7,9 +7,6 @@ import {
   CardMedia,
   Typography,
   Grid,
-  ImageListItem,
-  ImageListItemBar,
-  IconButton,
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Images from "@/constant";
@@ -17,12 +14,19 @@ import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // maxWidth: 300,
     borderRadius: "10px",
     position: "relative",
   },
   CardContent: {
     padding: theme.custom.palette.mdspacing,
+    [theme.breakpoints.down("xs")]: {
+      padding: theme.padding.md10,
+    },
+  },
+  nftImage: {
+    width: "100%",
+    paddingBottom: "100%",
+    height: 0,
   },
   collection: {
     fontSize: "18px",
@@ -30,6 +34,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     "& img": {
       margin: "0 5px",
+      [theme.breakpoints.down("xs")]: {
+        width:  14,
+      },
+    },
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "14px",
+      lineHeight: "14px",
     },
   },
   controls: {
@@ -47,6 +58,10 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "18px",
     color: "#62929E",
     cursor: "pointer",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "12px",
+      lineHeight: "14px",
+    },
   },
   offer: {
     fontSize: "14px",
@@ -61,20 +76,39 @@ const useStyles = makeStyles((theme) => ({
     bottom: "10px",
     display: "flex",
     alignItems: "center",
+    [theme.breakpoints.down("xs")]: {
+      padding:  5,
+    },
     "& span": {
       marginLeft: "5px",
       fontSize: "18px",
       lineHeight: "18px",
       color: "#FF2E2E",
       opacity: 1,
+      [theme.breakpoints.down("xs")]: {
+        fontSize: "12px",
+        lineHeight: "14px",
+      },
     },
     "& svg": {
       width: 18,
       height: 16,
     },
   },
+  trending: {
+    padding: '7px 10px',
+    fontSize: 18,
+    lineHeight: '18px',
+    background: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 10,
+    display: 'inline-block',
+    position: "absolute",
+    top: "10px",
+    left: "10px",
+  }
 }));
 export default function NFT(props) {
+  const {trending}  = props;
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -82,16 +116,15 @@ export default function NFT(props) {
     <Card
       variant="outlined"
       onClick={() => navigate("/explore/details")}
-      style={props.style}
-      className={classes.root}
+      style={props?.style}
+      className={clsx(classes.root, props?.className)}
     >
-      <div style={{ position: "relative" }}>
-        <CardMedia
-          component="img"
-          alt="image error"
-          height="300"
-          image={Images.nft}
-        />
+      <div className={classes.nftImage} style={{ position: "relative" }}>
+        <CardMedia component="img" alt="image error" image={Images.nft} />
+        {
+          trending &&  <Typography className={classes.trending}>Trending</Typography>
+        }
+       
         <Typography className={classes.iconBox}>
           <FavoriteIcon htmlColor={"#FF2E2E"} />
           <span>265</span>

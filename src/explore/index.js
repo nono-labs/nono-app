@@ -42,16 +42,21 @@ const useStyle = makeStyles((theme) => ({
   grid: {
     display: "grid",
     justifyContent: "space-between",
-    gridTemplateColumns: "repeat(5, 200px)",
+    gridTemplateColumns: "repeat(5, 1fr)",
+    gridGap: 30,
 
-    [theme.breakpoints.down("lg")]: {
-      gridTemplateColumns: "repeat(auto-fill, 260px)",
-    },
     [theme.breakpoints.down("md")]: {
-      gridTemplateColumns: "repeat(auto-fill, 190x)",
+      gridTemplateColumns: "repeat(4, 1fr)",
+      gridGap: 20,
+
     },
     [theme.breakpoints.down("sm")]: {
-      gridTemplateColumns: "repeat(auto-fill, 315px)",
+      gridTemplateColumns: "repeat(3, 1fr)",
+      gridGap: 20,
+    },
+    [theme.breakpoints.down("xs")]: {
+      gridTemplateColumns: "repeat(2, 1fr)",
+      gridGap: 20,
     },
   },
 }));
