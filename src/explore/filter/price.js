@@ -1,200 +1,269 @@
-import React, { useState } from 'react';
-import { makeStyles, withStyles, Grid, Typography, Switch, InputBase, Hidden, MenuItem } from '@material-ui/core'
-import Images from '@/constant'
-
-import Select from '@/components/select'
+import React, { useState } from "react";
+import {
+  makeStyles,
+  Box,
+  Grid,
+  Typography,
+  Switch,
+  InputBase,
+  Hidden,
+  IconButton,
+  Chip,
+} from "@material-ui/core";
+import Images from "@/constant";
+import CollectionModal from "./collectionModal";
+import clsx from "clsx";
+import Select from "@/components/select";
 export default function FilterItem(props) {
-    const classes = useStyle();
-    const [minPrice, setMinPrice] = useState("");
-    const [maxPrice, setMaxPrice] = useState("");
-    const [sort, setSort] = React.useState(10);
+  const classes = useStyle();
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [sort, setSort] = React.useState(10);
+  const [open, setOpen] = React.useState(false);
+  const [visibleTrait, setVisibleTrait] = useState(false);
 
-    const minPriceChange = ev => {
-        setMinPrice(Number(ev.target.value));
-    };
-    const maxPriceChange = ev => {
-        setMaxPrice(Number(ev.target.value));
-    };
-    const handleChange = ev => {
-        console.log(ev, 'ev')
-        setSort(ev);
-
-    }
-    return (
-        <>
-
-            <Grid justifyContent="space-between" container>
-                <Typography className={classes.filterBox}>
-                    <img className={classes.filter} src={Images.filter} />
-                    <div className={classes.filterItem}>
-                        Buy Now
-                            <IOSSwitch />
-                        <div className={classes.priceBox}>
-                            <span>Price Range</span>
-                            <BootstrapInput value={minPrice} onChange={minPriceChange} placeholder="Min" />
-                            <img src={Images.eth} />
-                            <BootstrapInput value={maxPrice} onChange={maxPriceChange} placeholder="Max" />
-                        </div>
-                    </div>
+  const [state, setState] = useState({
+    checkedA: true,
+    checkedB: true,
+  });
+  const handleChangeSwitch = (event) => {
+    setState({ [event.target.name]: event.target.checked });
+  };
+  const minPriceChange = (ev) => {
+    setMinPrice(Number(ev.target.value));
+  };
+  const maxPriceChange = (ev) => {
+    setMaxPrice(Number(ev.target.value));
+  };
+  const handleChange = (ev) => {
+    console.log(ev, "ev");
+    setSort(ev);
+  };
+  const handleDelete = () => {
+    console.log("delete");
+  };
+  return (
+    <Box className={classes.root}>
+      <Hidden xsDown>
+        <Grid justifyContent="space-between" container>
+          <Typography className={classes.filterBox}>
+            <img className={classes.filter} src={Images.filter} />
+            <Box className={classes.filterItem}>
+              <Typography className={classes.titleLabel}>Buy Now</Typography>
+              <Switch
+                checked={state.checkedB}
+                onChange={handleChangeSwitch}
+                color="primary"
+                name="checkedB"
+                className={classes.switch}
+                inputProps={{ "aria-label": "primary checkbox" }}
+              />
+              <Box className={classes.priceBox} container>
+                <Typography className={classes.titleLabel}>
+                  Price Range
                 </Typography>
-                <Typography className={classes.grew}>
-                    <div className={classes.itemsTotal}>13,495 items</div>
-                    <Select
-                        value={sort}
-                        className={classes.select}
-                        onChange={handleChange}
-                        input={<BootstrapInput />}
-                    />
-                </Typography>
-            </Grid>
-    
-            </>
-    )
-};
-const BootstrapInput = withStyles((theme) => ({
-    input: {
-        borderRadius: 50,
-        position: 'relative',
-        backgroundColor: theme.palette.common.white,
-        border: '2px solid #62929E',
-        color: theme.palette.secondary.main,
-        height: 32,
-        width: '100px',
-        boxSizing: 'border-box',
-        fontSize: '14px',
-        textAlign: 'center',
-        '&:focus': {
-            borderColor: theme.palette.secondary.main,
-        },
+                <InputBase className={classes.input} placeholder="Min" />
+                <img className={classes.ethw} src={Images.eth} />
+                <InputBase className={classes.input} placeholder="Max" />
+              </Box>
+            </Box>
+          </Typography>
+          <Hidden mdDown>
+            <Typography className={classes.grew}>
+              <div className={classes.itemsTotal}>13,495 items</div>
+              <Select
+                value={sort}
+                // className={classes.select}
+                onChange={handleChange}
+              />
+            </Typography>
+          </Hidden>
+        </Grid>
+        <Grid className={classes.box}>
+          <Typography className={classes.titleLabel}>Collection</Typography>
+          <Box>
+            {new Array(9).fill().map((_, i) => (
+              <Chip
+                label={`Bored Ape ${i}`}
+                key={i}
+                icon={<img src={Images.avatar} />}
+                onDelete={() => {}}
+                deleteIcon={
+                  <Box className={classes.deleteIcon}>
+                    <Typography
+                      onClick={() => setVisibleTrait(true)}
+                      className={classes.setTrait}
+                    >
+                      Set Traits
+                    </Typography>
+                    <img onClick={handleDelete} src={Images.traitClose} />
+                  </Box>
+                }
+                variant="outlined"
+                className={classes.chip}
+              />
+            ))}
+            <IconButton
+              onClick={() => setOpen(true)}
+              classes={{ root: classes.addIcon }}
+            >
+              <img src={Images.addIcon} />
+            </IconButton>
+          </Box>
+        </Grid>
+      </Hidden>
+      <Hidden lgUp>
+        <Typography className={clsx(classes.grew, classes.itemsRight)}>
+          <div className={classes.itemsTotal}>13,495 items</div>
+          <Select value={sort} onChange={handleChange} />
+        </Typography>
+      </Hidden>
+      <CollectionModal open={open} setOpen={setOpen} />
+    </Box>
+  );
+}
+
+const useStyle = makeStyles((theme) => ({
+  root: {
+    flex: 1,
+    background: "#fff",
+    borderRadius: "20px",
+    padding: "30px",
+    marginBottom: "30px",
+    [theme.breakpoints.down("xs")]: {
+      marginBottom: 15,
+      padding: 15,
+      borderRadius: 10,
     },
-}))(InputBase);
-const IOSSwitch = withStyles((theme) => ({
+  },
+  filterBox: {
+    display: "flex",
+    alignItems: "center",
+  },
+  filter: {
+    width: "32px",
+    marginRight: "30px",
+    [theme.breakpoints.down("sm")]: {
+      marginRight: "20px",
+    },
+  },
+  filterItem: {
+    fontSize: "18px",
+    lineHeight: "32px",
+    color: "#000",
+    display: "flex",
+    alignItems: "center",
+  },
+  priceBox: {
+    marginLeft: "30px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-start",
     marginBottom: 0,
 
-    root: {
-        width: 42,
-        height: 26,
-        padding: 0,
-        marginLeft: 15,
-        marginBottom: 0,
-
+    "& span": {
+      paddingRight: 15,
     },
-    switchBase: {
-        padding: 1,
-        '&$checked': {
-            transform: 'translateX(16px)',
-            color: theme.palette.common.white,
-            '& + $track': {
-                backgroundColor: '#62929E',
-                opacity: 1,
-                border: 'none',
-            },
-        },
-        '&$focusVisible $thumb': {
-            color: '#62929E',
-            border: '6px solid #fff',
-        },
+    "& img": {
+      width: "18px",
+      margin: "0 4px",
     },
-    thumb: {
-        width: 24,
-        height: 24,
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "10px",
     },
-    track: {
-        borderRadius: 26 / 2,
-        border: `1px solid ${theme.palette.grey[400]}`,
-        backgroundColor: theme.palette.grey[50],
-        opacity: 1,
-        transition: theme.transitions.create(['background-color', 'border']),
+  },
+  titleLabel: {
+    fontSize: 18,
+    marginRight: 5,
+    lineHeight: "18px",
+  },
+  itemsTotal: {
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: "32px",
+    marginRight: "50px",
+    [theme.breakpoints.down("sm")]: {
+      marginRight: "20px",
     },
-    checked: {},
-    focusVisible: {},
-}))(({ classes, ...props }) => {
-    return (
-        <Switch
-            focusVisibleClassName={classes.focusVisible}
-            disableRipple
-            classes={{
-                root: classes.root,
-                switchBase: classes.switchBase,
-                thumb: classes.thumb,
-                track: classes.track,
-                checked: classes.checked,
-            }}
-            {...props}
-        />
-    );
-});
-const useStyle = makeStyles((theme) => ({
-    filterBox: {
-        display: 'flex',
-        alignItems: 'center',
-
+  },
+  grew: {
+    display: "flex",
+    alignItems: "center",
+  },
+  switch: {
+    "& .MuiSwitch-track": {
+      background: "#62929E",
+      opacity: 1,
     },
-    filter: {
-        width: '32px',
-        marginRight: '30px',
-
+  },
+  input: {
+    border: "2px solid #62929E",
+    borderRadius: "50px",
+    height: 32,
+    width: 100,
+    textAlign: "center",
+    "& .MuiInputBase-input": {
+      textAlign: "center",
+      color: "#62929E",
     },
-    filterItem: {
-        fontSize: '18px',
-        lineHeight: '32px',
-        color: '#000',
-        display: 'flex',
-        alignItems: 'center',
+  },
+  chip: {
+    marginLeft: 15,
+    height: "32px",
+    justifyContent: "flex-start",
+    fontFamily: "BarlowRegular",
+    borderColor: "#000",
+    fontSize: 14,
+    fontFamily: "BarlowRegular",
+    marginBottom: 10,
+    "& img": {
+      width: 24,
     },
-    priceBox: {
-        marginLeft: '30px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        marginBottom: 0,
-        '& span': {
-            paddingRight: 15,
-        },
-        '& img': {
-            width: '18px',
-            margin: '0 4px',
-        }
+    "& svg": {
+      color: "#62929E",
     },
-    itemsTotal: {
-        fontWeight: 600,
-        fontSize: 14,
-        lineHeight: '32px',
-        marginRight: '50px',
-
+    "& .MuiChip-deleteIcon:hover, & .MuiChip-deleteIcon:click": {
+      color: "#fff",
     },
-    grew: {
-        display: 'flex', 
-        alignItems: 'center'
+  },
+  deleteIcon: {
+    display: "flex",
+    alignItems: "center",
+    color: "#fff",
+    marginLeft: "auto",
+    width: "auto",
+    "& img": {
+      width: 24,
     },
-    select: {
-        width: '200px',
-
-        root: {
-            width: '200px',
-            border: '2px solid #62929E',
-            borderRadius: '50px',
-            backgroundColor: theme.palette.common.white,
-
-        },
-        input: {
-            borderRadius: '50px',
-            backgroundColor: theme.palette.common.white,
-            '&:focus': {
-                borderRadius: '50px',
-            },
-        },
-        select: {
-            borderRadius: '50px',
-        },
-        selectMenu: {
-            borderRadius: '50px',
-            background: 'red'
-        },
-       
-        
-    }
-
-
-
-}))
+  },
+  setTrait: {
+    fontSize: 12,
+    color: "#62929E",
+    height: 24,
+    lineHeight: "20px",
+    boxSizing: "border-box",
+    border: "1px solid #62929E",
+    borderRadius: "16px",
+    padding: "0 5px",
+    marginRight: 5,
+  },
+  addIcon: {
+    padding: 0,
+    marginLeft: 15,
+    marginBottom: 10,
+  },
+  box: {
+    marginTop: 20,
+    display: "flex",
+    flexWrap: "no-wrap",
+  },
+  itemsRight: {
+    marginTop: 10,
+    display: "flex",
+    justifyContent: "flex-end",
+    [theme.breakpoints.down("xs")]: {
+      justifyContent: "space-between",
+      marginTop: 0,
+    },
+  },
+}));

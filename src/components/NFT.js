@@ -17,25 +17,14 @@ import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 300,
-    margin: "0 6px 30px",
+    // maxWidth: 300,
     borderRadius: "10px",
-    border: "1px solid #000000",
     position: "relative",
-    [theme.breakpoints.between("sm", "md")]: {
-      maxWidth: 260,
-    },
   },
   CardContent: {
     padding: theme.custom.palette.mdspacing,
-    [theme.breakpoints.between("sm", "md")]: {
-      padding: theme.custom.palette.smspacing,
-    },
   },
   collection: {
-    fontFamily: "Barlow",
-    fontStyle: "normal",
-    fontWeight: 600,
     fontSize: "18px",
     lineHeight: "18px",
     display: "flex",
@@ -53,9 +42,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 400,
   },
   author: {
-    fontFamily: "Barlow",
     fontStyle: "italic",
-    fontWeight: 600,
     fontSize: "14px",
     lineHeight: "18px",
     color: "#62929E",
@@ -66,25 +53,25 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 0,
   },
   iconBox: {
-    padding: "5px 10px 5px 7px",
+    padding: "7px 10px 7px 10px",
     borderRadius: "30px",
     background: "rgba(0,0,0,0.5)",
     position: "absolute",
     right: "10px",
-    bottom: "3px",
+    bottom: "10px",
+    display: "flex",
+    alignItems: "center",
     "& span": {
       marginLeft: "5px",
-      fontFamily: "Barlow",
-      fontStyle: "normal",
-      fontWeight: 600,
       fontSize: "18px",
       lineHeight: "18px",
       color: "#FF2E2E",
       opacity: 1,
     },
-  },
-  icon: {
-    padding: 0,
+    "& svg": {
+      width: 18,
+      height: 16,
+    },
   },
 }));
 export default function NFT(props) {
@@ -106,14 +93,11 @@ export default function NFT(props) {
           image={Images.nft}
         />
         <Typography className={classes.iconBox}>
-          <IconButton className={classes.icon}>
-            <FavoriteIcon width={18} htmlColor={"#FF2E2E"} />
-          </IconButton>
+          <FavoriteIcon htmlColor={"#FF2E2E"} />
           <span>265</span>
         </Typography>
       </div>
 
-      {/* <FavoriteIcon htmlColor={'#FF2E2E'} /> */}
       <CardContent className={classes.CardContent}>
         <div className={classes.controls}>
           <Typography noWrap className={classes.collection} paragraph>

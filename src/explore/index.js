@@ -1,16 +1,10 @@
 import React from "react";
 import {
   makeStyles,
-  withStyles,
   Grid,
   Hidden,
-  Switch,
-  InputBase,
-  TextField,
-  MenuItem,
 } from "@material-ui/core";
 import FilterPrice from "./filter/price";
-import FilterCollection from "./filter/collection";
 import NFT from "@/components/NFT";
 import FilterMobile from "./filterMobile";
 export default function Explore(props) {
@@ -19,12 +13,7 @@ export default function Explore(props) {
   console.log("Explore");
   return (
     <>
-      <Hidden xsDown>
-        <div className={classes.root}>
-          <FilterPrice />
-          <FilterCollection />
-        </div>
-      </Hidden>
+      <FilterPrice />
       <Grid
         container
         direction="row"
@@ -53,7 +42,7 @@ const useStyle = makeStyles((theme) => ({
   grid: {
     display: "grid",
     justifyContent: "space-between",
-    gridTemplateColumns: "repeat(auto-fill, 300px)",
+    gridTemplateColumns: "repeat(5, 200px)",
 
     [theme.breakpoints.down("lg")]: {
       gridTemplateColumns: "repeat(auto-fill, 260px)",

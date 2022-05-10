@@ -13,10 +13,12 @@ import Images from "@/constant";
 import CloseIcon from "@material-ui/icons/Close";
 import { useState } from "react";
 import CollectionModal from "./collecion";
+import TraitModal from "./trait";
 const FilterBox = (props) => {
   const classes = useStyles();
   const { open, setOpen } = props;
-  const [visible ,setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
+  const [visibleTrait, setVisibleTrait] = useState(false);
   const toggleDrawer = () => {
     setOpen(false);
   };
@@ -27,7 +29,9 @@ const FilterBox = (props) => {
   const handleChange = (event) => {
     setState({ [event.target.name]: event.target.checked });
   };
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    console.log("delete");
+  };
   return (
     <Drawer
       anchor={"left"}
@@ -36,7 +40,6 @@ const FilterBox = (props) => {
       classes={{
         paper: classes.drawerPaper,
       }}
-      // onOpen={toggleDrawer(anchor, true)}
     >
       <Grid container justifyContent="space-between" className={classes.header}>
         <Typography className={classes.filterText}>
@@ -54,172 +57,51 @@ const FilterBox = (props) => {
           onChange={handleChange}
           color="primary"
           name="checkedB"
+          className={classes.switch}
           inputProps={{ "aria-label": "primary checkbox" }}
         />
       </Box>
       <Box mb={"15px"}>
         <Typography className={classes.labelTitle}>Price Range</Typography>
         <Grid container>
-          <InputBase className={classes.input} placeholder="Max" />
-          <img className={classes.ethw} src={Images.ethw} />
           <InputBase className={classes.input} placeholder="Min" />
+          <img className={classes.ethw} src={Images.ethw} />
+          <InputBase className={classes.input} placeholder="Max" />
         </Grid>
       </Box>
       <Box mb={"15px"}>
-        <Typography className={classes.labelTitle}>Trait</Typography>
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />{" "}
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />{" "}
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />{" "}
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />{" "}
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />{" "}
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />{" "}
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />{" "}
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />{" "}
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />{" "}
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />{" "}
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />{" "}
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />{" "}
-        <Chip
-          label="Deletable secondary"
-          onDelete={handleDelete}
-          deleteIcon={<img src={Images.traitClose} />}
-          variant="outlined"
-          className={classes.chip}
-        />
-         <IconButton onClick={()=>setVisible(true)} className={classes.noSpace} >
-           <img src={Images.traitAdd} />
+        <Typography className={classes.labelTitle}>Collection</Typography>
+        {new Array(12).fill().map((_, i) => (
+          <Chip
+            key={i}
+            label="Deletable secondaryDeletable secondar"
+            icon={<img src={Images.avatar} />}
+            onDelete={() => {}}
+            deleteIcon={
+              <Box className={classes.deleteIcon}>
+                <Typography
+                  onClick={() => setVisibleTrait(true)}
+                  className={classes.setTrait}
+                >
+                  Set Traits
+                </Typography>
+                <img onClick={handleDelete} src={Images.traitClose} />
+              </Box>
+            }
+            variant="outlined"
+            className={classes.chip}
+          />
+        ))}
+        <IconButton
+          onClick={() => setVisible(true)}
+          className={classes.noSpace}
+        >
+          <img src={Images.traitAdd} />
         </IconButton>
       </Box>
       <footer className={classes.footer}>Apply</footer>
-      <CollectionModal open={visible} setOpen={()=>setVisible(false)} />
+      <CollectionModal open={visible} setOpen={() => setVisible(false)} />
+      <TraitModal open={visibleTrait} setOpen={() => setVisibleTrait(false)} />
     </Drawer>
   );
 };
@@ -232,13 +114,17 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 10000,
     background: "#000",
     color: "#fff",
-    padding: 15,
     boxSizing: "border-box",
-    paddingBottom: 50,
+    padding: "0px 15px 50px",
     position: "relative",
   },
   header: {
     marginBottom: "30px",
+    position: "sticky",
+    top: 0,
+    paddingTop: 15,
+    zIndex: 99,
+    background: "#000",
     "& .MuiIconButton-root": {
       padding: 0,
     },
@@ -288,17 +174,48 @@ const useStyles = makeStyles((theme) => ({
     borderColor: "#fff",
     color: "#fff",
     width: "100%",
-    justifyContent: "space-between",
+    height: "40px",
+    justifyContent: "flex-start",
     fontFamily: "BarlowRegular",
     marginBottom: 15,
+    "& img": {
+      width: 32,
+    },
     "& svg": {
       color: "#62929E",
     },
     "& .MuiChip-deleteIcon:hover": {
-      color: "#62929E",
+      color: "#fff",
     },
   },
-  noSpace:  {
-    padding: 0
+  deleteIcon: {
+    display: "flex",
+    alignItems: "center",
+    color: "#fff",
+    marginLeft: "auto",
+    width: "auto",
+    "& img": {
+      width: 32,
+    },
+  },
+  setTrait: {
+    fontSize: 12,
+    color: "#62929E",
+    height: 32,
+    lineHeight: "28px",
+    boxSizing: "border-box",
+    border: "1px solid #62929E",
+    borderRadius: "16px",
+    padding: "0 5px",
+    marginRight: 15,
+  },
+  noSpace: {
+    padding: 0,
+  },
+  switch: {
+    '& .MuiSwitch-track': {
+      background: '#62929E',
+      opacity: 1
+    }
   }
 }));

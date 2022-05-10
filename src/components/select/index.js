@@ -41,11 +41,18 @@ const useStyles = makeStyles(theme => ({
       easing: theme.transitions.easing.easeIn,
       duration: theme.transitions.duration.shortest
     }),
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 12,
+      width: "100%",
+
+    },
   },
   label: {
     color: theme.palette.secondary.main,
     fontSize: 14,
-    fontWeight: 600,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 12,
+    },
   },
   inputRoot: {
     flex: 1,
@@ -70,17 +77,18 @@ const useStyles = makeStyles(theme => ({
     fontSize: 14,
     fontWeight: 600,
     border: `2px solid ${theme.palette.secondary.main}`,
+ 
   },
   itemList: {
+    minHeight: '32px',
+
     height: '32px',
     lineHeight: '32px',
     borderBottom: `2px solid ${theme.palette.secondary.main}`,
     paddingLeft: '14px',
     display: 'flex',
-    fontFamily: 'Barlow',
     color: theme.palette.secondary.main,
     fontSize: 14,
-    fontWeight: 600,
     '& span': {
       marginLeft: '10px',
       fontSize: 14,
@@ -88,7 +96,14 @@ const useStyles = makeStyles(theme => ({
     },
     '&:last-child': {
       borderBottom: 0,
-    }
+    },
+    '& .MuiMenuItem-root': {
+      lineHeight: '32px'
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 12,
+      
+    },
   },
 }));
 

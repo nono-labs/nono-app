@@ -29,7 +29,7 @@ import {
   AddCircleOutline as AddCircleOutlineIcon,
 } from "@material-ui/icons";
 import clsx from "clsx";
-// import WalletConnectProvider from '@walletconnect/web3-provider'
+import TextBtn from "@/components/btn";
 
 const CollectionModal = (props) => {
   const { open, setOpen } = props;
@@ -74,7 +74,7 @@ const CollectionModal = (props) => {
       classes={{ root: classes.Dialog, paper: classes.paper }}
     >
       <DialogContent classes={{ root: classes.DialogContent }}>
-        <header>
+        <header className={classes.header}>
           <Typography classes={{ root: classes.title }}>Collection</Typography>
           <CloseIcon
             onClick={handleClose}
@@ -117,171 +117,48 @@ const CollectionModal = (props) => {
             ) : null}
           </Box>
         </ClickAwayListener>
-        <Divider className={classes.divider} />
-        <Box>
-          <Grid justifyContent="space-between" container>
-            <Box className={classes.grid}>
-              <img className={classes.avatar} src={Images.avatar} />
-              <Box>
-                <Typography className={classes.textHeight}>
-                  RTFKT x Nike Dunk Genesis
-                </Typography>
+        {new Array(12).fill().map((_, i) => (
+          <Box key={i}>
+            <Divider className={classes.divider} />
+            <Box>
+              <Grid justifyContent="space-between" container>
+                <Box className={classes.grid}>
+                  <img className={classes.avatar} src={Images.avatar} />
+                  <Box>
+                    <Typography className={classes.textHeight}>
+                      RTFKT x Nike Dunk Genesis
+                    </Typography>
+                  </Box>
+                </Box>
+                <AddCircleOutlineIcon
+                  className={classes.addCircleOutline}
+                  htmlColor="#62929E"
+                />
+              </Grid>
+              <Box className={clsx(classes.grid, classes.vol)}>
+                <Box className={classes.floorBox}>
+                  <span>Floor</span>
+                  <Typography className={classes.floorStyle}>
+                    <img src={Images.eth} /> 0.59
+                  </Typography>
+                  <span>+ 1.23%</span>
+                </Box>
+                <Box className={classes.floorBox}>
+                  <span>24h Vol</span>
+                  <Typography className={classes.floorStyle}>
+                    <img src={Images.eth} /> 0.59
+                  </Typography>
+                  <span>+ 1.23%</span>
+                </Box>
               </Box>
             </Box>
-            <AddCircleOutlineIcon
-              className={classes.addCircleOutline}
-              htmlColor="#62929E"
-            />
-          </Grid>
-          <Box className={clsx(classes.grid, classes.vol)}>
-            <Box className={classes.floorBox}>
-              <span>Floor</span>
-              <Typography className={classes.floorStyle}>
-                <img src={Images.eth} /> 0.59
-              </Typography>
-              <span>+ 1.23%</span>
-            </Box>
-            <Box className={classes.floorBox}>
-              <span>Floor</span>
-              <Typography className={classes.floorStyle}>
-                <img src={Images.eth} /> 0.59
-              </Typography>
-              <span>+ 1.23%</span>
-            </Box>
           </Box>
-        </Box>
-        <Divider className={classes.divider} />
-        <Box>
-          <Grid justifyContent="space-between" container>
-            <Box className={classes.grid}>
-              <img className={classes.avatar} src={Images.avatar} />
-              <Box>
-                <Typography className={classes.textHeight}>
-                  RTFKT x Nike Dunk Genesis
-                </Typography>
-              </Box>
-            </Box>
-            <AddCircleOutlineIcon
-              className={classes.addCircleOutline}
-              htmlColor="#62929E"
-            />
-          </Grid>
-          <Box className={clsx(classes.grid, classes.vol)}>
-            <Box className={classes.floorBox}>
-              <span>Floor</span>
-              <Typography className={classes.floorStyle}>
-                <img src={Images.eth} /> 0.59
-              </Typography>
-              <span>+ 1.23%</span>
-            </Box>
-            <Box className={classes.floorBox}>
-              <span>Floor</span>
-              <Typography className={classes.floorStyle}>
-                <img src={Images.eth} /> 0.59
-              </Typography>
-              <span>+ 1.23%</span>
-            </Box>
-          </Box>
-        </Box>
-        <Divider className={classes.divider} />
-        <Box>
-          <Grid justifyContent="space-between" container>
-            <Box className={classes.grid}>
-              <img className={classes.avatar} src={Images.avatar} />
-              <Box>
-                <Typography className={classes.textHeight}>
-                  RTFKT x Nike Dunk Genesis
-                </Typography>
-              </Box>
-            </Box>
-            <AddCircleOutlineIcon
-              className={classes.addCircleOutline}
-              htmlColor="#62929E"
-            />
-          </Grid>
-          <Box className={clsx(classes.grid, classes.vol)}>
-            <Box className={classes.floorBox}>
-              <span>Floor</span>
-              <Typography className={classes.floorStyle}>
-                <img src={Images.eth} /> 0.59
-              </Typography>
-              <span>+ 1.23%</span>
-            </Box>
-            <Box className={classes.floorBox}>
-              <span>Floor</span>
-              <Typography className={classes.floorStyle}>
-                <img src={Images.eth} /> 0.59
-              </Typography>
-              <span>+ 1.23%</span>
-            </Box>
-          </Box>
-        </Box>
-        <Divider className={classes.divider} />
-        <Box>
-          <Grid justifyContent="space-between" container>
-            <Box className={classes.grid}>
-              <img className={classes.avatar} src={Images.avatar} />
-              <Box>
-                <Typography className={classes.textHeight}>
-                  RTFKT x Nike Dunk Genesis
-                </Typography>
-              </Box>
-            </Box>
-            <AddCircleOutlineIcon
-              className={classes.addCircleOutline}
-              htmlColor="#62929E"
-            />
-          </Grid>
-          <Box className={clsx(classes.grid, classes.vol)}>
-            <Box className={classes.floorBox}>
-              <span>Floor</span>
-              <Typography className={classes.floorStyle}>
-                <img src={Images.eth} /> 0.59
-              </Typography>
-              <span>+ 1.23%</span>
-            </Box>
-            <Box className={classes.floorBox}>
-              <span>Floor</span>
-              <Typography className={classes.floorStyle}>
-                <img src={Images.eth} /> 0.59
-              </Typography>
-              <span>+ 1.23%</span>
-            </Box>
-          </Box>
-        </Box>
-        <Divider className={classes.divider} />
-        <Box>
-          <Grid justifyContent="space-between" container>
-            <Box className={classes.grid}>
-              <img className={classes.avatar} src={Images.avatar} />
-              <Box>
-                <Typography className={classes.textHeight}>
-                  RTFKT x Nike Dunk Genesis
-                </Typography>
-              </Box>
-            </Box>
-            <AddCircleOutlineIcon
-              className={classes.addCircleOutline}
-              htmlColor="#62929E"
-            />
-          </Grid>
-          <Box className={clsx(classes.grid, classes.vol)}>
-            <Box className={classes.floorBox}>
-              <span>Floor</span>
-              <Typography className={classes.floorStyle}>
-                <img src={Images.eth} /> 0.59
-              </Typography>
-              <span>+ 1.23%</span>
-            </Box>
-            <Box className={classes.floorBox}>
-              <span>Floor</span>
-              <Typography className={classes.floorStyle}>
-                <img src={Images.eth} /> 0.59
-              </Typography>
-              <span>+ 1.23%</span>
-            </Box>
-          </Box>
-        </Box>
+        ))}
+        <TextBtn
+          className={classes.btnSpace}
+          onClick={() => {}}
+          text={"Apply"}
+        />
       </DialogContent>
     </Dialog>
   );
@@ -291,6 +168,9 @@ export default CollectionModal;
 const useStyles = makeStyles((theme) => ({
   Dialog: {
     margin: "0 auto",
+    '& .MuiDialogContent-root:first-child': {
+      paddingTop: 0,
+    },
   },
   paper: {
     maxWidth: "800px",
@@ -298,17 +178,23 @@ const useStyles = makeStyles((theme) => ({
     width: "calc(100% - 30px)",
   },
   DialogContent: {
-    fontFamily: "ArchivoBlack",
     color: "#000",
-    padding: "15px",
+    padding: "0 15px 15px",
     "& header": {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
       paddingBottom: "15px",
+      position: 'sticky',
+      top: 0,
+      left: 0,
+      background: '#fff',
+      paddingTop: 15,
+      zIndex: 99,
     },
   },
   title: {
+    fontFamily: "ArchivoBlack",
     fontSize: "20px",
     lineHeight: "24px",
   },
@@ -388,7 +274,6 @@ const useStyles = makeStyles((theme) => ({
   },
   vol: {
     justifyContent: "space-between",
-
   },
   textHeight: {
     lineHeight: "16px",
@@ -405,5 +290,11 @@ const useStyles = makeStyles((theme) => ({
     "& img": {
       width: 14,
     },
+  },
+  btnSpace: {
+    display: "flex",
+    margin: "15px auto 0",
+    position: 'sticky',
+    bottom: 0,
   },
 }));

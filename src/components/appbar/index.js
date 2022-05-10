@@ -51,7 +51,7 @@ const SideBar = props => {
                 {routesList.map((routeObj, index) => (
                     <NavLink className={classes.navLink} key={index} to={routeObj.path}>
                         {({ isActive }) => (
-                            <ListItem className={cx(classes.menuList, isActive && classes.menuListActive)}>
+                            <ListItem onClick={()=>setMobileOpen(false)} className={cx(classes.menuList, isActive && classes.menuListActive)}>
                                 {/* <img src={routeObj.logo} /> */}
                                 {routeObj.logo}
                                 <ListItemText primary={routeObj.pathName} />
