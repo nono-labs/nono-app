@@ -7,7 +7,7 @@ import {
   Grid,
   CardHeader,
   makeStyles,
-  Button,
+  Box,
 } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -89,47 +89,47 @@ export default function TopCollections(props) {
               id="panel1a-header"
             >
               <div className={classes.accordion}>
-                <Typography className={classes.heading}>
+                <Box className={classes.heading}>
                   <span>{index + 1}</span>
                   <img src={Images.avatar} />
                   <span>{row.name}</span>
-                </Typography>
-                <Typography className={classes.content}>
+                </Box>
+                <Box className={classes.content}>
                   <span>Floor</span>
                   <div className={classes.tableCell}>
                     <img src={Images.eth} />
                     <span className={classes.value}>0.19</span>
                     <span className={classes.rateDown}>-2.34%</span>
                   </div>
-                </Typography>
-                <Typography className={classes.content}>
+                </Box>
+                <Box className={classes.content}>
                   <span>24h Vol</span>
                   <div className={classes.tableCell}>
                     <img src={Images.eth} />
                     <span className={classes.value}>0.59</span>
                     <span className={classes.rateUp}>+2.34%</span>
                   </div>
-                </Typography>
+                </Box>
               </div>
             </AccordionSummary>
             <AccordionDetails>
               <div className={classes.accordion}>
-                <Typography className={classes.content}>
+                <Box className={classes.content}>
                   <span>Floor</span>
                   <div className={classes.tableCell}>
                     <img src={Images.eth} />
                     <span className={classes.value}>0.19</span>
                     <span className={classes.rateDown}>-2.34%</span>
                   </div>
-                </Typography>
-                <Typography className={classes.content}>
+                </Box>
+                <Box className={classes.content}>
                   <span>24h Vol</span>
                   <div className={classes.tableCell}>
                     <img src={Images.eth} />
                     <span className={classes.value}>0.59</span>
                     <span className={classes.rateUp}>+2.34%</span>
                   </div>
-                </Typography>
+                </Box>
               </div>
             </AccordionDetails>
           </Accordion>
@@ -237,15 +237,11 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 const Accordion = withStyles({
-  display: "flex",
   root: {
     alignItems: "baseline",
     borderBottom: "1px solid rgba(0, 0, 0, 1)",
     borderRadio: 0,
     boxShadow: "none",
-    // '&:not(:last-child)': {
-    //     borderBottom: 0,
-    // },
     "&:before": {
       display: "none",
     },
@@ -258,9 +254,7 @@ const Accordion = withStyles({
 const AccordionSummary = withStyles({
   root: {
     alignItems: "baseline",
-    // borderBottom: '1px solid rgba(0, 0, 0, 1)',
     padding: 0,
-    // marginBottom: -1,
     minHeight: 56,
     "&$expanded": {
       minHeight: 56,

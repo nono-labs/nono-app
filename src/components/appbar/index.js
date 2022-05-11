@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import cx from 'clsx';
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
-import { CssBaseline, makeStyles, useTheme, Drawer, Hidden, AppBar, List, ListItemText, Toolbar, useMediaQuery, ListItem, IconButton, Typography } from '@material-ui/core';
+import { CssBaseline, makeStyles, useTheme, Drawer, Hidden, AppBar,Box, List, ListItemText, Toolbar, useMediaQuery, ListItem, IconButton, Typography } from '@material-ui/core';
 // import MenuIcon from '@material-ui/icons/Menu';
 // import SearchIcon from '@material-ui/icons/SearchOutlined';
 import {
@@ -86,13 +86,12 @@ const SideBar = props => {
                         <SearchContainer onSearchClose={() => setSearchShowing(false)} />
                     )}
                     <Hidden xsDown implementation="css">
-                        <div className={classes.rightBox}>
+                        <Box className={classes.rightBox}>
                             <TextBtn style={{marginRight: '20px'}} startIcon={connect && Images.asset} text='Connect'  onClick={handleIsConnect}  />
                             <TextBtn startIcon={Images.eth} text='Ethereum'  />
-
-                        </div>
+                        </Box>
                     </Hidden>
-                    <Hidden smUp implementation="css">
+                    {/* <Hidden smUp implementation="css">
                         {isMobile && !isSearchShowingInMobile ? (
                             <div className={classes.rightBoxMobile}>
                                 <IconButton
@@ -108,7 +107,7 @@ const SideBar = props => {
                             </div>
                         ) : null}
 
-                    </Hidden>
+                    </Hidden> */}
                 </Toolbar>
             </AppBar>
             <nav aria-label='mailbox folders'>
@@ -137,7 +136,7 @@ const SideBar = props => {
                     </Drawer>
                 </Hidden>
             </nav>
-            <SwitchWallet open={open} setOpen={setOpen} />
+            <SwitchWallet open={open} setOpen={setOpen} /> 
         </div>
     )
 }
@@ -195,10 +194,8 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('xs')]: {
             width: '80%',
             alignItems: 'flex-start',
-            paddingLeft: '30px'
-        },
-        [theme.breakpoints.down('sm')]: {
-            marginTop: '50px'
+            paddingLeft: '30px',
+            marginTop: 56,
         },
     },
     logo: {
@@ -223,6 +220,7 @@ const useStyles = makeStyles((theme) => ({
     logoTitle: {
         fontFamily: 'BarlowBlack',
         fontSize: '18px',
+        marginTop: 5,
     },
     logoCenter: {
         position: 'absolute',

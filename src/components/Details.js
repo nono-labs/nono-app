@@ -19,37 +19,11 @@ import {
   Cached as CachedIcon,
   FavoriteBorder as FavoriteBorderIcon,
 } from "@material-ui/icons";
-import Btn from "@/components/btn";
+import TextBtn from "@/components/btn";
 import Images from "@/constant";
-// import OfferForm from './OfferForm';
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import clsx from "clsx";
-function useInterval(callback, delay) {
-  const savedCallback = React.useRef();
-
-  // Remember the latest callback.
-  React.useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  // Set up the interval.
-  React.useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
-    if (delay !== null) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
-}
-// const api = extjs.connect("https://boundary.ic0.app/");
-
-const shorten = (a) => {
-  return a.substring(0, 12) + "...";
-};
-
 const Detail = (props) => {
   let { tokenid } = useParams();
   //   let { index, canister} = extjs.decodeTokenId(tokenid);
@@ -62,80 +36,62 @@ const Detail = (props) => {
   const [openOfferForm, setOpenOfferForm] = React.useState(false);
   const classes = useStyles();
 
-  const cancelListing = () => {
-    props.list(tokenid, 0, props.loader, _afterList);
-  };
-  const _refresh = async () => {
-    await fetch(
-      "https://us-central1-entrepot-api.cloudfunctions.net/api/token/" + tokenid
-    )
-      .then((r) => r.json())
-      .then((r) => {
-        setListing({
-          price: BigInt(r.price),
-          time: r.time,
-        });
-        setOwner(r.owner);
-        setTransactions(r.transactions);
-      });
-  };
-  const _afterList = async () => {
-    await _refresh();
-  };
-
   const displayImage = (tokenid) => {
     return <img src={Images.nft} alt="" className={classes.nftImage} />;
   };
 
   return (
     <Box className={classes.container}>
-      <Box className={clsx(classes.contennt, classes.imgMain)}>
+      <Box className={clsx(classes.itemBox, classes.imgMain)}>
         {displayImage(tokenid)}
       </Box>
-      <Box className={classes.contennt}>
+      <Box className={classes.itemBox}>
         <Box className={classes.header}>
-          <Grid className={classes.titleBox} container>
+          <Box className={classes.titleBox}>
             <Typography className={classes.Archivo900}>Meebit #9110</Typography>
-            <Grid
-              lg={"auto"}
-              alignItems={"center"}
-              container
-              className={classes.extends}
-            >
-              <FavoriteBorderIcon htmlColor="#62929E" />
-              <span>1.3K</span>
+            <Box className={classes.actionBox}>
+              <Box className={classes.actionLike}>
+                <FavoriteBorderIcon htmlColor="#62929E" />
+                <Typography>1.3K</Typography>
+              </Box>
               <Divider
                 className={classes.borderLine}
                 orientation="vertical"
                 flexItem
               />
-              <ShareIcon htmlColor="#62929E" />
+              <Box className={classes.actionLike}>
+                <ShareIcon htmlColor="#62929E" />
+              </Box>
               <Divider
                 className={classes.borderLine}
                 orientation="vertical"
                 flexItem
               />
-              <CachedIcon htmlColor="#62929E" />
+              <Box className={classes.actionLike}>
+                <CachedIcon htmlColor="#62929E" />
+              </Box>
+            </Box>
+          </Box>
+          <Grid container>
+            <Grid item sm={6}>
+              <Box className={classes.grid}>
+                <img  className={classes.avatarImg} src={Images.avatar} />
+                <Box className={classes.avatarText}>
+                  <Typography>Collection</Typography>
+                  <a>Meebit</a>
+                </Box>
+              </Box>
+            </Grid>
+            <Grid item sm={6}>
+              <Box className={classes.grid}>
+                <img  className={classes.avatarImg} src={Images.avatar} />
+                <Box className={classes.avatarText}>
+                  <Typography>Owner</Typography>
+                  <a>Alex Sanders</a>
+                </Box>
+              </Box>
             </Grid>
           </Grid>
-          <List className={classes.root}>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <ImageIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="Photos" secondary={<a>123412</a>} />
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <ImageIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-            </ListItem>
-          </List>
         </Box>
         {/* content */}
         <Box className={classes.header}>
@@ -220,7 +176,7 @@ const Detail = (props) => {
                 </Grid>
               </Box>
               <Box>
-                <Btn text="Activities" />
+                <TextBtn text="Activities" />
               </Box>
             </Grid>
             <Grid
@@ -228,7 +184,6 @@ const Detail = (props) => {
               alignItems="flex-end"
               justifyContent="space-between"
               className={classes.listPriceBox}
-
             >
               <Box mt={"30px"}>
                 <Box fontSize={18} mb={"10px"} textAlign="justify">
@@ -249,8 +204,8 @@ const Detail = (props) => {
                   </Box>
                 </Grid>
               </Box>
-              <Box> 
-                <Btn text="Activities" />
+              <Box>
+                <TextBtn text="Activities" />
               </Box>
             </Grid>
           </Typography>
@@ -262,47 +217,9 @@ const Detail = (props) => {
 export default Detail;
 
 const useStyles = makeStyles((theme) => ({
-  btn: {
-    backgroundColor: "#ffffff",
-    marginLeft: "10px",
-    color: "#2B74DC",
-    fontWeight: "bold",
-    boxShadow: "none",
-    border: "1px solid #2B74DC",
-    textTransform: "capitalize",
-    [theme.breakpoints.down("xs")]: {
-      marginLeft: "0px",
-      marginTop: "10px",
-    },
-  },
-  button: {
-    [theme.breakpoints.down("xs")]: {
-      display: "flex",
-      flexDirection: "column",
-    },
-  },
-  icon: {
+  grid: {
     display: "flex",
-    alignItems: "center",
-    [theme.breakpoints.down("xs")]: {
-      flexDirection: "column",
-    },
-  },
-  typo: {
-    fontWeight: "bold",
-    padding: "20px 0px",
-    [theme.breakpoints.down("xs")]: {
-      textAlign: "center",
-    },
-  },
-  personal: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    [theme.breakpoints.down("xs")]: {
-      flexDirection: "column",
-      justifyContent: "center",
-    },
+    alignItems: 'center',
   },
   container: {
     display: "flex",
@@ -310,7 +227,7 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: "column",
     },
   },
-  contennt: {
+  itemBox: {
     width: "calc(50% - 25px)",
     borderRadius: "10px",
     marginRight: "50px",
@@ -341,26 +258,7 @@ const useStyles = makeStyles((theme) => ({
       maxHeight: "100%",
     },
   },
-  nftImage: {},
-  iconsBorder: {
-    border: "1px solid #E9ECEE",
-    borderRadius: "5px",
-  },
-  div: {
-    display: "flex",
-    padding: "10px",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    borderBottom: "1px solid #E9ECEE",
-    borderRadius: "5px",
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(20),
-    fontWeight: "bold",
-    marginLeft: 20,
-  },
   header: {
-    width: "100%",
     background: "#fff",
     borderRadius: "20px",
     padding: "30px 50px",
@@ -376,7 +274,34 @@ const useStyles = makeStyles((theme) => ({
       marginTop: "0px",
     },
   },
+  actionBox: {
+    display: "flex",
+    alignItems: "center",
+    height: "36px",
+    border: "2px solid #62929E",
+    borderRadius: "50px",
+  },
+  actionLike: {
+    display: "flex",
+    alignItems: "center",
+    padding: "0 7px",
+    fontSize: 18,
+    color: "#62929E",
+    "& p": {
+      marginLeft: 5,
+    },
+  },
   contractDetail: {
+    [theme.breakpoints.down("lg")]: {
+      display: "flex",
+      // flexDirection: "column",
+      "& .MuiGrid-grid-xs-3": {
+        // display: "flex",
+        // justifyContent: "space-between",
+        maxWidth: "50%",
+        flexBasis: '50%',
+      },
+    },
     [theme.breakpoints.down("sm")]: {
       display: "flex",
       flexDirection: "column",
@@ -388,6 +313,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   titleBox: {
+    display: "flex",
+    marginBottom: 23,
     [theme.breakpoints.down("md")]: {
       flexDirection: "column",
     },
@@ -395,80 +322,31 @@ const useStyles = makeStyles((theme) => ({
       textAlign: "center",
     },
   },
-  extends: {
-    height: "36px",
-    width: "auto",
-    border: "2px solid #62929E",
-    borderRadius: "50px",
-    marginLeft: "50px",
-    overflow: "hidden",
-    boxSizing: "border-box",
-    "& svg": {
-      margin: "0 6px",
-    },
-    "& span": {
-      fontSize: "18px",
-      lineHeight: "32px",
-      color: "#62929E",
-      marginRight: "6px",
-    },
-    [theme.breakpoints.down("md")]: {
-      marginLeft: "0px",
-      height: "32px",
-      "& span": {
-        lineHeight: "28px",
-        color: "#62929E",
-        marginRight: "6px",
-      },
-    },
+  Archivo900: {
+    fontFamily: "ArchivoBlack",
+    fontSize: 36,
+    lineHeight: "36px",
+    paddingRight: 50,
   },
   borderLine: {
     background: "#62929E",
     width: "2px",
   },
-  root: {
-    display: "flex",
-    padding: "0",
-    marginTop: "20px",
-    "& .MuiListItem-gutters": {
-      padding: "0",
-      fontSize: 18,
-      lineHeight: "27px",
-    },
-    "& .MuiListItemText-secondary": {
-      fontStyle: "italic",
-      color: "#62929E",
-      fontSize: 18,
-      cursor: "pointer",
-      "&:hover": {
-        textDecoration: "underline",
-      },
-    },
-    [theme.breakpoints.down("md")]: {
-      marginTop: "10px",
-      fontSize: 16,
-
-      "& .MuiListItemText-multiline": {
-        margin: 0,
-      },
-      "& .MuiListItem-gutters": {
-        fontSize: 16,
-        lineHeight: "24px",
-      },
-      "& .MuiListItemText-secondary": {
-        fontSize: 16,
-        lineHeight: "24px",
-      },
-      "& .MuiListItemAvatar-root": {
-        minWidth: 0,
-        marginRight: 5,
-      },
-      "& .MuiAvatar-root": {
-        width: "25px",
-        height: "25px",
-        objectFit: "cover",
-      },
-    },
+  avatarImg: {
+    width: 33,
+    marginRight: 16,
+  },
+  avatarText: {
+    fontSize: 18,
+    lineHeight: '27px',
+    '& a': {
+      color: '#62929E',
+      fontStyle: 'italic',
+      cursor: 'pointer',
+      '&:hover': {
+        textDecoration: 'underline',
+      }
+    }
   },
   title: {
     fontSize: 18,
@@ -476,28 +354,10 @@ const useStyles = makeStyles((theme) => ({
   chipBox: {
     "& .MuiChip-root": {
       border: "2px solid #62929E",
-      fontFamily: "Barlow",
-      fontWeight: 600,
       fontSize: "14px",
       lineHeight: "27px",
       color: "#62929E",
       marginRight: "10px",
-      marginBottom: "10px",
-    },
-  },
-  Archivo900: {
-    fontFamily: "ArchivoBlack",
-    fontSize: "36px",
-    lineHeight: "36px",
-    color: "#000000",
-    [theme.breakpoints.down("md")]: {
-      fontSize: "24px",
-      lineHeight: "24px",
-      marginBottom: "10px",
-    },
-    [theme.breakpoints.down("sm")]: {
-      fontSize: "18px",
-      lineHeight: "18px",
       marginBottom: "10px",
     },
   },
@@ -551,8 +411,8 @@ const useStyles = makeStyles((theme) => ({
   },
   listPriceBox: {
     [theme.breakpoints.down("sm")]: {
-      flexDirection: 'column',
-      alignItems: 'flex-start'
+      flexDirection: "column",
+      alignItems: "flex-start",
     },
-  }
+  },
 }));

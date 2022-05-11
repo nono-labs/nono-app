@@ -1,276 +1,389 @@
 import React, { useState } from "react";
 import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    IconButton,
-    makeStyles,
-    Typography,
-    InputBase,
-    Chip,
-    Box,
-    ClickAwayListener,
-    Card,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    withStyles,
-    Grid,
-    Button
+  Dialog,
+  DialogContent,
+  IconButton,
+  makeStyles,
+  Typography,
+  InputBase,
+  Chip,
+  Box,
+  ClickAwayListener,
+  Card,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  withStyles,
+  Grid,
+  Button,
 } from "@material-ui/core";
 import Images from "@/constant";
 import { useTheme } from "@material-ui/styles";
 import {
-    Close as CloseIcon,
-    Search as SearchIcon,
-    CloseOutlined as CloseOutlinedIcon
+  Close as CloseIcon,
+  Search as SearchIcon,
+  CloseOutlined as CloseOutlinedIcon,
 } from "@material-ui/icons";
-import FaceIcon from '@material-ui/icons/Face';
-
-// import WalletConnectProvider from '@walletconnect/web3-provider'
+import FaceIcon from "@material-ui/icons/Face";
+import TextBtn from "@/components/btn";
+import TraitModal from "../filterMobile/trait";
 
 const CollectionModal = (props) => {
-    const { open, setOpen } = props;
-    const theme = useTheme();
-    const [isFocussed, setFocussed] = useState(false);
-    const [searchTerm, setSearchTerm] = useState("");
+  const { open, setOpen } = props;
+  const theme = useTheme();
+  const [isFocussed, setFocussed] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [visibleTrait, setVisibleTrait] = useState(false);
 
-    // const [open, setOpen] = useState(true);
-    const classes = useStyles();
-    function createData(name, calories, fat, carbs, protein) {
-        return { name, calories, fat, carbs, protein };
+  // const [open, setOpen] = useState(true);
+  const classes = useStyles();
+  function createData(name, calories, fat, carbs, protein) {
+    return { name, calories, fat, carbs, protein };
+  }
+  const rows = [
+    createData(
+      "Frozen yoghurtFrozen yo gh urtr ozen yoghu rtFrozen yoghurt",
+      159,
+      6.0,
+      24,
+      4.0
+    ),
+    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
+    createData("Eclair", 262, 16.0, 24, 6.0),
+    createData("Cupcake", 305, 3.7, 67, 4.3),
+    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
+    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
+    createData("Eclair", 262, 16.0, 24, 6.0),
+    createData("Cupcake", 305, 3.7, 67, 4.3),
+    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
+    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
+    createData("Eclair", 262, 16.0, 24, 6.0),
+    createData("Cupcake", 305, 3.7, 67, 4.3),
+    createData("Eclair", 262, 16.0, 24, 6.0),
+    createData("Cupcake", 305, 3.7, 67, 4.3),
+    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
+    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
+    createData("Eclair", 262, 16.0, 24, 6.0),
+    createData("Cupcake", 305, 3.7, 67, 4.3),
+  ];
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const onSearch = (event) => {
+    setFocussed(true);
+    if (event.key === "Enter") {
+      console.log(12412412);
     }
-    const rows = [
-        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-        createData('Eclair', 262, 16.0, 24, 6.0),
-        createData('Cupcake', 305, 3.7, 67, 4.3),
-    ];
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
-    const onSearch = (event) => {
-        setFocussed(true);
-        if (event.key === "Enter") {
-            console.log(12412412)
-
-        }
-    }
-    const onSearchCancel = () => {
-        setSearchTerm("");
-        setFocussed(false);
-    };
-    const onFocusLoss = () => {
-        setFocussed(false);
-    }
-    return (
-        <Dialog
-            onClose={handleClose}
-            open={open}
-            classes={{ root: classes.Dialog, paper: classes.paper }}
+  };
+  const onSearchCancel = () => {
+    setSearchTerm("");
+    setFocussed(false);
+  };
+  const onFocusLoss = () => {
+    setFocussed(false);
+  };
+  return (
+    <Dialog onClose={handleClose} open={open} className={classes.dialog}>
+      <DialogContent
+        className={classes.dialogContent}
+        style={{ paddingTop: 0 }}
+      >
+        <Grid
+          container
+          className={classes.header}
+          justifyContent="space-between"
         >
-            <DialogContent
-                style={{ padding: "50px" }}
-                classes={{ root: classes.DialogContent }}
+          <Typography className={classes.title}>Collection</Typography>
+          <CloseIcon onClick={handleClose} className={classes.closeIcon} />
+        </Grid>
+        <Box>
+          {new Array(9).fill().map((_, i) => (
+            <Chip
+              label={`Bored Ape ${i}`}
+              key={i}
+              icon={<img src={Images.avatar} />}
+              onDelete={() => {}}
+              deleteIcon={
+                <Box className={classes.deleteIcon}>
+                  <Typography
+                    onClick={() => setVisibleTrait(true)}
+                    className={classes.setTrait}
+                  >
+                    Set Traits
+                  </Typography>
+                  <img onClick={() => {}} src={Images.traitClose} />
+                </Box>
+              }
+              variant="outlined"
+              className={classes.chip}
+            />
+          ))}
+        </Box>
+        <ClickAwayListener onClickAway={onFocusLoss}>
+          <Box
+            className={classes.search}
+            borderRadius={theme.shape.borderRadius}
+            bgcolor={
+              isFocussed
+                ? theme.palette.background.default
+                : theme.palette.background.highlight
+            }
+            boxShadow={isFocussed ? 2 : 0}
+            height={"3rem"}
+          >
+            <Box className={classes.searchIcon}>
+              <SearchIcon htmlColor={"#000"} />
+            </Box>
+            <InputBase
+              placeholder="Search"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              value={searchTerm}
+              onClick={() => setFocussed(true)}
+              inputProps={{ "aria-label": "search" }}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              onKeyDown={onSearch}
+            />
+            {isFocussed ? (
+              <IconButton hidden={!isFocussed} onClick={onSearchCancel}>
+                <CloseOutlinedIcon
+                  htmlColor={theme.custom.palette.noteBackground.default}
+                />
+              </IconButton>
+            ) : null}
+          </Box>
+        </ClickAwayListener>
+        <Table classes={{ root: classes.head }} aria-label="caption table">
+          <caption className={classes.btnBox} style={{ padding: 0 }}>
+            <Grid
+              justifyContent="center"
+              direction="row"
+              alignItems="center"
+              container
             >
-                <header>
-                    <Typography classes={{ root: classes.title }}>
-                        Collection
-                    </Typography>
-                    <CloseIcon
-                        onClick={handleClose}
-                        classes={{ root: classes.closeIcon }}
-                    />
-                </header>
-                <div className={classes.filterBox}>
-                    {<Chip color="default" variant="outlined" icon={<img src={Images.filter1} />} deleteIcon={<img src={Images.deleteIcon} />} className={classes.chip} label={"Min. Price:" + 1} onDelete={() => { }} />}
-                    {<Chip color="default" variant="outlined" icon={<img src={Images.filter1} />} deleteIcon={<img src={Images.deleteIcon} />} className={classes.chip} label={"Min. Price:" + 1} onDelete={() => { }} />}
-                </div>
-                <ClickAwayListener onClickAway={onFocusLoss}>
-
-                    <Box
-                        className={classes.search}
-                        borderRadius={theme.shape.borderRadius}
-                        bgcolor={
-                            isFocussed
-                                ? theme.palette.background.default
-                                : theme.palette.background.highlight
-                        }
-                        boxShadow={isFocussed ? 2 : 0}
-                        height={"3rem"}
-                    >
-                        <div className={classes.searchIcon}>
-                            <SearchIcon htmlColor={'#000'} />
-                        </div>
-                        <InputBase
-                            placeholder="Search"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput
-                            }}
-                            value={searchTerm}
-                            onClick={() => setFocussed(true)}
-                            inputProps={{ "aria-label": "search" }}
-                            onChange={event => setSearchTerm(event.target.value)}
-                            onKeyDown={onSearch}
-                        />
-                        {isFocussed ? (
-                            <IconButton hidden={!isFocussed} onClick={onSearchCancel}>
-                                <CloseOutlinedIcon htmlColor={theme.custom.palette.noteBackground.default} />
-                            </IconButton>
-                        ) : null}
-                    </Box>
-                </ClickAwayListener>
-                {/* <Card  className={classes.root}> */}
-                    <Table classes={{ root: classes.head }} aria-label="caption table">
-                        <caption style={{ padding: 0 }}><Grid justifyContent="center" direction="row" alignItems="center" container><Button className={classes.buttonAsset}>Apply</Button></Grid></caption>
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell>Collection</StyledTableCell>
-                                <StyledTableCell>Floor Price</StyledTableCell>
-                                <StyledTableCell>24h Volume</StyledTableCell>
-                                <StyledTableCell>Set Traits</StyledTableCell>
-                                <StyledTableCell>Add to Filter</StyledTableCell>
-
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row) => (
-                                <TableRow key={row.name}>
-                                    <StyledTableCell>
-                                        <div className={classes.grow}>
-                                        <FaceIcon />{row.name}
-
-                                        </div>
-                                    </StyledTableCell>
-                                    <StyledTableCell>{row.calories}</StyledTableCell>
-                                    <StyledTableCell>{row.fat}</StyledTableCell>
-                                    <StyledTableCell>{row.carbs}</StyledTableCell>
-                                    <StyledTableCell>{row.protein}</StyledTableCell>
-
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                {/* </Card> */}
-
-            </DialogContent>
-        </Dialog>
-    );
+              <TextBtn
+                className={classes.btnSpace}
+                onClick={() => {}}
+                text={"Apply"}
+              />
+            </Grid>
+          </caption>
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Collection</StyledTableCell>
+              <StyledTableCell>Floor Price</StyledTableCell>
+              <StyledTableCell>24h Volume</StyledTableCell>
+              <StyledTableCell>Set Traits</StyledTableCell>
+              <StyledTableCell>Add to Filter</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row, i) => (
+              <TableRow key={row.name + i}>
+                <StyledTableCell>
+                  <Box className={classes.grow}>
+                    <img src={Images.avatar} />
+                    {row.name}
+                  </Box>
+                </StyledTableCell>
+                <StyledTableCell>
+                  <Grid container>
+                    <img src={Images.eth} />
+                    0.55
+                  </Grid>
+                  <Typography className={classes.priceRate}>+1.53%</Typography>
+                </StyledTableCell>
+                <StyledTableCell>
+                  <Grid container>
+                    <img src={Images.eth} />
+                    {row.fat}k
+                  </Grid>
+                  <Typography className={classes.priceRate}>+1.53%</Typography>
+                </StyledTableCell>
+                <StyledTableCell>
+                  <Box
+                    onClick={() => setVisibleTrait(true)}
+                    className={classes.traitBtn}
+                  >
+                    Set Traits
+                  </Box>
+                </StyledTableCell>
+                <StyledTableCell>
+                  <img className={classes.addto} src={Images.traitAdd} />
+                </StyledTableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </DialogContent>
+      <TraitModal open={visibleTrait} setOpen={() => setVisibleTrait(false)} />
+    </Dialog>
+  );
 };
 export default CollectionModal;
 
 const useStyles = makeStyles((theme) => ({
-    Dialog: {
-        margin: "0 auto",
+  dialog: {
+    "& .MuiDialog-paperWidthSm": {
+      maxWidth: 700,
+      minWidth: 700,
     },
-    paper: {
-        maxWidth: '800px',
+  },
+
+  dialogContent: {
+    fontFamily: "ArchivoBlack",
+    padding: 50,
+  },
+  header: {
+    fontFamily: "ArchivoBlack",
+    position: "sticky",
+    top: 0,
+    paddingTop: 50,
+    paddingBottom: 30,
+    background: "#fff",
+    zIndex: 99,
+  },
+  title: {
+    fontSize: 24,
+  },
+  closeIcon: {
+    fontSize: 28,
+    cursor: "pointer",
+  },
+  chip: {
+    height: "32px",
+    justifyContent: "flex-start",
+    fontFamily: "BarlowRegular",
+    borderColor: "#000",
+    fontSize: 14,
+    fontFamily: "BarlowRegular",
+    marginBottom: 10,
+    marginRight: 10,
+    "& img": {
+      width: 24,
     },
-    DialogContent: {
-        fontFamily: "ArchivoBlack",
-        color: "#000",
-        "& header": {
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            paddingBottom: "30px",
-            fontFamily: "ArchivoBlack",
-            fontStyle: "normal",
-            fontWeight: 400,
-            fontSize: "24px",
-            "& .title": {
-                fontSize: "24px",
-            },
-        },
+    "& svg": {
+      color: "#62929E",
     },
-    title: {
-        fontSize: "24px",
+    "& .MuiChip-deleteIcon:hover, & .MuiChip-deleteIcon:click": {
+      color: "#fff",
     },
-    closeIcon: {
-        fontSize: "24px",
-        color: "#000",
-        cursor: "pointer",
-        fontWeight: 'bold'
+  },
+  deleteIcon: {
+    display: "flex",
+    alignItems: "center",
+    color: "#fff",
+    marginLeft: "auto",
+    width: "auto",
+    "& img": {
+      width: 24,
     },
-    grow: {
-        display: "flex",
+  },
+  setTrait: {
+    fontSize: 12,
+    color: "#62929E",
+    height: 24,
+    lineHeight: "20px",
+    boxSizing: "border-box",
+    border: "1px solid #62929E",
+    borderRadius: "16px",
+    padding: "0 5px",
+    marginRight: 5,
+  },
+  grow: {
+    display: "flex",
+    maxWidth: 200,
+    "& img": {
+      width: 24,
+      height: 24,
+      marginRight: 5,
     },
-    filterBox: {
-        display: 'flex',
-        alignItems: 'center',
-        fontWeight: 600,
-        fontSize: '18px',
-        lineHeight: '32px',
-    },
-    chip: {
-        background: '#fff',
-        border: '0.5px solid #000000',
-        boxSizing: 'border-box',
-        borderRadius: '50px',
-        marginBottom: 0,
-        marginRight: 15,
-        root: {
-            background: '#fff',
-        },
-        select: {
-            background: '#fff',
-        },
-    },
-    search: {
-        display: "flex",
-        justifyContent: "center",
-        maxWidth: "100%",
-        height: '40px',
-        marginTop: '30px',
-        border: '2px solid #000000',
-        boxSizing: 'border-box',
-        borderRadius: '10px',
-        background: '#fff',
-        transition: theme.transitions.create("all", {
-            easing: theme.transitions.easing.easeIn,
-            duration: theme.transitions.duration.shortest
-        }),
-    },
-    searchIcon: {
-        width: theme.spacing(7),
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    inputRoot: {
-        flex: 1,
-        alignItems: "center"
-    },
-    inputInput: {
-        width: "100%",
-        color: '#000'
-    },
-    buttonAsset: {
-        background: '#000',
-        color: '#fff',
-        marginTop: '30px',
-        '&:hover': {
-            background: '#000',
-        }
-    }
+  },
+  filterBox: {
+    display: "flex",
+    alignItems: "center",
+    fontWeight: 600,
+    fontSize: "18px",
+    lineHeight: "32px",
+  },
+
+  search: {
+    display: "flex",
+    justifyContent: "center",
+    maxWidth: "100%",
+    height: 40,
+    marginBottom: 15,
+    marginTop: 20,
+    border: "2px solid #000000",
+    boxSizing: "border-box",
+    borderRadius: 10,
+    background: "#fff",
+    transition: theme.transitions.create("all", {
+      easing: theme.transitions.easing.easeIn,
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  searchIcon: {
+    width: theme.spacing(7),
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inputRoot: {
+    flex: 1,
+    alignItems: "center",
+  },
+  inputInput: {
+    width: "100%",
+    color: "#000",
+  },
+  btnBox: {
+    position: "sticky",
+    bottom: 0,
+  },
+  btnSpace: {
+    paddingLeft: 50,
+    paddingRight: 50,
+  },
+  priceRate: {
+    fontSize: 14,
+    lineHeight: "14px",
+  },
+  traitBtn: {
+    color: "#62929E",
+    border: "2px solid #62929E",
+    height: 32,
+    lineHeight: "28px",
+    padding: "0 7px",
+    borderRadius: 16,
+    fontSize: 14,
+    display: "inline-block",
+    cursor: "pointer",
+  },
+  addto: {
+    width: 32,
+    cursor: "pointer",
+  },
 }));
 const StyledTableCell = withStyles((theme) => ({
-    head: {
-        fontSize: '14px',
-        borderBottom: 0,
-        padding: '14px',
-    },
-    body: {
-        fontSize: '18px',
-        borderBottom: 0,
-        padding: '9px',
-        alignItems: 'center',
-    },
+  head: {
+    fontSize: "14px",
+    borderBottom: 0,
+    padding: 0,
+    lineHeight: "21px",
+  },
+  body: {
+    fontSize: "16px",
+    borderBottom: 0,
+    padding: "7px 0",
+    alignItems: "center",
+  },
 }))(TableCell);

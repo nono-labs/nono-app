@@ -114,7 +114,7 @@ const TraitModal = (props) => {
         {new Array(12).fill().map((_, i) => (
           <Box mb="15px" key={i}>
           <Grid container>
-            <Grid item xs={6}>
+            <Grid  className={classes.property} item xs={6}>
               Bread
             </Grid>
             <Grid item xs={6}>
@@ -145,6 +145,13 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiDialogContent-root:first-child': {
       paddingTop: 0,
     },
+    [theme.breakpoints.up("sm")]: {
+      "& .MuiDialog-paperWidthSm": {
+        maxWidth: 700,
+        minWidth: 700,
+      },
+    },
+   
   },
   paper: {
     maxWidth: "800px",
@@ -158,7 +165,7 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      paddingBottom: "15px",
+      paddingBottom: 15,
       position: 'sticky',
       top: 0,
       left: 0,
@@ -166,18 +173,25 @@ const useStyles = makeStyles((theme) => ({
       paddingTop: 15,
       zIndex: 99,
     },
+    [theme.breakpoints.up("sm")]: {
+      padding: "0 50px 50px",
+      "& header": {
+        paddingTop: 50,
+        paddingBottom: 30,
+      },
+    },
   },
   title: {
     fontFamily: "ArchivoBlack",
-
-    fontSize: "20px",
+    fontSize: 20,
     lineHeight: "24px",
+    [theme.breakpoints.up("sm")]: {
+      fontSize: 24,
+    },
   },
   closeIcon: {
     fontSize: "24px",
-    color: "#000",
     cursor: "pointer",
-    fontWeight: "bold",
   },
   titleBox: {
     display: "flex",
@@ -187,6 +201,10 @@ const useStyles = makeStyles((theme) => ({
       width: 32,
       height: 32,
       marginRight: 10,
+    },
+    [theme.breakpoints.up("sm")]: {
+      marginBottom: 30,
+      fontSize: 18,
     },
   },
   chip: {
@@ -210,4 +228,9 @@ const useStyles = makeStyles((theme) => ({
       border: "transparent",
     },
   },
+  property: {
+    [theme.breakpoints.up("sm")]: {
+      fontSize: 18,
+    },
+  }
 }));

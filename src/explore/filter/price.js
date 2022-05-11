@@ -46,7 +46,7 @@ export default function FilterItem(props) {
     <Box className={classes.root}>
       <Hidden xsDown>
         <Grid justifyContent="space-between" container>
-          <Typography className={classes.filterBox}>
+          <Box className={classes.filterBox}>
             <img className={classes.filter} src={Images.filter} />
             <Box className={classes.filterItem}>
               <Typography className={classes.titleLabel}>Buy Now</Typography>
@@ -56,9 +56,8 @@ export default function FilterItem(props) {
                 color="primary"
                 name="checkedB"
                 className={classes.switch}
-                inputProps={{ "aria-label": "primary checkbox" }}
               />
-              <Box className={classes.priceBox} container>
+              <Box className={classes.priceBox}>
                 <Typography className={classes.titleLabel}>
                   Price Range
                 </Typography>
@@ -67,16 +66,15 @@ export default function FilterItem(props) {
                 <InputBase className={classes.input} placeholder="Max" />
               </Box>
             </Box>
-          </Typography>
+          </Box>
           <Hidden mdDown>
-            <Typography className={classes.grew}>
+            <Box className={classes.grew}>
               <div className={classes.itemsTotal}>13,495 items</div>
               <Select
                 value={sort}
-                // className={classes.select}
                 onChange={handleChange}
               />
-            </Typography>
+            </Box>
           </Hidden>
         </Grid>
         <Grid className={classes.box}>
@@ -113,10 +111,10 @@ export default function FilterItem(props) {
         </Grid>
       </Hidden>
       <Hidden lgUp>
-        <Typography className={clsx(classes.grew, classes.itemsRight)}>
-          <div className={classes.itemsTotal}>13,495 items</div>
+        <Box className={clsx(classes.grew, classes.itemsRight)}>
+          <Typography className={classes.itemsTotal}>13,495 items</Typography>
           <Select value={sort} onChange={handleChange} />
-        </Typography>
+        </Box>
       </Hidden>
       <CollectionModal open={open} setOpen={setOpen} />
     </Box>

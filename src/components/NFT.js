@@ -7,6 +7,7 @@ import {
   CardMedia,
   Typography,
   Grid,
+  Box,
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Images from "@/constant";
@@ -150,13 +151,11 @@ export default function NFT(props) {
           alignItems="center"
           container
         >
-          <Typography
-            variant="body1"
-            component="body1"
+          <Box
             className={classes.author}
           >
             Mfers
-          </Typography>
+          </Box>
           <Typography className={clsx(classes.collection, classes.offer)}>
             offer
             <img src={Images.weth} />

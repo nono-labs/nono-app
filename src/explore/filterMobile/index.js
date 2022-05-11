@@ -5,23 +5,30 @@ import { useState } from "react";
 
 const FilterMobile = (props) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <>
+      <Box className={classes.filterDriver} />
       <Box className={classes.filterBox}>
-        <Typography onClick={()=>setOpen(true)} className={classes.filterText}>
+        <Typography
+          onClick={() => setOpen(true)}
+          className={classes.filterText}
+        >
           <img src={Images.filterMobile} />
           Filter
         </Typography>
       </Box>
-      <FilterBox open={open} setOpen={()=>setOpen(false)} />
+      <FilterBox open={open} setOpen={() => setOpen(false)} />
     </>
   );
 };
 export default FilterMobile;
 
 const useStyles = makeStyles((theme) => ({
+  filterDriver: {
+    height: "50px",
+  },
   filterBox: {
     background: "#000",
     height: "50px",

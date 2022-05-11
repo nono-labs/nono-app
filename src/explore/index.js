@@ -15,10 +15,9 @@ export default function Explore(props) {
     <>
       <FilterPrice />
       <Grid
-        container
-        direction="row"
-        alignItems="stretch"
-        item
+        // container
+        // direction="row"
+        // alignItems="stretch"
         className={classes.grid}
       >
         {[...Array(10)].map((item, index) => (
@@ -44,11 +43,9 @@ const useStyle = makeStyles((theme) => ({
     justifyContent: "space-between",
     gridTemplateColumns: "repeat(5, 1fr)",
     gridGap: 30,
-
     [theme.breakpoints.down("md")]: {
       gridTemplateColumns: "repeat(4, 1fr)",
       gridGap: 20,
-
     },
     [theme.breakpoints.down("sm")]: {
       gridTemplateColumns: "repeat(3, 1fr)",
