@@ -42,11 +42,11 @@ const SideBar = props => {
     }
     console.log(routesList, 'pathname')
     const drawer = (
-        <div>
-            <div onClick={() => goTo('/')} className={classes.logo}>
+        <Box className={classes.barWidth}>
+            <Box onClick={() => goTo('/')} className={classes.logo}>
                 <img src={Images.logo} />
                 <Typography className={classes.logoTitle}>Nonfungibles</Typography>
-            </div>
+            </Box>
             <List>
                 {routesList.map((routeObj, index) => (
                     <NavLink className={classes.navLink} key={index} to={routeObj.path}>
@@ -62,7 +62,7 @@ const SideBar = props => {
                 ))}
             </List>
 
-        </div>
+        </Box>
     );
     return (
         <div className={classes.mainPanel}>
@@ -91,7 +91,7 @@ const SideBar = props => {
                             <TextBtn startIcon={Images.eth} text='Ethereum'  />
                         </Box>
                     </Hidden>
-                    {/* <Hidden smUp implementation="css">
+                    <Hidden smUp implementation="css">
                         {isMobile && !isSearchShowingInMobile ? (
                             <div className={classes.rightBoxMobile}>
                                 <IconButton
@@ -107,7 +107,7 @@ const SideBar = props => {
                             </div>
                         ) : null}
 
-                    </Hidden> */}
+                    </Hidden>
                 </Toolbar>
             </AppBar>
             <nav aria-label='mailbox folders'>
@@ -194,8 +194,8 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('xs')]: {
             width: '80%',
             alignItems: 'flex-start',
-            paddingLeft: '30px',
             marginTop: 56,
+            padding: '0 50px'
         },
     },
     logo: {
@@ -242,7 +242,9 @@ const useStyles = makeStyles((theme) => ({
     },
     menuList: {
         height: '40px',
-        width: '150px',
+        // width: '150px',
+        width: '100%',
+        border: 0,
         cursor: 'pointer',
         marginBottom: '50px',
         borderRadius: '10px',
@@ -299,5 +301,14 @@ const useStyles = makeStyles((theme) => ({
     rightIcon1: {
         background: '#fff',
         marginRight: '0'
+    },
+    barWidth: {
+        width: '100%',
+        boxSizing: 'border-box',
+        padding: '0 25px',
+        [theme.breakpoints.down("xs")]: {
+            padding: 0,
+
+        }
     }
 }))

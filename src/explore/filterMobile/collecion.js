@@ -199,7 +199,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "24px",
   },
   closeIcon: {
-    fontSize: "24px",
+    fontSize: "30px",
     color: "#000",
     cursor: "pointer",
     fontWeight: "bold",

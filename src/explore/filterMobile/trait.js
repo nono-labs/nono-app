@@ -190,7 +190,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   closeIcon: {
-    fontSize: "24px",
+    fontSize: "30px",
     cursor: "pointer",
   },
   titleBox: {

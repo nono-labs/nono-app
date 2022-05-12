@@ -52,7 +52,7 @@ export default function TopCollections(props) {
             alignItems="center"
             container
           >
-            <TextBtn className={classes.buttonAsset} text="TextBtn" />
+            <TextBtn  onClick={()=>{}} className={classes.buttonAsset} text="TextBtn" />
           </Grid>
         </caption>
         <TableHead>
@@ -164,7 +164,7 @@ const useStyle = makeStyles((theme) => ({
     },
   },
   head: {
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
       display: "none",
     },
   },
@@ -222,6 +222,9 @@ const useStyle = makeStyles((theme) => ({
   rateDown: {
     color: "#00CF9E",
   },
+  buttonAsset: {
+    marginTop: 50,
+  }
 }));
 
 const StyledTableCell = withStyles((theme) => ({

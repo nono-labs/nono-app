@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, Button } from "@material-ui/core";
+import { makeStyles, Button, CircularProgress } from "@material-ui/core";
 import clsx from "clsx";
 
 export default function TextBtn(props) {
@@ -10,17 +10,33 @@ export default function TextBtn(props) {
     className,
     onClick,
     startIcon,
+    loading,
+    bg, // 0 white ;1 #62929E
+    pd, //padding
+    md, //margin
+    mw, // max-width
   } = props;
-  const classes = useStyle();
+  const classes = useStyle(props);
 
   return (
     <Button
       style={style}
       onClick={onClick}
-      startIcon={startIcon && <img src={startIcon} />}
+      startIcon={
+        (loading && (
+          <CircularProgress size={20} className={classes.buttonProgress} />
+        )) ||
+        (startIcon && <img src={startIcon} />)
+      }
       disableRipple={disableRipple}
       classes={{
-        root: clsx(classes.buttonText, onClick && classes.buttonBtn, className),
+        root: clsx(
+          classes.buttonText,
+          onClick && classes.buttonBtn,
+          bg == 0 && classes.buttonBtnWhite,
+          bg == 1 && classes.buttonBtnTheme,
+          className
+        ),
       }}
     >
       <span>{text}</span>
@@ -32,7 +48,7 @@ const useStyle = makeStyles((theme) => ({
   buttonText: {
     fontFamily: "ArchivoBlack",
     alignItems: "center",
-    cursor: "pointer",
+    cursor: "inherit",
     boxSizing: "border-box",
     border: "0.5px solid #000000",
     borderRadius: theme.custom.palette.radius10,
@@ -44,6 +60,9 @@ const useStyle = makeStyles((theme) => ({
     alignItems: "center",
     userSelect: "none",
     textTransform: "none",
+    paddingLeft: (props) => props.pd,
+    paddingRight: (props) => props.pd,
+    maxWidth: (props) => props.mw,
     [theme.breakpoints.down("md")]: {
       padding: "0 8px",
       fontSize: "13px",
@@ -56,12 +75,33 @@ const useStyle = makeStyles((theme) => ({
       display: "inline-black",
       width: "18px",
     },
+    "&:hover": {
+      background: "transparent",
+    },
   },
   buttonBtn: {
     background: "#000",
     color: "#fff",
+    cursor: (props) => (props.loading ? "inherit" : "pointer"),
     "&:hover": {
       background: "#000",
+    },
+  },
+  buttonBtnWhite: {
+    background: "#fff",
+    color: "#000",
+    cursor: (props) => (props.loading ? "inherit" : "pointer"),
+    "&:hover": {
+      background: "transparent",
+    },
+  },
+  buttonBtnTheme: {
+    background: "#62929E",
+    color: "#fff",
+    cursor: (props) => (props.loading ? "inherit" : "pointer"),
+    border: "0.5px solid #62929E",
+    "&:hover": {
+      background: "#62929E",
     },
   },
 }));

@@ -33,7 +33,8 @@ const theme = createTheme({
   },
   mixins: {
     drawer: {
-      minWidth: 200
+      minWidth: 200,
+      minWidthMobile: 150,
     },
   },
   padding: {

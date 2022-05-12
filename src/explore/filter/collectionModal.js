@@ -254,7 +254,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 24,
   },
   closeIcon: {
-    fontSize: 28,
+    fontSize: "30px",
     cursor: "pointer",
   },
   chip: {

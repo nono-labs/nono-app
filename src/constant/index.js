@@ -20,7 +20,10 @@ import addIcon from '@/assets/img/addIcon.svg';
 import filterMobile from '@/assets/img/filterMobile.svg';
 import traitClose from '@/assets/img/traitClose.svg';
 import traitAdd from '@/assets/img/traitAdd.svg';
-
+import link from '@/assets/img/link.svg';
+import date from '@/assets/img/date.svg';
+import cancel from '@/assets/img/cancel.svg';
+import edit from '@/assets/img/edit.svg';
 export default {
     logo,
     home,
@@ -43,5 +46,9 @@ export default {
     filterMobile,
     traitClose,
     traitAdd,
+    link,
+    date,
+    cancel,
+    edit,
 }
   

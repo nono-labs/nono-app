@@ -7,11 +7,6 @@ import {
   Box,
   Chip,
   Divider,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
-  Avatar,
 } from "@material-ui/core";
 import {
   Image as ImageIcon,
@@ -24,17 +19,30 @@ import Images from "@/constant";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import clsx from "clsx";
+import ActivitiesModal from "./detailModal/activity";
+import OffersModal from "./detailModal/offer";
+import MakeOfferModal from "./detailModal/makeOffer";
+import ManageListModal from "./detailModal/manageList";
+
 const Detail = (props) => {
   let { tokenid } = useParams();
-  //   let { index, canister} = extjs.decodeTokenId(tokenid);
   const navigate = useNavigate();
-  const [floor, setFloor] = React.useState("");
-  const [listing, setListing] = React.useState(false);
-  const [transactions, setTransactions] = React.useState(false);
-  const [owner, setOwner] = React.useState(false);
-  const [offers, setOffers] = React.useState(false);
-  const [openOfferForm, setOpenOfferForm] = React.useState(false);
+  const [current, setCurrent] = useState();
   const classes = useStyles();
+  const [visible, setVisible] = useState({
+    activities: false,
+    offers: false,
+    buy: false,
+    manageList: false,
+  });
+
+  const handleOpen = (index, type = "buy") => {
+    setVisible({
+      ...visible,
+      [type]: true,
+    });
+    setCurrent(index);
+  };
 
   const displayImage = (tokenid) => {
     return <img src={Images.nft} alt="" className={classes.nftImage} />;
@@ -75,19 +83,21 @@ const Detail = (props) => {
           <Grid container>
             <Grid item sm={6}>
               <Box className={classes.grid}>
-                <img  className={classes.avatarImg} src={Images.avatar} />
+                <img className={classes.avatarImg} src={Images.avatar} />
                 <Box className={classes.avatarText}>
-                  <Typography>Collection</Typography>
-                  <a>Meebit</a>
+                  <Typography className={classes.textFont}>
+                    Collection
+                  </Typography>
+                  <a className={classes.textFont}>Meebit</a>
                 </Box>
               </Box>
             </Grid>
             <Grid item sm={6}>
               <Box className={classes.grid}>
-                <img  className={classes.avatarImg} src={Images.avatar} />
+                <img className={classes.avatarImg} src={Images.avatar} />
                 <Box className={classes.avatarText}>
-                  <Typography>Owner</Typography>
-                  <a>Alex Sanders</a>
+                  <Typography className={classes.textFont}>Owner</Typography>
+                  <a className={classes.textFont}>Alex Sanders</a>
                 </Box>
               </Box>
             </Grid>
@@ -176,7 +186,33 @@ const Detail = (props) => {
                 </Grid>
               </Box>
               <Box>
-                <TextBtn text="Activities" />
+              <TextBtn
+                  onClick={() =>
+                    setVisible({
+                      ...visible,
+                      manageList: true,
+                    })
+                  }
+                  style={{ marginRight: 10 }}
+                  text="Manage"
+                />
+                <TextBtn
+                  bg={1}
+                  onClick={() => handleOpen(0)}
+                  style={{ marginRight: 10 }}
+                  text="Buy Now"
+                />
+                <TextBtn
+                  style={{ marginRight: 10 }}
+                  bg={0}
+                  onClick={() =>
+                    setVisible({
+                      ...visible,
+                      activities: true,
+                    })
+                  }
+                  text="Activities"
+                />
               </Box>
             </Grid>
             <Grid
@@ -205,12 +241,64 @@ const Detail = (props) => {
                 </Grid>
               </Box>
               <Box>
-                <TextBtn text="Activities" />
+                <TextBtn
+                  style={{ marginRight: 10 }}
+                  onClick={() => handleOpen(1)}
+                  text="Make Offer"
+                />
+                <TextBtn
+                  onClick={() =>
+                    setVisible({
+                      ...visible,
+                      offers: true,
+                    })
+                  }
+                  bg={0}
+                  text="Offers"
+                />
               </Box>
             </Grid>
           </Typography>
         </Box>
       </Box>
+      <ActivitiesModal
+        open={visible.activities}
+        setOpen={() =>
+          setVisible({
+            ...visible,
+            activities: false,
+          })
+        }     
+      />
+      <OffersModal
+        open={visible.offers}
+        setOpen={() =>
+          setVisible({
+            ...visible,
+            offers: false,
+          })
+        }
+      />
+      <MakeOfferModal
+        open={visible.buy}
+        current={current}
+        setOpen={() =>
+          setVisible({
+            ...visible,
+            buy: false,
+          })
+        }
+      />
+      <ManageListModal
+        open={visible.manageList}
+        current={current}
+        setOpen={() =>
+          setVisible({ 
+            ...visible,
+            manageList: false,
+          })
+        }
+      />
     </Box>
   );
 };
@@ -219,7 +307,7 @@ export default Detail;
 const useStyles = makeStyles((theme) => ({
   grid: {
     display: "flex",
-    alignItems: 'center',
+    alignItems: "center",
   },
   container: {
     display: "flex",
@@ -280,6 +368,14 @@ const useStyles = makeStyles((theme) => ({
     height: "36px",
     border: "2px solid #62929E",
     borderRadius: "50px",
+    marginRight: "auto",
+    [theme.breakpoints.down("md")]: {
+      marginTop: 10,
+    },
+    [theme.breakpoints.down("sm")]: {
+      height: 32,
+      width: "100%",
+    },
   },
   actionLike: {
     display: "flex",
@@ -290,16 +386,17 @@ const useStyles = makeStyles((theme) => ({
     "& p": {
       marginLeft: 5,
     },
+    [theme.breakpoints.down("sm")]: {
+      width: "33%",
+      justifyContent: "center",
+    },
   },
   contractDetail: {
     [theme.breakpoints.down("lg")]: {
       display: "flex",
-      // flexDirection: "column",
       "& .MuiGrid-grid-xs-3": {
-        // display: "flex",
-        // justifyContent: "space-between",
         maxWidth: "50%",
-        flexBasis: '50%',
+        flexBasis: "50%",
       },
     },
     [theme.breakpoints.down("sm")]: {
@@ -327,6 +424,16 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 36,
     lineHeight: "36px",
     paddingRight: 50,
+    textAlign: "left",
+    [theme.breakpoints.down("md")]: {
+      fontSize: 24,
+      lineHeight: "24px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "center",
+      fontSize: 18,
+      lineHeight: "18px",
+    },
   },
   borderLine: {
     background: "#62929E",
@@ -335,18 +442,21 @@ const useStyles = makeStyles((theme) => ({
   avatarImg: {
     width: 33,
     marginRight: 16,
+    [theme.breakpoints.down("sm")]: {
+      marginRight: "5px",
+    },
   },
   avatarText: {
     fontSize: 18,
-    lineHeight: '27px',
-    '& a': {
-      color: '#62929E',
-      fontStyle: 'italic',
-      cursor: 'pointer',
-      '&:hover': {
-        textDecoration: 'underline',
-      }
-    }
+    lineHeight: "27px",
+    "& a": {
+      color: "#62929E",
+      fontStyle: "italic",
+      cursor: "pointer",
+      "&:hover": {
+        textDecoration: "underline",
+      },
+    },
   },
   title: {
     fontSize: 18,
@@ -413,6 +523,16 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
       alignItems: "flex-start",
+    },
+  },
+  textFont: {
+    fontSize: 18,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 16,
+      lineHeight: "24px",
+    },
+    [theme.breakpoints.down("xs")]: {
+      lineHeight: "16px",
     },
   },
 }));

@@ -20,6 +20,7 @@ const useStyle = makeStyles(theme => ({
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.mixins.drawer.minWidth,
     },
+   
   },
   toolbar: theme.mixins.toolbar,
   main: {
