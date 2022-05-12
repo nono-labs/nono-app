@@ -1,7 +1,7 @@
 import theme from "@/theme";
 import "@fontsource/roboto";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from "@material-ui/core/styles";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";

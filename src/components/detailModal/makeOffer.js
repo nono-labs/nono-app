@@ -1,28 +1,18 @@
-import React, { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  makeStyles,
-  Typography,
-  InputBase,
-  Box,
-  Grid,
-  Divider,
-} from "@material-ui/core";
-import Images from "@/constant";
-import { useTheme } from "@material-ui/styles";
-import {
-  Close as CloseIcon,
-  Search as SearchIcon,
-  CloseOutlined as CloseOutlinedIcon,
-  AddCircleOutline as AddCircleOutlineIcon,
-} from "@material-ui/icons";
-import clsx from "clsx";
 import TextBtn from "@/components/btn";
+import Modal from "@/components/modal";
+import Images from "@/constant";
 import {
-  ExpandMore as ExpandMoreIcon,
-  ExpandLess as ExpandLessIcon,
-} from "@material-ui/icons";
+  Box,
+  Divider,
+  Grid,
+  InputBase,
+  makeStyles,
+  Typography
+} from "@material-ui/core";
+import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
+import { useTheme } from "@material-ui/styles";
+import clsx from "clsx";
+import React from "react";
 const titleMenu = {
   0: "Buy Now",
   1: "Make Offer",
@@ -34,197 +24,134 @@ const ComponentModal = (props) => {
   const classes = useStyles();
 
   return (
-    <Dialog
-      onClose={setOpen}
+    <Modal
       open={open}
-      classes={{ root: classes.Dialog, paper: classes.paper }}
+      setOpen={setOpen}
+      maxWidth={500}
+      title={titleMenu[current]}
     >
-      <DialogContent classes={{ root: classes.DialogContent }}>
-        <header>
-          <Typography classes={{ root: classes.title }}>
-            {titleMenu[current]}
+      <Grid
+        className={classes.card}
+        container
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Box className={classes.nftCard}>
+          <img src={Images.nft} />
+        </Box>
+        <Box>
+          <Typography className={classes.nftTitle}>The Sevens</Typography>
+          <Typography className={clsx(classes.nftTitle, classes.nftName)}>
+            Meebit
           </Typography>
-          <CloseIcon onClick={setOpen} classes={{ root: classes.closeIcon }} />
-        </header>
-        <Grid
-          className={classes.card}
-          container
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Box className={classes.nftCard}>
-            <img src={Images.nft} />
-          </Box>
-          <Box>
-            <Typography className={classes.nftTitle}>The Sevens</Typography>
-            <Typography className={clsx(classes.nftTitle, classes.nftName)}>
-              Meebit
-            </Typography>
-          </Box>
-        </Grid>
+        </Box>
+      </Grid>
+      <Grid
+        className={classes.cardList}
+        container
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Box className={classes.label}>List Price</Box>
+        <Box className={classes.price}>
+          <img src={Images.eth} />
+          0.75
+        </Box>
+      </Grid>
+      {current == 1 && (
         <Grid
           className={classes.cardList}
           container
           justifyContent="space-between"
           alignItems="center"
         >
-          <Box className={classes.label}>List Price</Box>
+          <Box className={classes.label}>Best Offer</Box>
+          <Box className={classes.price}>
+            <img src={Images.weth} />
+            0.68
+          </Box>
+        </Grid>
+      )}
+
+      <Divider className={classes.divider} />
+      {current == 1 && (
+        <>
+          <Grid
+            className={classes.cardList}
+            container
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Box className={classes.label}>Your Offer</Box>
+            <Box className={classes.inputBox}>
+              <InputBase className={classes.input} />
+              <Divider
+                className={classes.divider1}
+                orientation="vertical"
+                flexItem
+              />
+              <Box className={classes.priceBox}>
+                <img src={Images.weth} />
+                WETH
+              </Box>
+            </Box>
+          </Grid>
+          <Grid
+            className={classes.cardList}
+            container
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Box className={classes.label}>Validity</Box>
+            <Box className={classes.inputBox}>
+              <Box className={clsx(classes.input, classes.validity)}>
+                3Days
+                <ExpandMoreIcon htmlColor={theme.palette.secondary.main} />
+              </Box>
+              <Divider
+                className={classes.divider1}
+                orientation="vertical"
+                flexItem
+              />
+              <Box className={classes.priceBox}>
+                <img src={Images.date} />
+              </Box>
+            </Box>
+          </Grid>
+        </>
+      )}
+      {current == 0 && (
+        <Grid
+          className={classes.cardList}
+          container
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Box className={classes.label}>Total</Box>
           <Box className={classes.price}>
             <img src={Images.eth} />
             0.75
+            <Typography className={classes.dollar}>($1254.32)</Typography>
           </Box>
         </Grid>
+      )}
+      <Grid container justifyContent="center" alignItems="center">
+        <TextBtn onClick={() => {}} loading={true} text={titleMenu[current]} />
         {current == 1 && (
-          <Grid
-            className={classes.cardList}
-            container
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Box className={classes.label}>Best Offer</Box>
-            <Box className={classes.price}>
-              <img src={Images.weth} />
-              0.68
-            </Box>
-          </Grid>
-        )}
-
-        <Divider className={classes.divider} />
-        {current == 1 && (
-          <>
-            <Grid
-              className={classes.cardList}
-              container
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Box className={classes.label}>Your Offer</Box>
-              <Box className={classes.inputBox}>
-                <InputBase className={classes.input} />
-                <Divider
-                  className={classes.divider1}
-                  orientation="vertical"
-                  flexItem
-                />
-                <Box className={classes.priceBox}>
-                  <img src={Images.weth} />
-                  WETH
-                </Box>
-              </Box>
-            </Grid>
-            <Grid
-              className={classes.cardList}
-              container
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Box className={classes.label}>Validity</Box>
-              <Box className={classes.inputBox}>
-                <Box className={clsx(classes.input, classes.validity)}>
-                  3Days
-                  <ExpandMoreIcon htmlColor={theme.palette.secondary.main} />
-                </Box>
-                <Divider
-                  className={classes.divider1}
-                  orientation="vertical"
-                  flexItem
-                />
-                <Box className={classes.priceBox}>
-                  <img src={Images.date} />
-                </Box>
-              </Box>
-            </Grid>
-          </>
-        )}
-        {current == 0 && (
-          <Grid
-            className={classes.cardList}
-            container
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Box className={classes.label}>Total</Box>
-            <Box className={classes.price}>
-              <img src={Images.eth} />
-              0.75
-              <Typography className={classes.dollar}>($1254.32)</Typography>
-            </Box>
-          </Grid>
-        )}
-        <Grid container justifyContent="center" alignItems="center">
           <TextBtn
+            className={classes.btnLeft}
+            bg={0}
             onClick={() => {}}
-            loading={true}
-            text={titleMenu[current]}
+            text="Convert WETH"
           />
-          {current == 1 && (
-            <TextBtn
-              className={classes.btnLeft}
-              bg={0}
-              onClick={() => {}}
-              text="Convert WETH"
-            />
-          )}
-        </Grid>
-      </DialogContent>
-    </Dialog>
+        )}
+      </Grid>
+    </Modal>
   );
 };
 export default ComponentModal;
 
 const useStyles = makeStyles((theme) => ({
-  Dialog: {
-    margin: "0 auto",
-    "& .MuiDialogContent-root:first-child": {
-      paddingTop: 0,
-    },
-    [theme.breakpoints.up("sm")]: {
-      "& .MuiDialog-paperWidthSm": {
-        maxWidth: 500,
-        minWidth: 500,
-      },
-    },
-  },
-  paper: {
-    maxWidth: "800px",
-    margin: 0,
-    width: "calc(100% - 30px)",
-  },
-  DialogContent: {
-    color: "#000",
-    padding: "0 15px 15px",
-    "& header": {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      paddingBottom: 15,
-      position: "sticky",
-      top: 0,
-      left: 0,
-      background: "#fff",
-      paddingTop: 15,
-      zIndex: 99,
-    },
-    [theme.breakpoints.up("sm")]: {
-      padding: "0 50px 50px",
-      "& header": {
-        paddingTop: 50,
-        paddingBottom: 30,
-      },
-    },
-  },
-  title: {
-    fontFamily: "ArchivoBlack",
-    fontSize: 20,
-    lineHeight: "24px",
-    [theme.breakpoints.up("sm")]: {
-      fontSize: 24,
-    },
-  },
-  closeIcon: {
-    fontSize: "30px",
-    cursor: "pointer",
-  },
   card: {
     marginBottom: 20,
   },

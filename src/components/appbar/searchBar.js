@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import Images from '@/constant';
+import { Box, ClickAwayListener, IconButton, InputBase } from "@material-ui/core";
+import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  Search as SearchIcon,
-  CloseOutlined as CloseOutlinedIcon
+  CloseOutlined as CloseOutlinedIcon, Search as SearchIcon
 } from "@material-ui/icons";
-import { Box, InputBase, IconButton, Snackbar, ClickAwayListener } from "@material-ui/core";
 import { useTheme } from "@material-ui/styles";
-import Avatar from '@material-ui/core/Avatar';
-
-import Images from '@/constant'
+import React, { useState } from "react";
 
 const data = [
   {

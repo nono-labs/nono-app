@@ -1,10 +1,10 @@
-import React from "react";
-import { makeStyles, Box, Typography, Grid } from "@material-ui/core";
-import TopCollections from "./top";
+import TextBtn from "@/components/btn";
 import NFT from "@/components/NFT";
 import Images from "@/constant";
+import { Box, Grid, makeStyles } from "@material-ui/core";
 import clsx from "clsx";
-import TextBtn from "@/components/btn";
+import React from "react";
+import TopCollections from "./top";
 export default function Home(props) {
   console.log("home");
   const classes = useStyle();

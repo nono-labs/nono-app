@@ -1,27 +1,18 @@
-import React from "react";
+import TextBtn from "@/components/btn";
+import Images from "@/constant";
 import {
-  Card,
-  CardContent,
-  withStyles,
-  Typography,
-  Grid,
-  CardHeader,
-  makeStyles,
-  Box,
+  Box, Card, Grid, makeStyles, Typography, withStyles
 } from "@material-ui/core";
+import MuiAccordion from "@material-ui/core/Accordion";
+import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
+import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import MuiAccordion from "@material-ui/core/Accordion";
-import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
-import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Images from "@/constant";
-import TextBtn from "@/components/btn";
+import React from "react";
 
 export default function TopCollections(props) {
   console.log("home");
@@ -52,7 +43,11 @@ export default function TopCollections(props) {
             alignItems="center"
             container
           >
-            <TextBtn  onClick={()=>{}} className={classes.buttonAsset} text="TextBtn" />
+            <TextBtn
+              onClick={() => {}}
+              className={classes.buttonAsset}
+              text="TextBtn"
+            />
           </Grid>
         </caption>
         <TableHead>
@@ -224,7 +219,7 @@ const useStyle = makeStyles((theme) => ({
   },
   buttonAsset: {
     marginTop: 50,
-  }
+  },
 }));
 
 const StyledTableCell = withStyles((theme) => ({

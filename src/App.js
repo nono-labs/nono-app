@@ -1,38 +1,35 @@
-import logo from "./logo.svg";
-import "./App.css";
-import React, { useState, useEffect } from "react";
-import Typography from "@material-ui/core/Typography";
-import { useSelector } from "react-redux";
+import Appbar from "@/components/appbar";
 import { useGetInfo } from "@/redux/profile";
-import { makeStyles } from "@material-ui/styles";
-import { useLocation } from "react-router";
 import Route from "@/router";
+import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
-import Appbar from '@/components/appbar'
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router";
+import "./App.css";
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles((theme) => ({
   backdrop: {
-    display: 'flex',
-    minHeight: '100vh',
+    display: "flex",
+    minHeight: "100vh",
   },
   content: {
     flexGrow: 1,
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up("sm")]: {
       marginLeft: theme.mixins.drawer.minWidth,
     },
-   
   },
   toolbar: theme.mixins.toolbar,
   main: {
     padding: theme.padding.md50,
     background: theme.palette.primary.main,
-    [theme.breakpoints.between('sm', 'md')]: {
+    [theme.breakpoints.between("sm", "md")]: {
       padding: theme.padding.md20,
     },
-    [theme.breakpoints.down('sm')]: {
-      padding: '15px 10px',
+    [theme.breakpoints.down("sm")]: {
+      padding: "15px 10px",
     },
-  }
+  },
 }));
 function App() {
   const { pathname } = useLocation();

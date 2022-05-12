@@ -1,7 +1,7 @@
-import { makeStyles, Box, Typography } from "@material-ui/core";
 import Images from "@/constant";
-import FilterBox from "./filter";
+import { Box, makeStyles, Typography } from "@material-ui/core";
 import { useState } from "react";
+import FilterBox from "./filter";
 
 const FilterMobile = (props) => {
   const classes = useStyles();

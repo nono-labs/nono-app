@@ -1,15 +1,7 @@
-import {
-  makeStyles,
-  Box,
-  Typography,
-  Grid,
-  Drawer,
-  IconButton,
-  Switch,
-  InputBase,
-  Chip,
-} from "@material-ui/core";
 import Images from "@/constant";
+import {
+  Box, Chip, Drawer, Grid, IconButton, InputBase, makeStyles, Switch, Typography
+} from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { useState } from "react";
 import CollectionModal from "./collecion";
@@ -213,9 +205,9 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
   },
   switch: {
-    '& .MuiSwitch-track': {
-      background: '#62929E',
-      opacity: 1
-    }
-  }
+    "& .MuiSwitch-track": {
+      background: "#62929E",
+      opacity: 1,
+    },
+  },
 }));

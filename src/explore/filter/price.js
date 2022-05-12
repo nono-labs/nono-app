@@ -1,19 +1,12 @@
-import React, { useState } from "react";
-import {
-  makeStyles,
-  Box,
-  Grid,
-  Typography,
-  Switch,
-  InputBase,
-  Hidden,
-  IconButton,
-  Chip,
-} from "@material-ui/core";
-import Images from "@/constant";
-import CollectionModal from "./collectionModal";
-import clsx from "clsx";
 import Select from "@/components/select";
+import Images from "@/constant";
+import {
+  Box, Chip, Grid, Hidden,
+  IconButton, InputBase, makeStyles, Switch, Typography
+} from "@material-ui/core";
+import clsx from "clsx";
+import React, { useState } from "react";
+import CollectionModal from "./collectionModal";
 export default function FilterItem(props) {
   const classes = useStyle();
   const [minPrice, setMinPrice] = useState("");
@@ -70,10 +63,7 @@ export default function FilterItem(props) {
           <Hidden mdDown>
             <Box className={classes.grew}>
               <div className={classes.itemsTotal}>13,495 items</div>
-              <Select
-                value={sort}
-                onChange={handleChange}
-              />
+              <Select value={sort} onChange={handleChange} />
             </Box>
           </Hidden>
         </Grid>

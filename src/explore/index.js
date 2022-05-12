@@ -1,23 +1,15 @@
-import React from "react";
-import {
-  makeStyles,
-  Grid,
-  Hidden,
-} from "@material-ui/core";
-import FilterPrice from "./filter/price";
 import NFT from "@/components/NFT";
+import { Grid, Hidden, makeStyles } from "@material-ui/core";
+import React from "react";
+import FilterPrice from "./filter/price";
 import FilterMobile from "./filterMobile";
 export default function Explore(props) {
   const classes = useStyle();
 
-  console.log("Explore");
   return (
     <>
       <FilterPrice />
       <Grid
-        // container
-        // direction="row"
-        // alignItems="stretch"
         className={classes.grid}
       >
         {[...Array(10)].map((item, index) => (
