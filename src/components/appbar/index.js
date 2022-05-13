@@ -2,12 +2,24 @@ import TextBtn from "@/components/btn";
 import Images from "@/constant";
 import { routesList } from "@/router";
 import {
-    AppBar,
-    Box, CssBaseline, Drawer,
-    Hidden, IconButton, List, ListItem, ListItemText, makeStyles, Toolbar, Typography, useMediaQuery, useTheme
+  AppBar,
+  Box,
+  CssBaseline,
+  Drawer,
+  Hidden,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  makeStyles,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 import {
-    Menu as MenuIcon, SearchOutlined as SearchIcon
+  Menu as MenuIcon,
+  SearchOutlined as SearchIcon,
 } from "@material-ui/icons";
 import cx from "clsx";
 import React, { useState } from "react";
@@ -51,19 +63,20 @@ const SideBar = (props) => {
       <List>
         {routesList.map((routeObj, index) => (
           <NavLink className={classes.navLink} key={index} to={routeObj.path}>
-            {({ isActive }) => (
-              <ListItem
-                onClick={() => setMobileOpen(false)}
-                className={cx(
-                  classes.menuList,
-                  isActive && classes.menuListActive
-                )}
-              >
-                {/* <img src={routeObj.logo} /> */}
-                {routeObj.logo}
-                <ListItemText primary={routeObj.pathName} />
-              </ListItem>
-            )}
+            {({ isActive }) => {
+              return (
+                <ListItem
+                  onClick={() => setMobileOpen(false)}
+                  className={cx(
+                    classes.menuList,
+                    isActive && classes.menuListActive
+                  )}
+                >
+                  {routeObj.logo}
+                  <ListItemText primary={routeObj.pathName} />
+                </ListItem>
+              );
+            }}
           </NavLink>
         ))}
       </List>
@@ -93,10 +106,10 @@ const SideBar = (props) => {
           ) : (
             <SearchContainer onSearchClose={() => setSearchShowing(false)} />
           )}
-          <Hidden xsDown implementation="css">
+          <Hidden xsDown>
             <Box className={classes.rightBox}>
               <TextBtn
-                style={{ marginRight: "20px" }}
+                className={classes.rightBoxBtn}
                 startIcon={connect && Images.asset}
                 text="Connect"
                 onClick={handleIsConnect}
@@ -104,7 +117,7 @@ const SideBar = (props) => {
               <TextBtn startIcon={Images.eth} text="Ethereum" />
             </Box>
           </Hidden>
-          <Hidden smUp implementation="css">
+          <Hidden smUp >
             {isMobile && !isSearchShowingInMobile ? (
               <div className={classes.rightBoxMobile}>
                 <IconButton
@@ -299,7 +312,12 @@ const useStyles = makeStyles((theme) => ({
   rightBox: {
     display: "flex",
   },
-
+  rightBoxBtn: {
+    margin: "0 20px",
+    [theme.breakpoints.down("md")]: {
+      margin: "0 10px",
+    },
+  },
   rightBoxMobile: {
     display: "flex",
     alignItems: "center",

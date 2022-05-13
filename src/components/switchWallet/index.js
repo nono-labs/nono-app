@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import Images from "@/constant";
 import {
   Dialog,
-  DialogTitle,
   DialogContent,
-  DialogActions,
   makeStyles,
   Typography,
-  Button,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import Images from "@/constant";
+import React from "react";
 // import WalletConnectProvider from '@walletconnect/web3-provider'
+import Modal from "@/components/modal";
 
 const SwitchWallet = (props) => {
   const { open, setOpen } = props;
@@ -39,9 +37,9 @@ const SwitchWallet = (props) => {
           }
         })();
         break;
-        case "walletConnect":
+      case "walletConnect":
         (async () => {
-          if (localStorage.getItem('walletconnect')) {
+          if (localStorage.getItem("walletconnect")) {
             // const provider = new WalletConnectProvider({
             //   infuraId: 'f65c0bbb601041e19fb6a106560bc9ac',
             //   qrcode: true,
@@ -68,80 +66,36 @@ const SwitchWallet = (props) => {
     }
   };
   return (
-    <Dialog
-      onClose={handleClose}
+    <Modal
+      title="Connet Wallet"
+      maxWidth={500}
       open={open}
-      classes={{ root: classes.Dialog }}
+      setOpen={handleClose}
     >
-      <DialogContent
-        style={{ padding: "50px" }}
-        classes={{ root: classes.DialogContent }}
-      >
-        <header>
-          <Typography classes={{ root: classes.title }}>
-            Connet Wallet
-          </Typography>
-          <CloseIcon
-            onClick={handleClose}
-            classes={{ root: classes.closeIcon }}
-          />
-        </header>
-        <section className={classes.grow}>
-          <section
-            onClick={() => connectWallet("metamask")}
-            className={classes.box}
-          >
-            <img src={Images.metamask} />
-            <Typography classes={{ root: classes.boxSpan }}>
-              metamask
-            </Typography>
-          </section>
-          <section
-            onClick={() => connectWallet("walletConnect")}
-            className={classes.box}
-          >
-            <img src={Images.walletConnect} />
-            <Typography classes={{ root: classes.boxSpan }}>
-              walletConnect
-            </Typography>
-          </section>
+      <section className={classes.grow}>
+        <section
+          onClick={() => connectWallet("metamask")}
+          className={classes.box}
+        >
+          <img src={Images.metamask} />
+          <Typography classes={{ root: classes.boxSpan }}>Metamask</Typography>
         </section>
-      </DialogContent>
-    </Dialog>
+        <section
+          onClick={() => connectWallet("walletConnect")}
+          className={classes.box}
+        >
+          <img src={Images.walletConnect} />
+          <Typography classes={{ root: classes.boxSpan }}>
+            WalletConnect
+          </Typography>
+        </section>
+      </section>
+    </Modal>
   );
 };
 export default SwitchWallet;
 
 const useStyles = makeStyles((theme) => ({
-  Dialog: {
-    // maxWidth: "500px",
-    margin: "0 auto",
-  },
-  DialogContent: {
-    fontFamily: "Archivo Black",
-    color: "#000",
-    "& header": {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      paddingBottom: "30px",
-      fontFamily: "Archivo Black",
-      fontStyle: "normal",
-      fontWeight: 400,
-      fontSize: "24px",
-      "& .title": {
-        fontSize: "24px",
-      },
-    },
-  },
-  title: {
-    fontSize: "24px",
-  },
-  closeIcon: {
-    fontSize: "24px",
-    color: "#000",
-    cursor: "pointer",
-  },
   grow: {
     display: "flex",
   },

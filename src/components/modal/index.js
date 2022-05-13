@@ -1,14 +1,13 @@
 import {
-  Dialog, DialogContent, makeStyles,
-  Typography
+  Dialog,
+  DialogContent,
+  makeStyles,
+  Typography,
 } from "@material-ui/core";
-import {
-  Close as CloseIcon
-} from "@material-ui/icons";
+import { Close as CloseIcon } from "@material-ui/icons";
 import React from "react";
-
 const ComponentModal = (props) => {
-  const { open, setOpen, children, maxWidth, title, } = props;
+  const { open, setOpen, children, maxWidth, title } = props;
   const classes = useStyles(maxWidth);
 
   return (
@@ -37,15 +36,18 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.up("sm")]: {
       "& .MuiDialog-paperWidthSm": {
-        maxWidth: props=>props,
-        minWidth: props=>props,
+        maxWidth: (props) => props,
+        minWidth: (props) => props,
       },
     },
   },
   paper: {
-    // maxWidth: "800px",
     margin: 0,
     width: "calc(100% - 30px)",
+    borderRadius: 20,
+    [theme.breakpoints.down("xs")]: {
+      borderRadius: 10,
+    },
   },
   DialogContent: {
     color: "#000",

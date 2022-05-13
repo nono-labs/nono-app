@@ -53,8 +53,8 @@ const theme = createTheme({
       "@global": {
         "@font-face": [
           Fonts.ArchivoBlack,
-          Fonts.BarlowBold,
           Fonts.BarlowBlack,
+          Fonts.BarlowBold,
           Fonts.BarlowRegular,
         ]
       }

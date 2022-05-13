@@ -24,6 +24,12 @@ import link from '@/assets/img/link.svg';
 import date from '@/assets/img/date.svg';
 import cancel from '@/assets/img/cancel.svg';
 import edit from '@/assets/img/edit.svg';
+import edit1 from '@/assets/img/edit1.svg';
+
+import convert from '@/assets/img/convert.svg';
+import twitter from '@/assets/img/twitter.svg';
+import share from '@/assets/img/share.svg';
+
 export default {
     logo,
     home,
@@ -50,5 +56,9 @@ export default {
     date,
     cancel,
     edit,
+    edit1,
+    convert,
+    twitter,
+    share,
 }
   

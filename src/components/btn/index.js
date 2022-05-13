@@ -10,11 +10,15 @@ export default function TextBtn(props) {
     className,
     onClick,
     startIcon,
+    endIcon,
+    icons,
     loading,
     bg, // 0 white ;1 #62929E
     pd, //padding
     md, //margin
     mw, // max-width
+    width,
+    widthM, //mobile
   } = props;
   const classes = useStyle(props);
 
@@ -26,8 +30,10 @@ export default function TextBtn(props) {
         (loading && (
           <CircularProgress size={20} className={classes.buttonProgress} />
         )) ||
+        (icons && startIcon) ||
         (startIcon && <img src={startIcon} />)
       }
+      endIcon={endIcon}
       disableRipple={disableRipple}
       classes={{
         root: clsx(
@@ -54,22 +60,23 @@ const useStyle = makeStyles((theme) => ({
     borderRadius: theme.custom.palette.radius10,
     background: "#fff",
     justifyContent: "space-between",
-    padding: "0 23px",
     height: "40px",
     lineHeight: "40px",
     alignItems: "center",
     userSelect: "none",
     textTransform: "none",
+    width: (props) => props.width || 150,
+    justifyContent: "center",
     paddingLeft: (props) => props.pd,
     paddingRight: (props) => props.pd,
-    maxWidth: (props) => props.mw,
     [theme.breakpoints.down("md")]: {
       padding: "0 8px",
       fontSize: "13px",
-      borderRadius: theme.custom.palette.radius5,
+      // borderRadius: theme.custom.palette.radius5,
     },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       fontSize: "14px",
+      width: (props) => props.widthM || 120,
     },
     "& img": {
       display: "inline-black",

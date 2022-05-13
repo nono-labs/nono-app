@@ -1,17 +1,13 @@
-import React from "react";
-import { useNavigate, useLocation, NavLink } from "react-router-dom";
+import Images from "@/constant";
 import {
-  makeStyles,
-  Card,
+  Box, Card,
   CardContent,
-  CardMedia,
-  Typography,
-  Grid,
-  Box,
+  CardMedia, Grid, makeStyles, Typography
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import Images from "@/constant";
 import clsx from "clsx";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {

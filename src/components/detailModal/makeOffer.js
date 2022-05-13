@@ -7,12 +7,14 @@ import {
   Grid,
   InputBase,
   makeStyles,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
 import clsx from "clsx";
-import React from "react";
+import React, { useState } from "react";
+import Convert from "./convert";
+
 const titleMenu = {
   0: "Buy Now",
   1: "Make Offer",
@@ -20,8 +22,8 @@ const titleMenu = {
 const ComponentModal = (props) => {
   const { open, setOpen, current } = props; //current 0 bug now; 1 make offer
   const theme = useTheme();
-
   const classes = useStyles();
+  const [visible, setVisible] = useState(false);
 
   return (
     <Modal
@@ -136,16 +138,25 @@ const ComponentModal = (props) => {
         </Grid>
       )}
       <Grid container justifyContent="center" alignItems="center">
-        <TextBtn onClick={() => {}} loading={true} text={titleMenu[current]} />
+        <TextBtn
+          widthM={150}
+          onClick={() => {}}
+          loading={true}
+          text={titleMenu[current]}
+        />
         {current == 1 && (
           <TextBtn
+            widthM={150}
             className={classes.btnLeft}
             bg={0}
-            onClick={() => {}}
+            onClick={() => {
+              setVisible(true);
+            }}
             text="Convert WETH"
           />
         )}
       </Grid>
+      <Convert open={visible} setOpen={() => setVisible(false)} />
     </Modal>
   );
 };

@@ -11,7 +11,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/styles";
 import clsx from "clsx";
@@ -71,12 +71,14 @@ const ComponentModal = (props) => {
                   {row.Activity == "Sale" ? (
                     <TextBtn
                       bg={0}
+                      width={100}
                       onClick={() => {}}
                       className={classes.btnCancel}
                       text="cancel"
                     />
                   ) : (
                     <TextBtn
+                      width={100}
                       onClick={() => {}}
                       className={classes.btnCancel}
                       text="Accept"
@@ -107,6 +109,8 @@ const ComponentModal = (props) => {
               </Box>
               <TextBtn
                 onClick={() => {}}
+                width={100}
+                widthM={100}
                 className={clsx(classes.btnCancel, classes.btnMobile)}
                 text="cancel"
               />

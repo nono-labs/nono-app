@@ -106,7 +106,6 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.default,
     fontFamily: 'Barlow',
     fontWeight: 600
-
   },
   header: {
     padding: '0 30px',
@@ -137,6 +136,10 @@ const useStyles = makeStyles(theme => ({
     width: '24px',
     height: '24px',
   },
+  iconbtn: {
+    padding: 6,
+    marginRight: 5,
+  }
 }));
 
 const SearchBar = ({ onSearchClose }) => {
@@ -163,7 +166,6 @@ const SearchBar = ({ onSearchClose }) => {
     onSearchClose();
     setFocussed(false);
     setOpen(false)
-
   }
   const handleToastClose = () => {
 
@@ -199,7 +201,7 @@ const SearchBar = ({ onSearchClose }) => {
             onKeyDown={onSearch}
           />
           {isFocussed ? (
-            <IconButton hidden={!isFocussed} onClick={onSearchCancel}>
+            <IconButton className={classes.iconbtn} hidden={!isFocussed} onClick={onSearchCancel}>
               <CloseOutlinedIcon htmlColor={theme.custom.palette.noteBackground.default} />
             </IconButton>
           ) : null}

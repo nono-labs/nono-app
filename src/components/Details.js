@@ -1,28 +1,26 @@
 /* global BigInt */
-import React, { useState } from "react";
+import TextBtn from "@/components/btn";
+import Images from "@/constant";
 import {
-  makeStyles,
-  Grid,
-  Typography,
   Box,
   Chip,
   Divider,
+  Grid,
+  makeStyles,
+  Typography,
 } from "@material-ui/core";
 import {
-  Image as ImageIcon,
-  Share as ShareIcon,
   Cached as CachedIcon,
   FavoriteBorder as FavoriteBorderIcon,
+  Share as ShareIcon,
 } from "@material-ui/icons";
-import TextBtn from "@/components/btn";
-import Images from "@/constant";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import clsx from "clsx";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import ActivitiesModal from "./detailModal/activity";
-import OffersModal from "./detailModal/offer";
 import MakeOfferModal from "./detailModal/makeOffer";
 import ManageListModal from "./detailModal/manageList";
+import OffersModal from "./detailModal/offer";
 
 const Detail = (props) => {
   let { tokenid } = useParams();
@@ -88,7 +86,7 @@ const Detail = (props) => {
                   <Typography className={classes.textFont}>
                     Collection
                   </Typography>
-                  <a className={classes.textFont}>Meebit</a>
+                  <a  className={classes.textFont}>Meebit</a>
                 </Box>
               </Box>
             </Grid>
@@ -97,7 +95,7 @@ const Detail = (props) => {
                 <img className={classes.avatarImg} src={Images.avatar} />
                 <Box className={classes.avatarText}>
                   <Typography className={classes.textFont}>Owner</Typography>
-                  <a className={classes.textFont}>Alex Sanders</a>
+                  <a onClick={() => navigate("/profile")} className={classes.textFont}>Alex Sanders</a>
                 </Box>
               </Box>
             </Grid>
@@ -186,24 +184,24 @@ const Detail = (props) => {
                 </Grid>
               </Box>
               <Box>
-              <TextBtn
+                <TextBtn
                   onClick={() =>
                     setVisible({
                       ...visible,
                       manageList: true,
                     })
                   }
-                  style={{ marginRight: 10 }}
+                  style={{ marginRight: 10, marginBottom: 10 }}
                   text="Manage"
                 />
                 <TextBtn
                   bg={1}
                   onClick={() => handleOpen(0)}
-                  style={{ marginRight: 10 }}
+                  style={{ marginRight: 10, marginBottom: 10 }}
                   text="Buy Now"
                 />
                 <TextBtn
-                  style={{ marginRight: 10 }}
+                  style={{ marginRight: 10, marginBottom: 10 }}
                   bg={0}
                   onClick={() =>
                     setVisible({
@@ -221,7 +219,7 @@ const Detail = (props) => {
               justifyContent="space-between"
               className={classes.listPriceBox}
             >
-              <Box mt={"30px"}>
+              <Box className={classes.spacing}>
                 <Box fontSize={18} mb={"10px"} textAlign="justify">
                   Best Offer
                 </Box>
@@ -242,11 +240,12 @@ const Detail = (props) => {
               </Box>
               <Box>
                 <TextBtn
-                  style={{ marginRight: 10 }}
+                  style={{ marginRight: 10, marginBottom: 10 }}
                   onClick={() => handleOpen(1)}
                   text="Make Offer"
                 />
                 <TextBtn
+                style={{ marginRight: 10, marginBottom: 10 }}
                   onClick={() =>
                     setVisible({
                       ...visible,
@@ -268,7 +267,7 @@ const Detail = (props) => {
             ...visible,
             activities: false,
           })
-        }     
+        }
       />
       <OffersModal
         open={visible.offers}
@@ -293,7 +292,7 @@ const Detail = (props) => {
         open={visible.manageList}
         current={current}
         setOpen={() =>
-          setVisible({ 
+          setVisible({
             ...visible,
             manageList: false,
           })
@@ -305,6 +304,12 @@ const Detail = (props) => {
 export default Detail;
 
 const useStyles = makeStyles((theme) => ({
+  spacing: {
+    marginTop: 30,
+    [theme.breakpoints.down("md")]: {
+      marginTop: 10,
+    },
+  },
   grid: {
     display: "flex",
     alignItems: "center",

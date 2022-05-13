@@ -26,12 +26,12 @@ export default function Home(props) {
           </div>
           <div className={classes.box}>
             <TextBtn
-              mw={250}
+              width={200}
               className={classes.btnSpace}
               onClick={() => {}}
               text={"List an NFT"}
             />
-            <TextBtn mw={250} text={"Explore NFTs"} />
+            <TextBtn width={200} text={"Explore NFTs"} />
           </div>
         </div>
         <NFT className={classes.nftWrap} trending={true} />
@@ -49,12 +49,13 @@ export default function Home(props) {
           </div>
           <div className={classes.box}>
             <TextBtn
-              mw={250}
+              width={200}
+              widthM={180}
               className={classes.btnSpace}
               onClick={() => {}}
               text={"Claim Your Rewards"}
             />
-            <TextBtn mw={250} text={"Learn More"} />
+            <TextBtn width={200} text={"Learn More"} />
           </div>
         </div>
         <img className={classes.rewardImg} src={Images.rewardBanner} />

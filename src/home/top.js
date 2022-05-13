@@ -1,7 +1,12 @@
 import TextBtn from "@/components/btn";
 import Images from "@/constant";
 import {
-  Box, Card, Grid, makeStyles, Typography, withStyles
+  Box,
+  Card,
+  Grid,
+  makeStyles,
+  Typography,
+  withStyles,
 } from "@material-ui/core";
 import MuiAccordion from "@material-ui/core/Accordion";
 import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
@@ -44,6 +49,7 @@ export default function TopCollections(props) {
             container
           >
             <TextBtn
+              width={200}
               onClick={() => {}}
               className={classes.buttonAsset}
               text="TextBtn"
