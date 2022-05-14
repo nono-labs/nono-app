@@ -12,6 +12,7 @@ const useStyle = makeStyles((theme) => ({
   backdrop: {
     display: "flex",
     minHeight: "100vh",
+    background: "#e5e5e5",
   },
   content: {
     flexGrow: 1,
@@ -22,7 +23,6 @@ const useStyle = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   main: {
     padding: theme.padding.md50,
-    background: theme.palette.primary.main,
     [theme.breakpoints.between("sm", "md")]: {
       padding: theme.padding.md20,
     },

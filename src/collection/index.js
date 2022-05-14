@@ -1,9 +1,10 @@
 import NFT from "@/components/NFT";
 import { Grid, Hidden, makeStyles } from "@material-ui/core";
 import React from "react";
-import Header from "./header";
-import Filter from "./filter";
-import FilterMobile from "./filterMobile";
+import Header from "../profile/header";
+// import Filter from "./filter";
+// import FilterMobile from "./filterMobile";
+import ActivityBar from "./activityBar";
 
 export default function Profile(props) {
   const classes = useStyle();
@@ -11,15 +12,16 @@ export default function Profile(props) {
   return (
     <>
       <Header />
-      <Filter />
+      {/*    <Filter /> */}
+      <ActivityBar />
       <Grid className={classes.grid}>
         {[...Array(10)].map((item, index) => (
           <NFT style={{ border: "0" }} key={index} />
         ))}
       </Grid>
-      <Hidden smUp>
+      {/* <Hidden smUp>
         <FilterMobile />
-      </Hidden>
+      </Hidden> */}
     </>
   );
 }

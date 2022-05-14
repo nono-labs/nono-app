@@ -51,10 +51,15 @@ export default function Profile(props) {
   };
   return (
     <Box className={classes.box}>
-      <Grid container justifyContent="space-between" alignItems="center">
-        <Box className={classes.grid}>
+      <Grid
+        className={classes.boxGridMobile}
+        container
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Box className={clsx(classes.grid, classes.mobileGrid)}>
           <img className={classes.avatarImg} src={Images.avatar} />
-          <Box>
+          <Box className={classes.avatarBoxMobile}>
             <Typography className={classes.name}>0xc4c16...acb21a</Typography>
             <Typography className={classes.address}>
               0xc4c16...acb21a
@@ -62,8 +67,8 @@ export default function Profile(props) {
             <img className={classes.twitter} src={Images.twitter} />
           </Box>
         </Box>
-        <Box>
-          <Box className={classes.grid}>
+        <Box className={classes.right}>
+          <Box className={clsx(classes.grid, classes.mobileGrid)}>
             <Box className={classes.floorPriceBox}>
               <Box className={clsx(classes.grid, classes.floorItem)}>
                 <img src={Images.eth} />
@@ -94,7 +99,7 @@ export default function Profile(props) {
               text="Convert ETH/WETH"
             />
           </Box>
-          <Box className={classes.grid} mt={"30px"}>
+          <Box className={clsx(classes.grid, classes.BtnTop)}>
             <TextBtn
               startIcon={Images.edit1}
               onClick={() => {
@@ -151,13 +156,15 @@ export default function Profile(props) {
           })
         }
       />
-      <Edit open={visible.edit}
+      <Edit
+        open={visible.edit}
         setOpen={() =>
           setVisible({
             ...visible,
             edit: false,
           })
-        } />
+        }
+      />
     </Box>
   );
 }
@@ -168,30 +175,72 @@ const useStyle = makeStyles((theme) => ({
     marginBottom: 50,
     borderRadius: 20,
     backdropFilter: "blur(21px)",
+    [theme.breakpoints.down("md")]: {
+      padding: 20,
+    },
+    [theme.breakpoints.down("xs")]: {
+      marginBottom: 15,
+    },
   },
   grid: {
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
+    
+  },
+  mobileGrid:{
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+  },
+  boxGridMobile: {
+    [theme.breakpoints.down("md")]: {
+      alignItems: "flex-start",
+      flexDirection: "column",
+    },
+    [theme.breakpoints.down("xs")]: {
+      alignItems: 'center',
+    },
+  },
+  right: {
+    alignSelf: "flex-end",
+    [theme.breakpoints.down("md")]: {
+      marginTop: 20,
+    },
+    [theme.breakpoints.down("xs")]: {
+      alignSelf: "center",
+    },
   },
   avatarImg: {
     width: 120,
     marginRight: 50,
+    [theme.breakpoints.down("md")]: {
+      marginRight: 20,
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: 64,
+      marginBottom: 10,
+    },
   },
   name: {
     fontSize: 24,
     lineHeight: "24px",
-    paddingBottom: 15,
   },
   address: {
     fontSize: 14,
     lineHeight: "24px",
     color: "#62929E",
     paddingBottom: 15,
+    paddingTop: 15,
     fontStyle: "italic",
     cursor: "pointer",
     "&:hover": {
       textDecoration: "underline",
+    },
+    [theme.breakpoints.down("md")]: {
+      paddingBottom: 10,
+      paddingTop: 10,
     },
   },
   twitter: {
@@ -204,6 +253,10 @@ const useStyle = makeStyles((theme) => ({
     borderRadius: 10,
     height: 40,
     padding: "0  15px",
+    [theme.breakpoints.down("md")]: {
+      marginBottom: 15,
+      // paddingTop: 10,
+    },
   },
   floorItem: {
     fontSize: 14,
@@ -226,6 +279,9 @@ const useStyle = makeStyles((theme) => ({
     fontSize: 12,
     marginLeft: 50,
     borderWidth: 2,
+    [theme.breakpoints.down("md")]: {
+      marginLeft: 20,
+    },
   },
   priceBox: {
     display: "flex",
@@ -256,4 +312,18 @@ const useStyle = makeStyles((theme) => ({
     color: "#fff",
     cursor: "pointer",
   },
+  BtnTop: {
+    marginTop: 30,
+    [theme.breakpoints.down("md")]: {
+      marginTop: 10,
+    },
+  },
+  avatarBoxMobile: {
+    [theme.breakpoints.down("xs")]: {
+      display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    },
+   
+  }
 }));

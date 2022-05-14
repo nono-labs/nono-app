@@ -86,7 +86,7 @@ const Detail = (props) => {
                   <Typography className={classes.textFont}>
                     Collection
                   </Typography>
-                  <a  className={classes.textFont}>Meebit</a>
+                  <a onClick={() => navigate("/collection")}   className={classes.textFont}>Meebit</a>
                 </Box>
               </Box>
             </Grid>

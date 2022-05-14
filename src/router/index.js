@@ -11,6 +11,7 @@ const Home = React.lazy(() => import("@/home"));
 const Explore = React.lazy(() => import("@/explore"));
 const Details = React.lazy(() => import("@/components/Details"));
 const Profile = React.lazy(() => import("@/profile"));
+const Collection = React.lazy(() => import("@/collection"));
 
 const Test = React.lazy(() => import("@/test"));
 
@@ -59,6 +60,7 @@ const RouterPage = ({ initialRoute }) => (
     <Route path="/explore" element={<Explore />} />
     <Route index path="/explore/details" element={<Details />} />
     <Route path="/profile" element={<Profile />} />
+    <Route path="/collection" element={<Collection />} />
     <Route path="/test" element={<Test />} />
   </Routes>
 );
