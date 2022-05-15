@@ -164,6 +164,7 @@ const useStyle = makeStyles((theme) => ({
   },
   nftWrap: {
     maxWidth: 300,
+    width: 300,
     [theme.breakpoints.down("xs")]: {
       width: "100%",
       maxWidth: "100%",

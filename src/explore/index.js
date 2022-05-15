@@ -3,27 +3,31 @@ import { Grid, Hidden, makeStyles } from "@material-ui/core";
 import React, { useEffect } from "react";
 import FilterPrice from "./filter/price";
 import FilterMobile from "./filterMobile";
-import {useGetListInfo} from '@/redux/explore'
+import { getListsAsync } from "@/store/modules/explore";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Explore(props) {
   const { list, loading } = useSelector((state) => state.explore);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const classes = useStyle();
-  // useEffect(()=>{
-    // useGetListInfo()
-  // }, [])
-  console.log(list, loading,'list, loading')
+  useEffect(() => {
+    dispatch(getListsAsync({ page: 0, size: 10 }));
+  }, []);
+  console.log(list, loading, "list, loading");
   return (
     <>
       <FilterPrice />
-      <Grid
-        className={classes.grid}
-      >
-        {[...Array(10)].map((item, index) => (
-          <NFT style={{ border: "0" }} key={index} />
+      <Grid className={classes.grid}>
+        {list.map((item, index) => (
+          <NFT item={item} style={{ border: "0" }} key={index} />
         ))}
+        {loading &&
+          Array(10)
+            .fill()
+            .map((item, index) => (
+              <NFT style={{ border: "0" }} key={index + "-"} />
+            ))}
       </Grid>
       <Hidden smUp>
         <FilterMobile />

@@ -1,5 +1,4 @@
 import Appbar from "@/components/appbar";
-import { useGetInfo } from "@/redux/profile";
 import Route from "@/router";
 import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
@@ -36,9 +35,6 @@ function App() {
   const classes = useStyle();
   const [rootPage, setRootPage] = useState("");
 
-  const { info } = useSelector((state) => state.profile);
-  const ddd = useGetInfo([]);
-  console.log(info, pathname, classes, "info");
   useEffect(() => {
     setRootPage(pathname.split("/")[1]);
     window.scrollTo(0, 0);

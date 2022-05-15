@@ -1,10 +1,15 @@
 import Images from "@/constant";
+// import { toDecimal } from "@/utils/web3Tools";
 import {
-  Box, Card,
-  CardContent,
-  CardMedia, Grid, makeStyles, Typography
+  Box,
+  Card,
+  CardMedia,
+  Grid,
+  makeStyles,
+  Typography,
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import Skeleton from "@material-ui/lab/Skeleton";
 import clsx from "clsx";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     "& img": {
       margin: "0 5px",
       [theme.breakpoints.down("xs")]: {
-        width:  14,
+        width: 14,
       },
     },
     [theme.breakpoints.down("xs")]: {
@@ -40,10 +45,17 @@ const useStyles = makeStyles((theme) => ({
       lineHeight: "14px",
     },
   },
+  longText: {
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    display: "block",
+  },
   controls: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    marginBottom: 16,
   },
   unlisted: {
     fontSize: "14px",
@@ -74,13 +86,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     [theme.breakpoints.down("xs")]: {
-      padding:  5,
+      padding: 5,
     },
     "& span": {
       marginLeft: "5px",
       fontSize: "18px",
       lineHeight: "18px",
-      color: "#FF2E2E",
+      color: (props) => (props.isLiked ? "#FF2E2E" : "#FFF"),
       opacity: 1,
       [theme.breakpoints.down("xs")]: {
         fontSize: "12px",
@@ -93,22 +105,22 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   trending: {
-    padding: '7px 10px',
+    padding: "7px 10px",
     fontSize: 18,
-    lineHeight: '18px',
-    background: 'rgba(0, 0, 0, 0.5)',
+    lineHeight: "18px",
+    background: "rgba(0, 0, 0, 0.5)",
     borderRadius: 10,
-    display: 'inline-block',
+    display: "inline-block",
     position: "absolute",
     top: "10px",
     left: "10px",
-  }
+  },
 }));
 export default function NFT(props) {
-  const {trending}  = props;
+  const { trending, item } = props;
   const classes = useStyles();
   const navigate = useNavigate();
-
+  // console.log(item, "item");
   return (
     <Card
       variant="outlined"
@@ -116,49 +128,61 @@ export default function NFT(props) {
       style={props?.style}
       className={clsx(classes.root, props?.className)}
     >
-      <div className={classes.nftImage} style={{ position: "relative" }}>
-        <CardMedia component="img" alt="image error" image={Images.nft} />
-        {
-          trending &&  <Typography className={classes.trending}>Trending</Typography>
-        }
-       
-        <Typography className={classes.iconBox}>
-          <FavoriteIcon htmlColor={"#FF2E2E"} />
-          <span>265</span>
-        </Typography>
-      </div>
-
-      <CardContent className={classes.CardContent}>
-        <div className={classes.controls}>
-          <Typography noWrap className={classes.collection} paragraph>
-            Crypto Cannabis Club Crypto Cannabis Club
+      {item ? (
+        <div className={classes.nftImage} style={{ position: "relative" }}>
+          <CardMedia component="img" alt="image error" image={Images.nft} />
+          {trending && (
+            <Typography className={classes.trending}>Trending</Typography>
+          )}
+          <Typography className={classes.iconBox}>
+            <FavoriteIcon htmlColor={item?.isLiked ? "#FF2E2E" : "#fff"} />
+            <span>{item?.likeCount}</span>
           </Typography>
-          <Typography className={classes.collection} paragraph>
-            <img src={Images.eth} />
-            1.71
-          </Typography>
-          {/* <Typography className={clsx(classes.collection,classes.unlisted)} paragraph>
+        </div>
+      ) : (
+        <Skeleton variant="rect" className={classes.nftImage} />
+      )}
+      <Box className={classes.CardContent}>
+        {item ? (
+          <div className={classes.controls}>
+            <Box className={clsx(classes.collection, classes.longText)}>
+              {item?.name}
+            </Box>
+            <Box className={classes.collection}>
+              <img src={Images.eth} />
+              {/* {toDecimal(item?.price)} */}
+              1.2
+            </Box>
+            {/* <Typography className={clsx(classes.collection,classes.unlisted)} paragraph>
                     Unlisted
                 </Typography> */}
-        </div>
+          </div>
+        ) : (
+          <Skeleton variant="rect" className={classes.controls} />
+        )}
         <Grid
           justifyContent="space-between"
           direction="row"
           alignItems="center"
           container
+          wrap="nowrap"
         >
-          <Box
-            className={classes.author}
-          >
-            Mfers
-          </Box>
-          <Typography className={clsx(classes.collection, classes.offer)}>
-            offer
-            <img src={Images.weth} />
-            1.62
-          </Typography>
+          {item ? (
+            <>
+              <Box className={clsx(classes.author, classes.longText)}>
+                {item?.nickName}
+              </Box>
+              <Typography className={clsx(classes.collection, classes.offer)}>
+                offer
+                <img src={Images.weth} />
+                1.62
+              </Typography>
+            </>
+          ) : (
+            <Skeleton width={"100%"} />
+          )}
         </Grid>
-      </CardContent>
+      </Box>
     </Card>
   );
 }

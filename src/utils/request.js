@@ -1,4 +1,4 @@
-const BASE_URL = 'https://dev.dnft.world'
+const BASE_URL = 'https://app.dnft.world'
 
 const FETCH_TIMEOUT = 15 * 1000
 let _token = ''
