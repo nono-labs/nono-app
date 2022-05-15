@@ -1,11 +1,20 @@
 import NFT from "@/components/NFT";
 import { Grid, Hidden, makeStyles } from "@material-ui/core";
-import React from "react";
+import React, { useEffect } from "react";
 import FilterPrice from "./filter/price";
 import FilterMobile from "./filterMobile";
-export default function Explore(props) {
-  const classes = useStyle();
+import {useGetListInfo} from '@/redux/explore'
+import { useSelector, useDispatch } from "react-redux";
 
+export default function Explore(props) {
+  const { list, loading } = useSelector((state) => state.explore);
+
+  // const dispatch = useDispatch();
+  const classes = useStyle();
+  // useEffect(()=>{
+    // useGetListInfo()
+  // }, [])
+  console.log(list, loading,'list, loading')
   return (
     <>
       <FilterPrice />

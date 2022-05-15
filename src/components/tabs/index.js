@@ -1,24 +1,7 @@
-import NFT from "@/components/NFT";
 import {
-  Grid,
-  Hidden,
-  makeStyles,
-  Box,
-  Typography,
-  Divider,
-  ClickAwayListener,
-  Tabs,
-  Tab,
+  makeStyles, Tab, Tabs
 } from "@material-ui/core";
-import React, { useState } from "react";
-import Images from "@/constant";
-import clsx from "clsx";
-import TextBtn from "@/components/btn";
-import Select from "@/components/select";
-import {
-  KeyboardArrowUp as KeyboardArrowUpIcon,
-  KeyboardArrowDown as KeyboardArrowDownIcon,
-} from "@material-ui/icons";
+import React from "react";
 
 export default function Component(props) {
   const { tabs } = props;
@@ -60,7 +43,7 @@ const useStyle = makeStyles((theme) => ({
     boxSizing: "border-box",
     margin: "0 auto 30px",
     [theme.breakpoints.down("xs")]: {
-      width:() => '100%',
+      width: () => "100%",
       marginBottom: 15,
     },
   },
@@ -74,7 +57,7 @@ const useStyle = makeStyles((theme) => ({
     minHeight: 0,
     padding: 0,
     opacity: 1,
-    width: "100%",
+    width: "101%",
     minWidth: 0,
     boxSizing: "border-box",
     borderRight: "2px solid #000",

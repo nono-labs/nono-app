@@ -4,62 +4,15 @@ import Images from "@/constant";
 import { Box, Grid, makeStyles } from "@material-ui/core";
 import clsx from "clsx";
 import React from "react";
-import TopCollections from "./top";
+import TopCollections from "../home/top";
 export default function Home(props) {
   console.log("home");
   const classes = useStyle();
   return (
     <Box>
-      <Box className={clsx(classes.itemCenter, classes.mb)}>
-        <div className={classes.left}>
-          <div className={classes.title}>
-            Trade to Earn,
-            <br />
-            Keep for More
-          </div>
-          <div className={classes.subTitle}>
-            Buy or sell NFTs to earn $NONO
-            <br />
-            50% trading fee income will be used for $NONO buyback
-            <br />
-            List your NFT or explore the market to get started
-          </div>
-          <div className={classes.box}>
-            <TextBtn
-              width={200}
-              className={classes.btnSpace}
-              onClick={() => {}}
-              text={"List an NFT"}
-            />
-            <TextBtn width={200} text={"Explore NFTs"} />
-          </div>
-        </div>
-        <NFT className={classes.nftWrap} trending={true} />
-      </Box>
+     
       <TopCollections />
-      <Grid container className={clsx(classes.itemCenter, classes.mt)}>
-        <div className={classes.left}>
-          <div className={clsx(classes.title, classes.titleBottom)}>
-            Ready to Get Your Rewards?
-          </div>
-          <div className={classes.subTitle}>
-            Our Users Should Be Our Holders,
-            <br />
-            And They All Deserves Our Profit Shares.
-          </div>
-          <div className={classes.box}>
-            <TextBtn
-              width={200}
-              widthM={180}
-              className={classes.btnSpace}
-              onClick={() => {}}
-              text={"Claim Your Rewards"}
-            />
-            <TextBtn width={200} text={"Learn More"} />
-          </div>
-        </div>
-        <img className={classes.rewardImg} src={Images.rewardBanner} />
-      </Grid>
+     
     </Box>
   );
 }
@@ -79,18 +32,6 @@ const useStyle = makeStyles((theme) => ({
     [theme.breakpoints.down("xs")]: {
       padding: theme.padding.md15,
       display: "flex",
-    },
-  },
-  mb: {
-    marginBottom: theme.custom.palette.defaultspacing,
-    [theme.breakpoints.down("md")]: {
-      marginBottom: theme.custom.palette.mdspacing,
-    },
-  },
-  mt: {
-    marginTop: theme.custom.palette.defaultspacing,
-    [theme.breakpoints.down("md")]: {
-      marginTop: theme.custom.palette.mdspacing,
     },
   },
   box: {

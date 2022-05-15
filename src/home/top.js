@@ -145,9 +145,9 @@ const useStyle = makeStyles((theme) => ({
     borderRadius: "20px",
     background: "#fff",
     padding: "100px",
-    margin: `${theme.custom.palette.defaultspacing} 0px`,
+    // margin: `${theme.custom.palette.defaultspacing} 0px`,
     [theme.breakpoints.down("md")]: {
-      margin: `${theme.custom.palette.mdspacing} 0px`,
+      // margin: `${theme.custom.palette.mdspacing} 0px`,
       padding: "20px",
     },
   },

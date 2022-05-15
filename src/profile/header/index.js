@@ -20,6 +20,7 @@ import {
 } from "@material-ui/icons";
 import Convert from "@/components/detailModal/convert";
 import Edit from "../components/edit";
+import ShareItem from "@/components/ShareItem";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -120,23 +121,25 @@ export default function Profile(props) {
                   className={classes.convertBtn}
                   text="Share"
                 />
-                {open && (
-                  <Box className={classes.dropdown}>
-                    <Typography
-                      onClick={() => {
-                        setOpen(false);
-                        setVisible(true);
-                      }}
-                      className={classes.dropdownItem}
-                    >
-                      Copy Link
-                    </Typography>
-                    <Divider className={classes.divider1} flexItem />
-                    <Typography className={classes.dropdownItem}>
-                      Share on Twitter
-                    </Typography>
-                  </Box>
-                )}
+                <Hidden xsDown>
+                  {open && (
+                    <Box className={classes.dropdown}>
+                      <Typography
+                        onClick={() => {
+                          setOpen(false);
+                          setVisible(true);
+                        }}
+                        className={classes.dropdownItem}
+                      >
+                        Copy Link
+                      </Typography>
+                      <Divider className={classes.divider1} flexItem />
+                      <Typography className={classes.dropdownItem}>
+                        Share on Twitter
+                      </Typography>
+                    </Box>
+                  )}
+                </Hidden>
               </Box>
             </ClickAwayListener>
           </Box>
@@ -165,6 +168,7 @@ export default function Profile(props) {
           })
         }
       />
+       <Hidden smUp><ShareItem open={open} setOpen={()=>setOpen(false)} /></Hidden>
     </Box>
   );
 }
@@ -186,12 +190,11 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
-    
   },
-  mobileGrid:{
+  mobileGrid: {
     [theme.breakpoints.down("xs")]: {
-      flexDirection: 'column',
-      alignItems: 'center',
+      flexDirection: "column",
+      alignItems: "center",
     },
   },
   boxGridMobile: {
@@ -200,7 +203,7 @@ const useStyle = makeStyles((theme) => ({
       flexDirection: "column",
     },
     [theme.breakpoints.down("xs")]: {
-      alignItems: 'center',
+      alignItems: "center",
     },
   },
   right: {
@@ -320,10 +323,9 @@ const useStyle = makeStyles((theme) => ({
   },
   avatarBoxMobile: {
     [theme.breakpoints.down("xs")]: {
-      display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
     },
-   
-  }
+  },
 }));

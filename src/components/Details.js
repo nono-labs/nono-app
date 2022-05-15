@@ -8,6 +8,7 @@ import {
   Grid,
   makeStyles,
   Typography,
+  Hidden,
 } from "@material-ui/core";
 import {
   Cached as CachedIcon,
@@ -21,6 +22,7 @@ import ActivitiesModal from "./detailModal/activity";
 import MakeOfferModal from "./detailModal/makeOffer";
 import ManageListModal from "./detailModal/manageList";
 import OffersModal from "./detailModal/offer";
+import ShareItem from "@/components/ShareItem";
 
 const Detail = (props) => {
   let { tokenid } = useParams();
@@ -32,6 +34,7 @@ const Detail = (props) => {
     offers: false,
     buy: false,
     manageList: false,
+    share: false,
   });
 
   const handleOpen = (index, type = "buy") => {
@@ -66,7 +69,10 @@ const Detail = (props) => {
                 flexItem
               />
               <Box className={classes.actionLike}>
-                <ShareIcon htmlColor="#62929E" />
+                <ShareIcon onClick={()=>setVisible({
+                      ...visible,
+                      share: true,
+                    })} htmlColor="#62929E" />
               </Box>
               <Divider
                 className={classes.borderLine}
@@ -86,7 +92,12 @@ const Detail = (props) => {
                   <Typography className={classes.textFont}>
                     Collection
                   </Typography>
-                  <a onClick={() => navigate("/collection")}   className={classes.textFont}>Meebit</a>
+                  <a
+                    onClick={() => navigate("/collection")}
+                    className={classes.textFont}
+                  >
+                    Meebit
+                  </a>
                 </Box>
               </Box>
             </Grid>
@@ -95,7 +106,12 @@ const Detail = (props) => {
                 <img className={classes.avatarImg} src={Images.avatar} />
                 <Box className={classes.avatarText}>
                   <Typography className={classes.textFont}>Owner</Typography>
-                  <a onClick={() => navigate("/profile")} className={classes.textFont}>Alex Sanders</a>
+                  <a
+                    onClick={() => navigate("/profile")}
+                    className={classes.textFont}
+                  >
+                    Alex Sanders
+                  </a>
                 </Box>
               </Box>
             </Grid>
@@ -245,7 +261,7 @@ const Detail = (props) => {
                   text="Make Offer"
                 />
                 <TextBtn
-                style={{ marginRight: 10, marginBottom: 10 }}
+                  style={{ marginRight: 10, marginBottom: 10 }}
                   onClick={() =>
                     setVisible({
                       ...visible,
@@ -298,6 +314,16 @@ const Detail = (props) => {
           })
         }
       />
+      <Hidden smUp>
+        <ShareItem
+          open={visible.share}
+          setOpen={() => 
+            setVisible({
+              ...visible,
+              share: false,
+            })}
+        />
+      </Hidden>
     </Box>
   );
 };

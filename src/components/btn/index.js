@@ -90,6 +90,7 @@ const useStyle = makeStyles((theme) => ({
     background: "#000",
     color: "#fff",
     cursor: (props) => (props.loading ? "inherit" : "pointer"),
+    // cursor: 'pointer',
     "&:hover": {
       background: "#000",
     },

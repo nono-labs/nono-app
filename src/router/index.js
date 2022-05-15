@@ -1,6 +1,6 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import React, { Suspense } from "react";
-import Images from '@/constant'
+import Images from "@/constant";
 import {
   Visibility as VisibilityIcon,
   Home as HomeIcon,
@@ -12,31 +12,32 @@ const Explore = React.lazy(() => import("@/explore"));
 const Details = React.lazy(() => import("@/components/Details"));
 const Profile = React.lazy(() => import("@/profile"));
 const Collection = React.lazy(() => import("@/collection"));
+const Stats = React.lazy(() => import("@/stats"));
 
 const Test = React.lazy(() => import("@/test"));
 
 export const routesList = [
   {
-    path: '/home',
-    pathName: 'Home',
+    path: "/home",
+    pathName: "Home",
     logo: <HomeIcon />,
   },
   {
-    path: '/explore',
-    pathName: 'Explore',
+    path: "/explore",
+    pathName: "Explore",
     logo: <VisibilityIcon />,
   },
   {
-    path: '/stats',
-    pathName: 'Stats',
+    path: "/stats",
+    pathName: "Stats",
     logo: <EqualizerIcon />,
   },
   {
-    path: '/rewards',
-    pathName: 'Rewards',
+    path: "/rewards",
+    pathName: "Rewards",
     logo: <RedeemIcon />,
-  }
-]
+  },
+];
 const syncRouter = (table) => {
   let mRouteTable = [];
   table.forEach((route) => {
@@ -61,6 +62,8 @@ const RouterPage = ({ initialRoute }) => (
     <Route index path="/explore/details" element={<Details />} />
     <Route path="/profile" element={<Profile />} />
     <Route path="/collection" element={<Collection />} />
+    <Route path="/stats" element={<Stats />} />
+
     <Route path="/test" element={<Test />} />
   </Routes>
 );
