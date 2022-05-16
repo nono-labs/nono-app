@@ -117,7 +117,7 @@ const SideBar = (props) => {
               <TextBtn startIcon={Images.eth} text="Ethereum" />
             </Box>
           </Hidden>
-          <Hidden smUp >
+          <Hidden smUp>
             {isMobile && !isSearchShowingInMobile ? (
               <div className={classes.rightBoxMobile}>
                 <IconButton

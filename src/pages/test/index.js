@@ -1,9 +1,9 @@
 import React from "react";
-import domtoimage from "../utils/dom-to-image";
+import domtoimage from "@/utils/dom-to-image";
 import { saveAs } from "file-saver";
 import { css } from "emotion";
 import Images from "@/constant";
-import TextBtn from "../components/btn";
+import TextBtn from "@/components/btn";
 
 const DomToImg = () => {
   const getImg = () => {

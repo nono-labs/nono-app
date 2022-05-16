@@ -2,23 +2,44 @@ import NFT from "@/components/NFT";
 import { Grid, Hidden, makeStyles } from "@material-ui/core";
 import React from "react";
 import Header from "../profile/header";
-// import Filter from "./filter";
 // import FilterMobile from "./filterMobile";
 import ActivityBar from "./activityBar";
+import ActivityTable from "./activityTable";
 
+import Filter from "./filter";
+import Tabs from "@/components/tabs";
+
+const tabs = [
+  { label: "Items", value: 0 },
+  { label: "Activity", value: 1 },
+];
 export default function Profile(props) {
   const classes = useStyle();
-
+  const [value, setValue] = React.useState(0);
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  };
+  console.log(value, "value");
   return (
     <>
       <Header />
-      {/*    <Filter /> */}
-      <ActivityBar />
-      <Grid className={classes.grid}>
-        {[...Array(10)].map((item, index) => (
-          <NFT style={{ border: "0" }} key={index} />
-        ))}
-      </Grid>
+      <Tabs handleChangeTab={handleChange} tabs={tabs} />
+      <Filter />
+      {value === 0 ? (
+        <Grid className={classes.grid}>
+          {[...Array(10)].map((item, index) => (
+            <NFT style={{ border: "0" }} key={index} />
+          ))}
+        </Grid>
+      ) : (
+        <>
+          <Hidden xsDown implementation="css">
+            <ActivityBar />
+          </Hidden>
+          <ActivityTable />
+        </>
+      )}
+
       {/* <Hidden smUp>
         <FilterMobile />
       </Hidden> */}

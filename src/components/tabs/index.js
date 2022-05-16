@@ -4,11 +4,12 @@ import {
 import React from "react";
 
 export default function Component(props) {
-  const { tabs } = props;
+  const { tabs,handleChangeTab } = props;
   const classes = useStyle(props);
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    handleChangeTab&&handleChangeTab(newValue)
   };
   return (
     <Tabs

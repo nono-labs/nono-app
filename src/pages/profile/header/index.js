@@ -47,7 +47,7 @@ export default function Profile(props) {
     setVisible(false);
   };
   const onFocusLoss = () => {
-    console.log("onFcousLoss");
+    // console.log("onFcousLoss");
     setOpen(false);
   };
   return (

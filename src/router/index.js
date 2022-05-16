@@ -7,14 +7,14 @@ import {
   Equalizer as EqualizerIcon,
   Redeem as RedeemIcon,
 } from "@material-ui/icons";
-const Home = React.lazy(() => import("@/home"));
-const Explore = React.lazy(() => import("@/explore"));
+const Home = React.lazy(() => import("@/pages/home"));
+const Explore = React.lazy(() => import("@/pages/explore"));
 const Details = React.lazy(() => import("@/components/Details"));
-const Profile = React.lazy(() => import("@/profile"));
-const Collection = React.lazy(() => import("@/collection"));
-const Stats = React.lazy(() => import("@/stats"));
+const Profile = React.lazy(() => import("@/pages/profile"));
+const Collection = React.lazy(() => import("@/pages/collection"));
+const Stats = React.lazy(() => import("@/pages/stats"));
 
-const Test = React.lazy(() => import("@/test"));
+const Test = React.lazy(() => import("@/pages/test"));
 
 export const routesList = [
   {

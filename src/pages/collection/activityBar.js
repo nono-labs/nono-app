@@ -67,76 +67,118 @@ const ActivityBar = (props) => {
   const option = () => {
     return {
       tooltip: {
-        trigger: 'axis',
+        trigger: "axis",
+        backgroundColor: "#fff",
+        textStyle: {
+          // color: '#62929E',
+          fontFamily: "BarlowRegular",
+          fontSize: 16,
+        },
         axisPointer: {
-          type: 'cross',
+          type: "cross",
           crossStyle: {
-            color: '#999'
-          }
-        }
+            color: "#000",
+          },
+          lineStyle: {
+            color: "#000",
+          },
+        },
       },
-     
-      legend: {
-        data: ['Evaporation', 'Temperature']
+      grid: {
+        top: 35,
+        bottom: 50,
+        left: 80,
+        right: 80,
       },
+      color: ["#62929E", "#62929E"],
       xAxis: [
         {
-          type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-          axisPointer: {
-            type: 'shadow'
-          }
-        }
+          type: "category",
+          data: ["1/23", "1/30", "2/8", "2/16", "2/25", "3/3", "3/14"],
+          axisTick: {
+            alignWithLabel: true,
+          },
+          axisLabel: {
+            show: true,
+            interval: 0,
+            color: "#000",
+            fontFamily: "BarlowRegular",
+            fontSize: 16,
+            letterSpacing: -1,
+          },
+          axisLine: {
+            show: false,
+          },
+          axisTick: {
+            show: false,
+          },
+        },
       ],
       yAxis: [
         {
-          type: 'value',
-          name: 'Precipitation',
-          min: 0,
-          max: 250,
-          interval: 50,
+          type: "value",
           axisLabel: {
-            formatter: '{value} ml'
-          }
+            color: "#000",
+            fontFamily: "BarlowRegular",
+            fontSize: 16,
+          },
+
+          splitLine: {
+            lineStyle: {
+              type: "solid",
+              color: "#DDDDDD",
+              width: 1,
+            },
+          },
         },
         {
-          type: 'value',
-          name: 'Temperature',
-          min: 0,
-          max: 25,
-          interval: 5,
+          type: "value",
           axisLabel: {
-            formatter: '{value} °C'
-          }
-        }
+            color: "#000",
+            fontFamily: "BarlowRegular",
+            fontSize: 16,
+            formatter: `{value} %`,
+          },
+          splitLine: {
+            show: false,
+          },
+        },
       ],
       series: [
         {
-          name: 'Evaporation',
-          type: 'bar',
+          name: "value",
+          type: "bar",
+          yAxisIndex: 0,
+          barWidth: 15,
+          label: {
+            show: true,
+            position: "top",
+            color: "#000",
+            fontFamily: "BarlowRegular",
+            fontSize: 16,
+          },
           tooltip: {
             valueFormatter: function (value) {
-              return value + ' ml';
-            }
+              return value + " ml";
+            },
           },
           data: [
-            2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3
-          ]
+            2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3,
+          ],
         },
-      
         {
-          name: 'Temperature',
-          type: 'line',
-          yAxisIndex: 1,
+          name: "vols rate",
+          type: "line",
+          yAxisIndex: 0,
           tooltip: {
-            valueFormatter: function (value) {
-              return value + ' °C';
-            }
+            show: false,
           },
-          data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
-        }
-      ]
-    }
+          data: [
+            2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3,
+          ],
+        },
+      ],
+    };
   };
 
   return <div className={classes.root} ref={myChart} />;
@@ -146,8 +188,8 @@ export default ActivityBar;
 const useStyle = makeStyles((theme) => ({
   root: {
     height: 318,
-    // background: 'red',
-    marginBottom: 30
+    background: "#fff",
+    marginBottom: 30,
+    borderRadius: 20,
   },
- 
 }));
