@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     width: "200px",
     height: "32px",
-    border: `2px solid ${theme.palette.secondary.main}`,
+    border: `2px solid ${theme.palette.primary.main}`,
     padding: "0 15px",
     boxSizing: "border-box",
     borderRadius: "50px",
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   label: {
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
     fontSize: 14,
     [theme.breakpoints.down("sm")]: {
       fontSize: 12,
@@ -77,17 +77,17 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main,
     fontSize: 14,
     fontWeight: 600,
-    border: `2px solid ${theme.palette.secondary.main}`,
+    border: `2px solid ${theme.palette.primary.main}`,
   },
   itemList: {
     minHeight: "32px",
 
     height: "32px",
     lineHeight: "32px",
-    borderBottom: `2px solid ${theme.palette.secondary.main}`,
+    borderBottom: `2px solid ${theme.palette.primary.main}`,
     paddingLeft: "14px",
     display: "flex",
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
     fontSize: 14,
     "& span": {
       marginLeft: "10px",

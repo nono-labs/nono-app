@@ -1,9 +1,9 @@
-import Appbar from "@/components/appbar";
+import AppBar from "@/components/appBar";
 import Route from "@/router";
+import { Box, CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import "./App.css";
 
@@ -29,6 +29,14 @@ const useStyle = makeStyles((theme) => ({
       padding: "15px 10px",
     },
   },
+  loading: {
+    width: "100%",
+    minHeight: "100vh",
+    background: "#E5E5E5",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 }));
 function App() {
   const { pathname } = useLocation();
@@ -40,9 +48,15 @@ function App() {
     window.scrollTo(0, 0);
   }, [pathname]);
   return (
-    <React.Suspense fallback={null}>
+    <React.Suspense
+      fallback={
+        <Box className={classes.loading}>
+          <CircularProgress />
+        </Box>
+      }
+    >
       <div className={clsx(classes.backdrop)}>
-        <Appbar />
+        <AppBar />
         <div className={classes.content}>
           <div className={classes.toolbar} />
           <div className={classes.main}>

@@ -70,7 +70,7 @@ const ActivityBar = (props) => {
         trigger: "axis",
         backgroundColor: "#fff",
         textStyle: {
-          // color: '#62929E',
+          color: '#000',
           fontFamily: "BarlowRegular",
           fontSize: 16,
         },
@@ -98,6 +98,14 @@ const ActivityBar = (props) => {
           axisTick: {
             alignWithLabel: true,
           },
+          axisPointer: {
+            label: {
+              backgroundColor: "#ddd",
+              color: "#000",
+              fontFamily: "BarlowRegular",
+              fontSize: 16,
+            },
+          },
           axisLabel: {
             show: true,
             interval: 0,
@@ -107,10 +115,11 @@ const ActivityBar = (props) => {
             letterSpacing: -1,
           },
           axisLine: {
-            show: false,
-          },
-          axisTick: {
-            show: false,
+            show: true,
+            lineStyle: {
+              color: "#DDDDDD",
+              width: 1,
+            },
           },
         },
       ],
@@ -122,12 +131,28 @@ const ActivityBar = (props) => {
             fontFamily: "BarlowRegular",
             fontSize: 16,
           },
-
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: "#ddd",
+            },
+          },
           splitLine: {
             lineStyle: {
               type: "solid",
               color: "#DDDDDD",
               width: 1,
+            },
+          },
+          axisTick: {
+            show: true,
+          },
+          axisPointer: {
+            label: {
+              backgroundColor: "#ddd",
+              color: "#000",
+              fontFamily: "BarlowRegular",
+              fontSize: 16,
             },
           },
         },
@@ -165,10 +190,28 @@ const ActivityBar = (props) => {
           data: [
             2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3,
           ],
+          select: {
+            backgroundColor: "red",
+
+            labelLine: {
+              show: true,
+              backgroundColor: "red",
+              color: "blue",
+            },
+          },
         },
         {
           name: "vols rate",
           type: "line",
+          select: {
+            backgroundColor: "red",
+
+            labelLine: {
+              show: true,
+              backgroundColor: "red",
+              color: "blue",
+            },
+          },
           yAxisIndex: 0,
           tooltip: {
             show: false,

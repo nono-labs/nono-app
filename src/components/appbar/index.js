@@ -15,15 +15,14 @@ import {
   Toolbar,
   Typography,
   useMediaQuery,
-  useTheme,
+  useTheme
 } from "@material-ui/core";
 import {
-  Menu as MenuIcon,
-  SearchOutlined as SearchIcon,
+  SearchOutlined as SearchIcon
 } from "@material-ui/icons";
 import cx from "clsx";
 import React, { useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import SwitchWallet from "../switchWallet";
 import SearchBar from "./searchBar";
 
@@ -57,7 +56,9 @@ const SideBar = (props) => {
   const drawer = (
     <Box className={classes.barWidth}>
       <Box onClick={() => goTo("/")} className={classes.logo}>
-        <img src={Images.logo} />
+        <Box className={classes.logoBox}>
+          <img src={Images.logo} />
+        </Box>
         <Typography className={classes.logoTitle}>Nonfungibles</Typography>
       </Box>
       <List>
@@ -87,18 +88,29 @@ const SideBar = (props) => {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar classes={{ root: classes.toolBar }}>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
-          >
-            <MenuIcon htmlColor={theme.custom.palette.noteBackground.default} />
-          </IconButton>
-          {!isSearchShowingInMobile && (
-            <img className={classes.logoCenter} src={Images.logo} />
-          )}
+          <Box>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              className={classes.menuButton}
+            >
+              <img src={Images.menuIcon} />
+            </IconButton>
+            {isMobile && !isSearchShowingInMobile && (
+              <IconButton
+                aria-label="search"
+                className={classes.searchIcon}
+                aria-controls={menuId}
+                onClick={() => setSearchShowing(true)}
+              >
+                <SearchIcon
+                  htmlColor={theme.custom.palette.noteBackground.default}
+                />
+              </IconButton>
+            )}
+          </Box>
           {isMobile ? (
             isSearchShowingInMobile && (
               <SearchContainer onSearchClose={() => setSearchShowing(false)} />
@@ -106,6 +118,14 @@ const SideBar = (props) => {
           ) : (
             <SearchContainer onSearchClose={() => setSearchShowing(false)} />
           )}
+
+          {!isSearchShowingInMobile && (
+            <Link className={classes.logoCenter} to="/">
+              {" "}
+              <img src={Images.logo} />
+            </Link>
+          )}
+
           <Hidden xsDown>
             <Box className={classes.rightBox}>
               <TextBtn
@@ -120,7 +140,7 @@ const SideBar = (props) => {
           <Hidden smUp>
             {isMobile && !isSearchShowingInMobile ? (
               <div className={classes.rightBoxMobile}>
-                <IconButton
+                {/* <IconButton
                   aria-label="search"
                   className={classes.searchIcon}
                   aria-controls={menuId}
@@ -129,7 +149,7 @@ const SideBar = (props) => {
                   <SearchIcon
                     htmlColor={theme.custom.palette.noteBackground.default}
                   />
-                </IconButton>
+                </IconButton> */}
                 <div className={classes.rightIcon}>
                   <img src={Images.asset} />
                 </div>
@@ -214,7 +234,7 @@ const useStyles = makeStyles((theme) => ({
   toolbarBox: theme.mixins.toolbar,
 
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: 3,
     [theme.breakpoints.up("sm")]: {
       display: "none",
     },
@@ -238,11 +258,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "50px 0 100px 0",
     display: "none",
     cursor: "pointer",
-    "& img": {
-      width: "24px",
-      height: "24px",
-      marginRight: "10px",
-    },
+
     "& span": {
       fontSize: "18px",
       marginTop: "5px",
@@ -253,6 +269,18 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
     },
   },
+  logoBox: {
+    width: "24px",
+    height: "24px",
+    background: "#fff",
+    borderRadius: "50%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    "& img": {
+      width: 12,
+    },
+  },
   logoTitle: {
     fontFamily: "BarlowBlack",
     fontSize: "18px",
@@ -261,8 +289,11 @@ const useStyles = makeStyles((theme) => ({
   logoCenter: {
     position: "absolute",
     left: "50%",
-    width: "45px",
     transform: "translateX(-50%)",
+    "& img": {
+      width: "32px",
+      height: "32px",
+    },
     [theme.breakpoints.up("sm")]: {
       display: "none",
     },
@@ -271,10 +302,10 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
   },
   searchIcon: {
-    background: "#e5e5e5",
-    width: "28px",
-    height: "28px",
-    marginRight: 17,
+    width: "32px",
+    height: "32px",
+    borderRadius: 10,
+    border: "2px solid #000",
   },
   menuList: {
     height: "40px",
@@ -306,11 +337,13 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       flexGrow: 0,
       width: "500px",
-      marginLeft: "26px",
     },
   },
   rightBox: {
     display: "flex",
+    [theme.breakpoints.up("xs")]: {
+      marginLeft: "auto",
+    },
   },
   rightBoxBtn: {
     margin: "0 20px",
@@ -323,20 +356,20 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     "& .rightIcon:first-child": {
       background: "#000",
-      marginRight: "17px",
+      marginRight: "15px",
     },
   },
   rightIcon: {
-    width: "26px",
-    height: "26px",
-    borderRadius: "50%",
+    width: "32px",
+    height: "32px",
+    borderRadius: 10,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     border: "0.5px solid #000000",
     cursor: "pointer",
     background: "#000",
-    marginRight: "17px",
+    marginRight: "15px",
   },
   rightIcon1: {
     background: "#fff",

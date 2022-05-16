@@ -29,6 +29,7 @@ import edit1 from '@/assets/img/edit1.svg';
 import convert from '@/assets/img/convert.svg';
 import twitter from '@/assets/img/twitter.svg';
 import share from '@/assets/img/share.svg';
+import menuIcon from '@/assets/img/menuIcon.svg';
 
 export default {
     logo,
@@ -60,5 +61,6 @@ export default {
     convert,
     twitter,
     share,
+    menuIcon
 }
   

@@ -1,82 +1,89 @@
-import Images from '@/constant';
-import { Box, ClickAwayListener, IconButton, InputBase } from "@material-ui/core";
-import Avatar from '@material-ui/core/Avatar';
+import Images from "@/constant";
+import {
+  Box,
+  ClickAwayListener,
+  IconButton,
+  InputBase
+} from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  CloseOutlined as CloseOutlinedIcon, Search as SearchIcon
+  CloseOutlined as CloseOutlinedIcon,
+  Search as SearchIcon
 } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
 import React, { useState } from "react";
 
 const data = [
   {
-    label: 'Collections',
+    label: "Collections",
     value: [
       {
         icon: Images.avatar,
-        content: 'Bored Ape Yacht Club',
+        content: "Bored Ape Yacht Club",
       },
       {
         icon: Images.avatar,
-        content: 'Bored Ape Yacht Club',
+        content: "Bored Ape Yacht Club",
       },
       {
         icon: Images.avatar,
-        content: 'Bored Ape Yacht Club',
+        content: "Bored Ape Yacht Club",
       },
-    ]
+    ],
   },
   {
-    label: 'Profile',
+    label: "Profile",
     value: [
       {
         icon: Images.avatar,
-        content: 'Enrico Cole',
+        content: "Enrico Cole",
       },
       {
         icon: Images.avatar,
-        content: 'Enrico Cole',
+        content: "Enrico Cole",
       },
       {
         icon: Images.avatar,
-        content: 'Enrico Cole',
+        content: "Enrico Cole",
       },
-    ]
+    ],
   },
   {
-    label: 'Items',
+    label: "Items",
     value: [
       {
         icon: Images.avatar,
-        content: 'Bored Ape Yacht Club',
+        content: "Bored Ape Yacht Club",
       },
       {
         icon: Images.avatar,
-        content: 'Bored Ape Yacht Club',
+        content: "Bored Ape Yacht Club",
       },
       {
         icon: Images.avatar,
-        content: 'Bored Ape Yacht Club',
+        content: "Bored Ape Yacht Club",
       },
-    ]
+    ],
   },
-]
-const useStyles = makeStyles(theme => ({
+];
+const useStyles = makeStyles((theme) => ({
   root: {
-    position: 'relative',
+    position: "relative",
   },
   search: {
     display: "flex",
     justifyContent: "center",
-    maxWidth: "100%",
-    height: '40px',
-    border: '2px solid #000000',
-    boxSizing: 'border-box',
-    borderRadius: '10px',
-    background: '#fff',
+    maxWidth: "500px",
+    width: "100%",
+    height: "40px",
+    border: "2px solid #000000",
+    boxSizing: "border-box",
+    borderRadius: "10px",
+    background: "#fff",
     transition: theme.transitions.create("all", {
       easing: theme.transitions.easing.easeIn,
-      duration: theme.transitions.duration.shortest
+      duration: theme.transitions.duration.shortest,
     }),
   },
   searchIcon: {
@@ -84,62 +91,62 @@ const useStyles = makeStyles(theme => ({
     height: "100%",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   inputRoot: {
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
   },
   inputInput: {
     width: "100%",
-    color: '#000'
+    color: "#000",
   },
   dropdown: {
-    position: 'absolute',
+    position: "absolute",
     top: 50,
     right: 0,
     left: 0,
     zIndex: 1,
-    border: '1px solid #000',
-    overflow: 'hidden',
+    border: "1px solid #000",
+    overflow: "hidden",
     borderRadius: 8,
     backgroundColor: theme.palette.background.default,
-    fontFamily: 'Barlow',
-    fontWeight: 600
+    fontFamily: "Barlow",
+    fontWeight: 600,
   },
   header: {
-    padding: '0 30px',
-    height: '32px',
-    lineHeight: '32px',
-    borderBottom: '1px solid #000',
-    '&:last-child': {
-      textAlign: 'center',
-      background: '#fff',
+    padding: "0 30px",
+    height: "32px",
+    lineHeight: "32px",
+    borderBottom: "1px solid #000",
+    "&:last-child": {
+      textAlign: "center",
+      background: "#fff",
     },
-    '&:first-child': {
-      textAlign: 'left',
-      background: '#ddd',
+    "&:first-child": {
+      textAlign: "left",
+      background: "#ddd",
     },
   },
   itemList: {
-    height: '40px',
-    lineHeight: '40px',
-    borderBottom: '1px solid #000',
-    paddingLeft: '30px',
-    display: 'flex',
-    alignItems: 'center',
-    '& span': {
-      marginLeft: '10px',
-    }
+    height: "40px",
+    lineHeight: "40px",
+    borderBottom: "1px solid #000",
+    paddingLeft: "30px",
+    display: "flex",
+    alignItems: "center",
+    "& span": {
+      marginLeft: "10px",
+    },
   },
   iconAvator: {
-    width: '24px',
-    height: '24px',
+    width: "24px",
+    height: "24px",
   },
   iconbtn: {
     padding: 6,
     marginRight: 5,
-  }
+  },
 }));
 
 const SearchBar = ({ onSearchClose }) => {
@@ -149,7 +156,7 @@ const SearchBar = ({ onSearchClose }) => {
   const [isFocussed, setFocussed] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isShowingToast, showToast] = useState(false);
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const onSearchCancel = () => {
     setSearchTerm("");
     setFocussed(false);
@@ -158,18 +165,15 @@ const SearchBar = ({ onSearchClose }) => {
   const onSearch = (event) => {
     setFocussed(true);
     if (event.key === "Enter") {
-      setOpen(true)
-
+      setOpen(true);
     }
-  }
+  };
   const onFocusLoss = () => {
     onSearchClose();
     setFocussed(false);
-    setOpen(false)
-  }
-  const handleToastClose = () => {
-
-  }
+    setOpen(false);
+  };
+  const handleToastClose = () => {};
 
   return (
     <ClickAwayListener onClickAway={onFocusLoss}>
@@ -186,41 +190,46 @@ const SearchBar = ({ onSearchClose }) => {
           height={"3rem"}
         >
           <div className={classes.searchIcon}>
-            <SearchIcon htmlColor={'#000'} />
+            <SearchIcon htmlColor={"#000"} />
           </div>
           <InputBase
             placeholder="Search"
             classes={{
               root: classes.inputRoot,
-              input: classes.inputInput
+              input: classes.inputInput,
             }}
             value={searchTerm}
             onClick={() => setFocussed(true)}
             inputProps={{ "aria-label": "search" }}
-            onChange={event => setSearchTerm(event.target.value)}
+            onChange={(event) => setSearchTerm(event.target.value)}
             onKeyDown={onSearch}
           />
           {isFocussed ? (
-            <IconButton className={classes.iconbtn} hidden={!isFocussed} onClick={onSearchCancel}>
-              <CloseOutlinedIcon htmlColor={theme.custom.palette.noteBackground.default} />
+            <IconButton
+              className={classes.iconbtn}
+              hidden={!isFocussed}
+              onClick={onSearchCancel}
+            >
+              <CloseOutlinedIcon
+                htmlColor={theme.custom.palette.noteBackground.default}
+              />
             </IconButton>
           ) : null}
         </Box>
         {open ? (
           <div className={classes.dropdown}>
-            {
-              data.map((item, index) => (
-                <div key={index}>
-                  <div className={classes.header}>{item.label}</div>
-                  {
-                    item.value.map((obj, i) => (
-                      <div className={classes.itemList} key={`${index}_${i}`}><Avatar className={classes.iconAvator} src={obj.icon} /><span>{obj.content}</span></div>
-                    ))
-                  }
-                  <div className={classes.header}>More</div>
-                </div>
-              ))
-            }
+            {data.map((item, index) => (
+              <div key={index}>
+                <div className={classes.header}>{item.label}</div>
+                {item.value.map((obj, i) => (
+                  <div className={classes.itemList} key={`${index}_${i}`}>
+                    <Avatar className={classes.iconAvator} src={obj.icon} />
+                    <span>{obj.content}</span>
+                  </div>
+                ))}
+                <div className={classes.header}>More</div>
+              </div>
+            ))}
           </div>
         ) : null}
       </div>

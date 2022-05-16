@@ -85,9 +85,12 @@ export default function TopCollections(props) {
         {rows.map((row, index) => (
           <Accordion key={index}>
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon htmlColor={"#000"} />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
+              expandIcon={
+                <ExpandMoreIcon
+                  className={classes.expandIcon}
+                  htmlColor={"#000"}
+                />
+              }
             >
               <div className={classes.accordion}>
                 <Box className={classes.heading}>
@@ -95,42 +98,62 @@ export default function TopCollections(props) {
                   <img src={Images.avatar} />
                   <span>{row.name}</span>
                 </Box>
-                <Box className={classes.content}>
-                  <span>Floor</span>
-                  <div className={classes.tableCell}>
-                    <img src={Images.eth} />
-                    <span className={classes.value}>0.19</span>
-                    <span className={classes.rateDown}>-2.34%</span>
-                  </div>
-                </Box>
-                <Box className={classes.content}>
-                  <span>24h Vol</span>
-                  <div className={classes.tableCell}>
-                    <img src={Images.eth} />
-                    <span className={classes.value}>0.59</span>
-                    <span className={classes.rateUp}>+2.34%</span>
-                  </div>
-                </Box>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <Box className={classes.content}>
+                      <span className={classes.label}>Floor</span>
+                      <div className={classes.tableCell}>
+                        <img src={Images.eth} />
+                        <span className={classes.value}>0.19</span>
+                        <span className={classes.rateDown}>-2.34%</span>
+                      </div>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Box className={classes.content}>
+                      <span className={classes.label}>24h Vol</span>
+                      <div className={classes.tableCell}>
+                        <img src={Images.eth} />
+                        <span className={classes.value}>0.59</span>
+                        <span className={classes.rateUp}>+2.34%</span>
+                      </div>
+                    </Box>
+                  </Grid>
+                </Grid>
               </div>
             </AccordionSummary>
             <AccordionDetails>
               <div className={classes.accordion}>
-                <Box className={classes.content}>
-                  <span>Floor</span>
-                  <div className={classes.tableCell}>
-                    <img src={Images.eth} />
-                    <span className={classes.value}>0.19</span>
-                    <span className={classes.rateDown}>-2.34%</span>
-                  </div>
-                </Box>
-                <Box className={classes.content}>
-                  <span>24h Vol</span>
-                  <div className={classes.tableCell}>
-                    <img src={Images.eth} />
-                    <span className={classes.value}>0.59</span>
-                    <span className={classes.rateUp}>+2.34%</span>
-                  </div>
-                </Box>
+              <Grid container>
+                  <Grid item xs={6}>
+                    <Box className={classes.content}>
+                      <span className={classes.label}>Total Vol</span>
+                      <div className={classes.tableCell}>
+                        <img src={Images.eth} />
+                        <span className={classes.value}>15.45K</span>
+                      </div>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Box className={classes.content}>
+                      <span className={classes.label}>Owner</span>
+                      <div className={classes.tableCell}>
+                        <span className={classes.value}>15.45K</span>
+                      </div>
+                    </Box>
+                  </Grid>
+                </Grid>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <Box className={classes.content}>
+                      <span className={classes.label}>Item</span>
+                      <div className={classes.tableCell}>
+                        <span className={classes.value}>2.34K</span>
+                      </div>
+                    </Box>
+                  </Grid>
+                
+                </Grid>
               </div>
             </AccordionDetails>
           </Accordion>
@@ -145,9 +168,7 @@ const useStyle = makeStyles((theme) => ({
     borderRadius: "20px",
     background: "#fff",
     padding: "100px",
-    // margin: `${theme.custom.palette.defaultspacing} 0px`,
     [theme.breakpoints.down("md")]: {
-      // margin: `${theme.custom.palette.mdspacing} 0px`,
       padding: "20px",
     },
   },
@@ -179,11 +200,14 @@ const useStyle = makeStyles((theme) => ({
     },
     "& img": {
       margin: "0 17px",
+      width: 32,
+      height: 32,
     },
   },
   accordion: {
     display: "flex",
     flexDirection: "column",
+    width: "100%",
   },
   content: {
     fontStyle: "normal",
@@ -191,12 +215,9 @@ const useStyle = makeStyles((theme) => ({
     fontSize: "14px",
     lineHeight: "30px",
     color: "#000",
-    paddingLeft: "70px",
     display: "flex",
     alignItems: "center",
-    "& span:first-child": {
-      width: "70px",
-    },
+ 
   },
   tableCell: {
     fontSize: "14px",
@@ -206,11 +227,12 @@ const useStyle = makeStyles((theme) => ({
     alignItems: "center",
     "& img": {
       width: "12px",
-      marginRight: "3px",
+      marginRight: "5px",
     },
   },
   value: {
     paddingRight: "6px",
+    fontSize: 16,
   },
   accordBox: {
     [theme.breakpoints.up("md")]: {
@@ -219,12 +241,24 @@ const useStyle = makeStyles((theme) => ({
   },
   rateUp: {
     color: "#FF2E2E",
+    fontSize: 10,
   },
   rateDown: {
     color: "#00CF9E",
+    fontSize: 10,
   },
   buttonAsset: {
     marginTop: 50,
+  },
+  expandIcon: {
+    border: "1px solid #000",
+    borderRadius: "50%",
+    width: 32,
+    height: 32,
+  },
+  label: {
+    fontSize: 10,
+    marginRight: 5,
   },
 }));
 
@@ -250,14 +284,14 @@ const Accordion = withStyles({
       display: "none",
     },
     "&$expanded": {
-      margin: "auto",
+      margin: "0",
     },
   },
   expanded: {},
 })(MuiAccordion);
 const AccordionSummary = withStyles({
   root: {
-    alignItems: "baseline",
+    alignItems: "flex-start",
     padding: 0,
     minHeight: 56,
     "&$expanded": {
@@ -266,8 +300,7 @@ const AccordionSummary = withStyles({
   },
   content: {
     "&$expanded": {
-      margin: "12px 0",
-      margin: "0",
+      margin: "12px 0 0",
     },
   },
   expanded: {},
@@ -276,5 +309,6 @@ const AccordionSummary = withStyles({
 const AccordionDetails = withStyles((theme) => ({
   root: {
     padding: 0,
+    paddingRight: 44,
   },
 }))(MuiAccordionDetails);
