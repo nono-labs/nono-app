@@ -148,9 +148,9 @@ const SearchBar = ({ label = "Sort by", value, onChange }) => {
             {data.filter((obj) => obj.value == sort)?.[0]?.label || "Sort by"}
           </Typography>
           {isFocussed ? (
-            <ExpandLessIcon htmlColor={theme.palette.secondary.main} />
+            <ExpandLessIcon htmlColor={theme.palette.primary.main} />
           ) : (
-            <ExpandMoreIcon htmlColor={theme.palette.secondary.main} />
+            <ExpandMoreIcon htmlColor={theme.palette.primary.main} />
           )}
         </Box>
         {open ? (

@@ -1,7 +1,7 @@
 import NFT from "@/components/NFT";
 import { Grid, Hidden, makeStyles } from "@material-ui/core";
 import React from "react";
-import Header from "../profile/header";
+import Header from "./header";
 // import FilterMobile from "./filterMobile";
 import ActivityBar from "./activityBar";
 import ActivityTable from "./activityTable";
@@ -24,13 +24,16 @@ export default function Profile(props) {
     <>
       <Header />
       <Tabs handleChangeTab={handleChange} tabs={tabs} />
-      <Filter />
       {value === 0 ? (
-        <Grid className={classes.grid}>
-          {[...Array(10)].map((item, index) => (
-            <NFT style={{ border: "0" }} key={index} />
-          ))}
-        </Grid>
+        <React.Fragment>
+          <Filter />
+
+          <Grid className={classes.grid}>
+            {[...Array(10)].map((item, index) => (
+              <NFT style={{ border: "0" }} key={index} />
+            ))}
+          </Grid>
+        </React.Fragment>
       ) : (
         <>
           <Hidden xsDown implementation="css">
@@ -39,10 +42,6 @@ export default function Profile(props) {
           <ActivityTable />
         </>
       )}
-
-      {/* <Hidden smUp>
-        <FilterMobile />
-      </Hidden> */}
     </>
   );
 }
