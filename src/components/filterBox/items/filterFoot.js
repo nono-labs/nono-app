@@ -1,9 +1,10 @@
 import Images from "@/constant";
 import { Box, makeStyles, Typography } from "@material-ui/core";
 import { useState } from "react";
-import FilterBox from "./filter";
+import Drawer from "./drawer";
 
 const FilterMobile = (props) => {
+  const {filterType} = props;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -19,7 +20,7 @@ const FilterMobile = (props) => {
           Filter
         </Typography>
       </Box>
-      <FilterBox open={open} setOpen={() => setOpen(false)} />
+      <Drawer filterType={filterType} open={open} setOpen={() => setOpen(false)} />
     </>
   );
 };

@@ -1,14 +1,6 @@
-import TextBtn from "@/components/btn";
-import Modal from "@/components/modal";
 import Images from "@/constant";
-import {
-  Box,
-  ClickAwayListener, Divider, Grid, IconButton, InputBase, makeStyles,
-  Typography
-} from "@material-ui/core";
-import {
-  AddCircleOutline as AddCircleOutlineIcon, CloseOutlined as CloseOutlinedIcon, Search as SearchIcon
-} from "@material-ui/icons";
+import { Box, Divider, Grid, makeStyles, Typography } from "@material-ui/core";
+import { AddCircleOutline as AddCircleOutlineIcon } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
 import clsx from "clsx";
 import React, { useState } from "react";
@@ -49,48 +41,7 @@ const CollectionModal = (props) => {
     setFocussed(false);
   };
   return (
-    <Modal
-      open={open}
-      setOpen={setOpen}
-      maxWidth={700}
-      title={"Collection"}
-    >
-      <ClickAwayListener onClickAway={onFocusLoss}>
-        <Box
-          className={classes.search}
-          borderRadius={theme.shape.borderRadius}
-          bgcolor={
-            isFocussed
-              ? theme.palette.background.default
-              : theme.palette.background.highlight
-          }
-          boxShadow={isFocussed ? 2 : 0}
-          height={"3rem"}
-        >
-          <div className={classes.searchIcon}>
-            <SearchIcon htmlColor={"#000"} />
-          </div>
-          <InputBase
-            placeholder="Search"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            value={searchTerm}
-            onClick={() => setFocussed(true)}
-            inputProps={{ "aria-label": "search" }}
-            onChange={(event) => setSearchTerm(event.target.value)}
-            onKeyDown={onSearch}
-          />
-          {isFocussed ? (
-            <IconButton hidden={!isFocussed} onClick={onSearchCancel}>
-              <CloseOutlinedIcon
-                htmlColor={theme.custom.palette.noteBackground.default}
-              />
-            </IconButton>
-          ) : null}
-        </Box>
-      </ClickAwayListener>
+    <>
       {new Array(12).fill().map((_, i) => (
         <Box key={i}>
           <Divider className={classes.divider} />
@@ -128,8 +79,7 @@ const CollectionModal = (props) => {
           </Box>
         </Box>
       ))}
-      <TextBtn className={classes.btnSpace} onClick={() => {}} text={"Apply"} />
-    </Modal>
+    </>
   );
 };
 export default CollectionModal;

@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   collection: {
     fontSize: "18px",
-    lineHeight: "18px",
+    lineHeight: "19px",
     display: "flex",
     "& img": {
       margin: "0 5px",

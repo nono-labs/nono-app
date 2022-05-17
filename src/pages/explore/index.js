@@ -1,12 +1,10 @@
+import FilterBox from "@/components/filterBox";
 import NFT from "@/components/NFT";
-import { Grid, Hidden, makeStyles } from "@material-ui/core";
-import React, { useEffect, useCallback, useState } from "react";
-import FilterPrice from "./filter/price";
-import FilterMobile from "./filterMobile";
 import { getListsAsync } from "@/store/modules/explore";
-import { useSelector, useDispatch } from "react-redux";
+import { Grid, makeStyles } from "@material-ui/core";
+import React, { useCallback, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
-
+import { useDispatch, useSelector } from "react-redux";
 export default function Explore(props) {
   const { list, loading, hasMoreItems, page } = useSelector(
     (state) => state.explore
@@ -22,7 +20,6 @@ export default function Explore(props) {
     if (loading) {
       return;
     }
- 
   }, [list, loading, hasMoreItems]);
 
   // const hasMoreItems = !!nextPageUrl;
@@ -32,30 +29,27 @@ export default function Explore(props) {
     </div>
   );
 
-  console.log(list, loading, "list, loading");
   return (
     <>
-      <FilterPrice />
-      <InfiniteScroll
-        loadMore={fetchItems}
-        hasMore={hasMoreItems}
-        loader={loader}
-      >
-        <Grid className={classes.grid}>
-          {list?.map((item, index) => (
-            <NFT item={item} style={{ border: "0" }} key={index} />
-          ))}
-          {loading &&
-            Array(10)
-              .fill()
-              .map((item, index) => (
-                <NFT style={{ border: "0" }} key={index + "-"} />
-              ))}
-        </Grid>
-      </InfiniteScroll>
-      <Hidden smUp>
-        <FilterMobile />
-      </Hidden>
+      <FilterBox>
+        <InfiniteScroll
+          loadMore={fetchItems}
+          hasMore={hasMoreItems}
+          loader={loader}
+        >
+          <Grid className={classes.grid}>
+            {list?.map((item, index) => (
+              <NFT item={item} style={{ border: "0" }} key={index} />
+            ))}
+            {loading &&
+              Array(10)
+                .fill()
+                .map((item, index) => (
+                  <NFT style={{ border: "0" }} key={index + "-"} />
+                ))}
+          </Grid>
+        </InfiniteScroll>
+      </FilterBox>
     </>
   );
 }

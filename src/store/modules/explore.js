@@ -12,7 +12,6 @@ export const exploreSlice = createSlice({
   },
   reducers: {
     list: (state, { payload }) => {
-      console.log(payload, "payload");
       state.list = payload?.markets ?? [];
       state.loading = payload?.loading;
       state.hasMoreItems = payload?.hasMoreItems;
@@ -41,12 +40,7 @@ export const getListsAsync = (payload) => {
         markets.data?.data?.content ?? []
       );
     }
-    console.log(
-      markets.data?.data?.content,
-
-      newdata,
-      getState().explore.page
-    );
+ 
     dispatch(
       list({
         markets: newdata,

@@ -2,21 +2,30 @@ import TextBtn from "@/components/btn";
 import Modal from "@/components/modal";
 import Images from "@/constant";
 import {
-  Box, Chip, ClickAwayListener, Grid, IconButton, InputBase, makeStyles, Table,
+  Box,
+  Chip,
+  ClickAwayListener,
+  Grid, Hidden, IconButton,
+  InputBase,
+  makeStyles,
+  Table,
   TableBody,
   TableCell,
   TableHead,
-  TableRow, Typography, withStyles
+  TableRow,
+  Typography,
+  withStyles
 } from "@material-ui/core";
 import {
-  CloseOutlined as CloseOutlinedIcon, Search as SearchIcon
+  CloseOutlined as CloseOutlinedIcon,
+  Search as SearchIcon
 } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
 import React, { useState } from "react";
-import TraitModal from "../filterMobile/trait";
+import Items from "./mobileItem";
 
 const CollectionModal = (props) => {
-  const { open, setOpen } = props;
+  const { open, setOpen, handleOpenTrait } = props;
   const theme = useTheme();
   const [isFocussed, setFocussed] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -66,30 +75,37 @@ const CollectionModal = (props) => {
     setFocussed(false);
   };
   return (
-    <Modal open={open} setOpen={()=>setOpen(false)} maxWidth={700} title={"Collection"}>
-      <Box>
-        {new Array(9).fill().map((_, i) => (
-          <Chip
-            label={`Bored Ape ${i}`}
-            key={i}
-            icon={<img src={Images.avatar} />}
-            onDelete={() => {}}
-            deleteIcon={
-              <Box className={classes.deleteIcon}>
-                <Typography
-                  onClick={() => setVisibleTrait(true)}
-                  className={classes.setTrait}
-                >
-                  Set Traits
-                </Typography>
-                <img onClick={() => {}} src={Images.traitClose} />
-              </Box>
-            }
-            variant="outlined"
-            className={classes.chip}
-          />
-        ))}
-      </Box>
+    <Modal
+      open={open}
+      setOpen={() => setOpen(false)}
+      maxWidth={700}
+      title={"Collection"}
+    >
+      <Hidden xsDown>
+        <Box>
+          {new Array(9).fill().map((_, i) => (
+            <Chip
+              label={`Bored Ape ${i}`}
+              key={i}
+              icon={<img src={Images.avatar} />}
+              onDelete={() => {}}
+              deleteIcon={
+                <Box className={classes.deleteIcon}>
+                  <Typography
+                    onClick={handleOpenTrait}
+                    className={classes.setTrait}
+                  >
+                    Set Traits
+                  </Typography>
+                  <img onClick={() => {}} src={Images.traitClose} />
+                </Box>
+              }
+              variant="outlined"
+              className={classes.chip}
+            />
+          ))}
+        </Box>
+      </Hidden>
       <ClickAwayListener onClickAway={onFocusLoss}>
         <Box
           className={classes.search}
@@ -126,69 +142,70 @@ const CollectionModal = (props) => {
           ) : null}
         </Box>
       </ClickAwayListener>
-      <Table classes={{ root: classes.head }} aria-label="caption table">
-        <caption className={classes.btnBox} style={{ padding: 0 }}>
-          <Grid
-            justifyContent="center"
-            direction="row"
-            alignItems="center"
-            container
-          >
-            <TextBtn
-              className={classes.btnSpace}
-              onClick={() => {}}
-              text={"Apply"}
-            />
-          </Grid>
-        </caption>
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Collection</StyledTableCell>
-            <StyledTableCell>Floor Price</StyledTableCell>
-            <StyledTableCell>24h Volume</StyledTableCell>
-            <StyledTableCell>Set Traits</StyledTableCell>
-            <StyledTableCell>Add to Filter</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row, i) => (
-            <TableRow key={row.name + i}>
-              <StyledTableCell>
-                <Box className={classes.grow}>
-                  <img src={Images.avatar} />
-                  {row.name}
-                </Box>
-              </StyledTableCell>
-              <StyledTableCell>
-                <Grid container>
-                  <img src={Images.eth} />
-                  0.55
-                </Grid>
-                <Typography className={classes.priceRate}>+1.53%</Typography>
-              </StyledTableCell>
-              <StyledTableCell>
-                <Grid container>
-                  <img src={Images.eth} />
-                  {row.fat}k
-                </Grid>
-                <Typography className={classes.priceRate}>+1.53%</Typography>
-              </StyledTableCell>
-              <StyledTableCell>
-                <Box
-                  onClick={() => setVisibleTrait(true)}
-                  className={classes.traitBtn}
-                >
-                  Set Traits
-                </Box>
-              </StyledTableCell>
-              <StyledTableCell>
-                <img className={classes.addto} src={Images.traitAdd} />
-              </StyledTableCell>
+      <Hidden xsDown>
+        <Table classes={{ root: classes.head }} aria-label="caption table">
+          <caption className={classes.btnBox} style={{ padding: 0 }}>
+            <Grid
+              justifyContent="center"
+              direction="row"
+              alignItems="center"
+              container
+            >
+              <TextBtn
+                className={classes.btnSpace}
+                onClick={() => {}}
+                text={"Apply"}
+              />
+            </Grid>
+          </caption>
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Collection</StyledTableCell>
+              <StyledTableCell>Floor Price</StyledTableCell>
+              <StyledTableCell>24h Volume</StyledTableCell>
+              <StyledTableCell>Set Traits</StyledTableCell>
+              <StyledTableCell>Add to Filter</StyledTableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <TraitModal open={visibleTrait} setOpen={() => setVisibleTrait(false)} />
+          </TableHead>
+          <TableBody>
+            {rows.map((row, i) => (
+              <TableRow key={row.name + i}>
+                <StyledTableCell>
+                  <Box className={classes.grow}>
+                    <img src={Images.avatar} />
+                    {row.name}
+                  </Box>
+                </StyledTableCell>
+                <StyledTableCell>
+                  <Grid container>
+                    <img src={Images.eth} />
+                    0.55
+                  </Grid>
+                  <Typography className={classes.priceRate}>+1.53%</Typography>
+                </StyledTableCell>
+                <StyledTableCell>
+                  <Grid container>
+                    <img src={Images.eth} />
+                    {row.fat}k
+                  </Grid>
+                  <Typography className={classes.priceRate}>+1.53%</Typography>
+                </StyledTableCell>
+                <StyledTableCell>
+                  <Box onClick={handleOpenTrait} className={classes.traitBtn}>
+                    Set Traits
+                  </Box>
+                </StyledTableCell>
+                <StyledTableCell>
+                  <img className={classes.addto} src={Images.traitAdd} />
+                </StyledTableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Hidden>
+      <Hidden smUp>
+        <Items />
+      </Hidden>
     </Modal>
   );
 };
@@ -267,6 +284,9 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.easeIn,
       duration: theme.transitions.duration.shortest,
     }),
+    [theme.breakpoints.down("xs")]: {
+      marginTop: 0,
+    },
   },
   searchIcon: {
     width: theme.spacing(7),

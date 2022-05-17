@@ -1,14 +1,22 @@
 import Images from "@/constant";
 import {
-  Box, Chip, Drawer, Grid, IconButton, InputBase, makeStyles, Switch, Typography
+  Box,
+  Chip,
+  Drawer,
+  Grid,
+  IconButton,
+  InputBase,
+  makeStyles,
+  Switch,
+  Typography,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { useState } from "react";
-import CollectionModal from "./collecion";
+import CollectionModal from "./collection";
 import TraitModal from "./trait";
 const FilterBox = (props) => {
   const classes = useStyles();
-  const { open, setOpen } = props;
+  const { open, setOpen, filterType } = props;
   const [visible, setVisible] = useState(false);
   const [visibleTrait, setVisibleTrait] = useState(false);
   const toggleDrawer = () => {
@@ -23,6 +31,10 @@ const FilterBox = (props) => {
   };
   const handleDelete = () => {
     console.log("delete");
+  };
+  const handleOpen = () => {
+    if (filterType === "Collection") setVisible(true);
+    else setVisibleTrait(true);
   };
   return (
     <Drawer
@@ -62,7 +74,7 @@ const FilterBox = (props) => {
         </Grid>
       </Box>
       <Box mb={"15px"}>
-        <Typography className={classes.labelTitle}>Collection</Typography>
+        <Typography className={classes.labelTitle}>{filterType}</Typography>
         {new Array(12).fill().map((_, i) => (
           <Chip
             key={i}
@@ -71,12 +83,15 @@ const FilterBox = (props) => {
             onDelete={() => {}}
             deleteIcon={
               <Box className={classes.deleteIcon}>
-                <Typography
-                  onClick={() => setVisibleTrait(true)}
-                  className={classes.setTrait}
-                >
-                  Set Traits
-                </Typography>
+                {filterType === "Collection" && (
+                  <Typography
+                    onClick={() => setVisibleTrait(true)}
+                    className={classes.setTrait}
+                  >
+                    Set Traits
+                  </Typography>
+                )}
+
                 <img onClick={handleDelete} src={Images.traitClose} />
               </Box>
             }
@@ -84,10 +99,7 @@ const FilterBox = (props) => {
             className={classes.chip}
           />
         ))}
-        <IconButton
-          onClick={() => setVisible(true)}
-          className={classes.noSpace}
-        >
+        <IconButton onClick={handleOpen} className={classes.noSpace}>
           <img src={Images.traitAdd} />
         </IconButton>
       </Box>

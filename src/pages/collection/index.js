@@ -1,13 +1,11 @@
+import FilterBox from "@/components/filterBox";
 import NFT from "@/components/NFT";
+import Tabs from "@/components/tabs";
 import { Grid, Hidden, makeStyles } from "@material-ui/core";
 import React from "react";
-import Header from "./header";
-// import FilterMobile from "./filterMobile";
 import ActivityBar from "./activityBar";
 import ActivityTable from "./activityTable";
-
-import Filter from "./filter";
-import Tabs from "@/components/tabs";
+import Header from "./header";
 
 const tabs = [
   { label: "Items", value: 0 },
@@ -25,15 +23,13 @@ export default function Profile(props) {
       <Header />
       <Tabs handleChangeTab={handleChange} tabs={tabs} />
       {value === 0 ? (
-        <React.Fragment>
-          <Filter />
-
+        <FilterBox filterType="Trait">
           <Grid className={classes.grid}>
             {[...Array(10)].map((item, index) => (
               <NFT style={{ border: "0" }} key={index} />
             ))}
           </Grid>
-        </React.Fragment>
+        </FilterBox>
       ) : (
         <>
           <Hidden xsDown implementation="css">
