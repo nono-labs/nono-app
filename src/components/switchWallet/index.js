@@ -6,14 +6,33 @@ import {
   Typography,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import React from "react";
+import React,{useMemo,useCallback,useState,useEffect} from "react";
 // import WalletConnectProvider from '@walletconnect/web3-provider'
 import Modal from "@/components/modal";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setAddress } from "@/store/modules/account";
+import {  NET_WORK_VERSION } from '@/utils/constant'
 const SwitchWallet = (props) => {
   const { open, setOpen } = props;
-  // const [open, setOpen] = useState(true);
+  const dispatch = useDispatch();
+  const netArray = useMemo(
+    () => [
+      {
+        name: "Ethereum Mainnet",
+        // icon: selectEthSvg,
+        shortName: ["ETH", "Ethereum"],
+        // shortIcon: ethSvg,
+        netWorkId: 1,
+      },
+    ],
+    []
+  );
+  const { address } = useSelector(
+    (state) => state.account
+  );
   const classes = useStyles();
+
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -30,7 +49,18 @@ const SwitchWallet = (props) => {
             const accounts = await ethereum.request({
               method: "eth_requestAccounts",
             });
+
             const account = accounts[0];
+            const currentIndex = netArray.findIndex(
+              (item) => Number(item.netWorkId) === Number(ethereum.networkVersion || ethereum.chainId),
+            )
+            let params = {
+              address: account,
+              chainType: NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
+              currentIndex,
+            }
+            dispatch(setAddress(params))
+            handleClose()
             console.log(account, "account");
           } catch (e) {
             console.log(e, "e");

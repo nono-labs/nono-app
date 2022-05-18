@@ -15,23 +15,26 @@ import {
   Toolbar,
   Typography,
   useMediaQuery,
-  useTheme
+  useTheme,
 } from "@material-ui/core";
-import {
-  SearchOutlined as SearchIcon
-} from "@material-ui/icons";
+import { SearchOutlined as SearchIcon } from "@material-ui/icons";
 import cx from "clsx";
-import React, { useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import SwitchWallet from "../switchWallet";
 import SearchBar from "./searchBar";
+import { shortenAddress } from "@/utils/tools";
+import { useDispatch, useSelector } from "react-redux";
+import React, { useMemo, useCallback, useState, useEffect } from "react";
+import {  NET_WORK_VERSION } from '@/utils/constant'
+// import Web3 from 'web3'
 
 const SideBar = (props) => {
   const menuId = "primary-search-account-menu";
-
+  const { address } = useSelector((state) => state.account);
   const { window, location } = props;
   const { pathname, state } = useLocation();
   const theme = useTheme();
+  const [currentNetIndex, setCurrentNetIndex] = useState(0)
 
   const classes = useStyles();
   const navigate = useNavigate();
@@ -42,7 +45,76 @@ const SideBar = (props) => {
   const [open, setOpen] = useState(false);
 
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const netArray = useMemo(
+    () => [
+      {
+        name: "Ethereum Mainnet",
+        // icon: selectEthSvg,
+        shortName: ["ETH", "Ethereum"],
+        // shortIcon: ethSvg,
+        netWorkId: 1,
+      },
+    ],
+    []
+  );
+  console.log(window?.ethereum)
+  useEffect(() => {
 
+    if (window?.ethereum?.selectedAddress) {
+      injectWallet();
+    }
+  }, [address, netArray, window?.ethereum]);
+  const injectWallet = useCallback(async () => {
+		let ethereum = window.ethereum
+		if (ethereum) {
+			const reqAccounts = await ethereum.request({
+				method: 'eth_requestAccounts',
+			})
+			const curAccount = ethereum?.selectedAddress || reqAccounts[0]
+      console.log(curAccount,'curAccount')
+      alert(curAccount)
+			const currentIndex = netArray.findIndex(
+				(item) => Number(item.netWorkId) === Number(ethereum.networkVersion || ethereum.chainId),
+			)
+			let defaultparams = {
+				address: curAccount,
+				chainType: NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
+			}
+			setCurrentNetIndex(currentIndex)
+			// dispatch(setProfileToken(defaultparams))
+
+			//  监听节点切换
+			ethereum.on('chainChanged', (chainId) => {
+				window.location.reload()
+			})
+			// 监听网络切换
+			ethereum.on('networkChanged', (networkIDstring) => {
+				const currentIndex = netArray.findIndex(
+					(item) => Number(item.netWorkId) === Number(networkIDstring),
+				)
+				let params = {
+					address: ethereum?.selectedAddress,
+					chainType: NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
+				}
+				// 存储address
+			
+			})
+			let params = {
+				address: curAccount,
+				chainType: NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
+			}
+			// 存储address
+		
+			// 监听账号切换
+			ethereum.on('accountsChanged', (accounts) => {
+				let params = {
+					address: accounts[0],
+					chainType: NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
+				}
+
+			})
+		}
+	}, [address, netArray])
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -52,7 +124,7 @@ const SideBar = (props) => {
   const handleIsConnect = () => {
     setOpen(true);
   };
-  console.log(routesList, "pathname");
+  console.log(routesList, address, "pathname");
   const drawer = (
     <Box className={classes.barWidth}>
       <Box onClick={() => goTo("/")} className={classes.logo}>
@@ -129,9 +201,10 @@ const SideBar = (props) => {
           <Hidden xsDown>
             <Box className={classes.rightBox}>
               <TextBtn
+                width={address && 200}
                 className={classes.rightBoxBtn}
-                startIcon={connect && Images.asset}
-                text="Connect"
+                startIcon={address && Images.asset}
+                text={address ? shortenAddress(address) : "Connect"}
                 onClick={handleIsConnect}
               />
               <TextBtn startIcon={Images.eth} text="Ethereum" />
@@ -140,16 +213,6 @@ const SideBar = (props) => {
           <Hidden smUp>
             {isMobile && !isSearchShowingInMobile ? (
               <div className={classes.rightBoxMobile}>
-                {/* <IconButton
-                  aria-label="search"
-                  className={classes.searchIcon}
-                  aria-controls={menuId}
-                  onClick={() => setSearchShowing(true)}
-                >
-                  <SearchIcon
-                    htmlColor={theme.custom.palette.noteBackground.default}
-                  />
-                </IconButton> */}
                 <div className={classes.rightIcon}>
                   <img src={Images.asset} />
                 </div>

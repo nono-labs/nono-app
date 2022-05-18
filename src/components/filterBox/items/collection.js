@@ -134,7 +134,7 @@ const CollectionModal = (props) => {
             onKeyDown={onSearch}
           />
           {isFocussed ? (
-            <IconButton hidden={!isFocussed} onClick={onSearchCancel}>
+            <IconButton className={classes.iconbtn} hidden={!isFocussed} onClick={onSearchCancel}>
               <CloseOutlinedIcon
                 htmlColor={theme.custom.palette.noteBackground.default}
               />
@@ -289,8 +289,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   searchIcon: {
-    width: theme.spacing(7),
-    height: "100%",
+    // width: theme.spacing(7),
+    padding: 6,
+    // height: "100%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -329,6 +330,10 @@ const useStyles = makeStyles((theme) => ({
   addto: {
     width: 32,
     cursor: "pointer",
+  },
+  iconbtn: {
+    padding: 6,
+    marginRight: 5,
   },
 }));
 const StyledTableCell = withStyles(() => ({
