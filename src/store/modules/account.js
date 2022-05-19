@@ -11,7 +11,6 @@ export const accountSlice = createSlice({
   },
   reducers: {
     setAddress: (state, { payload }) => {
-      console.log(payload,'payload')
       state.address = payload.address;
       state.chainType = payload.chainType;
       state.currentIndex = payload.currentIndex;

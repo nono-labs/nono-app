@@ -25,16 +25,19 @@ import SearchBar from "./searchBar";
 import { shortenAddress } from "@/utils/tools";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useMemo, useCallback, useState, useEffect } from "react";
-import {  NET_WORK_VERSION } from '@/utils/constant'
+import { NET_WORK_VERSION } from "@/utils/constant";
+import { setAddress } from "@/store/modules/account";
 // import Web3 from 'web3'
+import Web3 from "web3/dist/web3.min.js";
 
 const SideBar = (props) => {
   const menuId = "primary-search-account-menu";
   const { address } = useSelector((state) => state.account);
-  const { window, location } = props;
+  const dispatch = useDispatch();
+  const { location } = props;
   const { pathname, state } = useLocation();
   const theme = useTheme();
-  const [currentNetIndex, setCurrentNetIndex] = useState(0)
+  const [currentNetIndex, setCurrentNetIndex] = useState(0);
 
   const classes = useStyles();
   const navigate = useNavigate();
@@ -57,64 +60,61 @@ const SideBar = (props) => {
     ],
     []
   );
-  console.log(window?.ethereum)
   useEffect(() => {
-
-    if (window?.ethereum?.selectedAddress) {
+    if (window.ethereum?.selectedAddress || window.ethereum?.isConnected()) {
       injectWallet();
     }
   }, [address, netArray, window?.ethereum]);
   const injectWallet = useCallback(async () => {
-		let ethereum = window.ethereum
-		if (ethereum) {
-			const reqAccounts = await ethereum.request({
-				method: 'eth_requestAccounts',
-			})
-			const curAccount = ethereum?.selectedAddress || reqAccounts[0]
-      console.log(curAccount,'curAccount')
-      alert(curAccount)
-			const currentIndex = netArray.findIndex(
-				(item) => Number(item.netWorkId) === Number(ethereum.networkVersion || ethereum.chainId),
-			)
-			let defaultparams = {
-				address: curAccount,
-				chainType: NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
-			}
-			setCurrentNetIndex(currentIndex)
-			// dispatch(setProfileToken(defaultparams))
+    let ethereum = window.ethereum;
+    if (ethereum) {
+      const reqAccounts = await ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      const curAccount = ethereum?.selectedAddress || reqAccounts[0];
+      const currentIndex = netArray.findIndex(
+        (item) =>
+          Number(item.netWorkId) ===
+          Number(ethereum.networkVersion || ethereum.chainId)
+      );
+      let defaultParams = {
+        address: curAccount,
+        chainType:
+          NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
+        currentIndex,
+      };
+      dispatch(setAddress(defaultParams));
+      //  监听节点切换
+      ethereum.on("chainChanged", (chainId) => {
+        window.location.reload();
+      });
+      // 监听网络切换
+      ethereum.on("networkChanged", (networkIDstring) => {
+        const currentIndex = netArray.findIndex(
+          (item) => Number(item.netWorkId) === Number(networkIDstring)
+        );
+        let params = {
+          address: ethereum?.selectedAddress,
+          chainType:
+            NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
+          currentIndex,
+        };
+        // 存储address
+        dispatch(setAddress(params));
+      });
 
-			//  监听节点切换
-			ethereum.on('chainChanged', (chainId) => {
-				window.location.reload()
-			})
-			// 监听网络切换
-			ethereum.on('networkChanged', (networkIDstring) => {
-				const currentIndex = netArray.findIndex(
-					(item) => Number(item.netWorkId) === Number(networkIDstring),
-				)
-				let params = {
-					address: ethereum?.selectedAddress,
-					chainType: NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
-				}
-				// 存储address
-			
-			})
-			let params = {
-				address: curAccount,
-				chainType: NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
-			}
-			// 存储address
-		
-			// 监听账号切换
-			ethereum.on('accountsChanged', (accounts) => {
-				let params = {
-					address: accounts[0],
-					chainType: NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
-				}
-
-			})
-		}
-	}, [address, netArray])
+      // 监听账号切换
+      ethereum.on("accountsChanged", (accounts) => {
+        let params = {
+          address: accounts[0],
+          chainType:
+            NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
+            currentIndex,
+        };
+        dispatch(setAddress(params));
+      });
+    }
+  }, [address, netArray]);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -193,7 +193,6 @@ const SideBar = (props) => {
 
           {!isSearchShowingInMobile && (
             <Link className={classes.logoCenter} to="/">
-              {" "}
               <img src={Images.logo} />
             </Link>
           )}
@@ -205,7 +204,9 @@ const SideBar = (props) => {
                 className={classes.rightBoxBtn}
                 startIcon={address && Images.asset}
                 text={address ? shortenAddress(address) : "Connect"}
-                onClick={handleIsConnect}
+                onClick={()=>{
+                  !address && handleIsConnect();
+                }}
               />
               <TextBtn startIcon={Images.eth} text="Ethereum" />
             </Box>

@@ -45,6 +45,7 @@ const SwitchWallet = (props) => {
         (async () => {
           try {
             let ethereum = window.ethereum;
+            handleClose()
             await ethereum.enable();
             const accounts = await ethereum.request({
               method: "eth_requestAccounts",
@@ -59,8 +60,8 @@ const SwitchWallet = (props) => {
               chainType: NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
               currentIndex,
             }
+
             dispatch(setAddress(params))
-            handleClose()
             console.log(account, "account");
           } catch (e) {
             console.log(e, "e");
