@@ -30,7 +30,10 @@ import convert from '@/assets/img/convert.svg';
 import twitter from '@/assets/img/twitter.svg';
 import share from '@/assets/img/share.svg';
 import menuIcon from '@/assets/img/menuIcon.svg';
-
+import noImg from '@/assets/img/collection_noImg.svg';
+import play from '@/assets/img/play.svg';
+import back from '@/assets/img/back.svg';
+import noData from '@/assets/img/noData.svg';
 export default {
     logo,
     home,
@@ -61,6 +64,10 @@ export default {
     convert,
     twitter,
     share,
-    menuIcon
+    menuIcon,
+    noImg,
+    play,
+    back,
+    noData,
 }
   

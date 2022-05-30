@@ -2,18 +2,16 @@ import Images from "@/constant";
 // import { toDecimal } from "@/utils/web3Tools";
 import {
   Box,
-  Card,
-  CardMedia,
-  Grid,
+  Card, Grid,
   makeStyles,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Skeleton from "@material-ui/lab/Skeleton";
 import clsx from "clsx";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import MetaBox from "./meta";
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: "10px",
@@ -130,7 +128,7 @@ export default function NFT(props) {
     >
       {item ? (
         <div className={classes.nftImage} style={{ position: "relative" }}>
-          <CardMedia component="img" alt="image error" image={Images.nft} />
+          <MetaBox data={item} autoPlay />
           {trending && (
             <Typography className={classes.trending}>Trending</Typography>
           )}

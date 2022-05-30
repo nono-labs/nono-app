@@ -1,34 +1,28 @@
 import FilterBox from "@/components/filterBox";
 import NFT from "@/components/NFT";
 import { getListsAsync } from "@/store/modules/explore";
-import { Grid, makeStyles } from "@material-ui/core";
-import React, { useCallback, useEffect, useState } from "react";
-// import InfiniteScroll from "react-infinite-scroller";
-import { useDispatch, useSelector } from "react-redux";
+import { Grid, makeStyles, Box } from "@material-ui/core";
+import React, { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useDispatch, useSelector } from "react-redux";
+import Images from "@/constant";
 export default function Explore(props) {
-  const { list, loading, hasMoreItems, page } = useSelector(
-    (state) => state.explore
-  );
-  const [items, setItems] = useState([]);
+  const { list, loading, hasMoreItems } = useSelector((state) => state.explore);
   const dispatch = useDispatch();
   const classes = useStyle();
   useEffect(() => {
-    if (list.length === 0) dispatch(getListsAsync({ size: 10 }));
+    if (list.length === 0) dispatch(getListsAsync());
   }, []);
 
   const fetchItems = () => {
-    if(!loading) 
-    dispatch(getListsAsync({ size: 10 }));
+    if (!loading) dispatch(getListsAsync());
   };
 
-  // const hasMoreItems = !!nextPageUrl;
   const loader = (
-    <div key="loader" className="loader">
+    <div key="loader" className={classes.loading}>
       Loading ...
     </div>
   );
-console.log(hasMoreItems,list?.length)
   return (
     <>
       <FilterBox>
@@ -38,6 +32,11 @@ console.log(hasMoreItems,list?.length)
           hasMore={hasMoreItems}
           // loader={loader}
         >
+          {!loading && !list?.length && (
+            <Box className={classes.noData}>
+              <img src={Images.noData} />
+            </Box>
+          )}
           <Grid className={classes.grid}>
             {list?.map((item, index) => (
               <NFT item={item} style={{ border: "0" }} key={index} />
@@ -79,5 +78,13 @@ const useStyle = makeStyles((theme) => ({
       gridTemplateColumns: "repeat(2, 1fr)",
       gridGap: 20,
     },
+  },
+  loading: {
+    textAlign: "center",
+  },
+  noData: {
+    display: "flex",
+    justifyContent: "center",
+    paddingTop: 100,
   },
 }));
