@@ -12,18 +12,25 @@ export const exploreSlice = createSlice({
   },
   reducers: {
     list: (state, { payload }) => {
-      state.list = payload?.markets ?? [];
-      state.loading = payload?.loading;
-      state.hasMoreItems = payload?.hasMoreItems;
-      state.page = payload?.page;
+      state.list = payload ?? [];
+    },
+    page: (state, { payload }) => {
+      state.page = payload;
+    },
+    loading: (state, { payload }) => {
+      state.loading = payload;
+    },
+    hasMoreItems: (state, { payload }) => {
+      state.hasMoreItems = payload;
     },
   },
 });
-export const { list } = exploreSlice.actions;
+export const { list, page, loading, hasMoreItems } = exploreSlice.actions;
 
 export const getListsAsync = (payload) => {
   return async (dispatch, getState) => {
-    dispatch(list({ ...getState().explore, loading: true }));
+    dispatch(loading({ loading: true }));
+
     let newdata = [];
     let markets = await post("/api/v1/trans/market", {
       category: "All",
@@ -33,22 +40,15 @@ export const getListsAsync = (payload) => {
       ...payload,
       page: getState().explore.page,
     });
+    dispatch(page(getState().explore.page + 1));
+    dispatch(loading(false));
+    dispatch(hasMoreItems(markets.data?.data?.pageAble));
     if (getState().explore.page === 0) {
       newdata = markets.data?.data?.content ?? [];
     } else {
-      newdata = getState().explore.list.concat(
-        markets.data?.data?.content ?? []
-      );
+      newdata = [...getState().explore?.list, ...markets.data?.data?.content];
     }
- 
-    dispatch(
-      list({
-        markets: newdata,
-        hasMoreItems: markets.data?.data?.pageAble,
-        loading: false,
-        page: getState().explore.page + 1,
-      })
-    );
+    dispatch(list(newdata));
   };
 };
 export default exploreSlice.reducer;

@@ -3,8 +3,9 @@ import NFT from "@/components/NFT";
 import { getListsAsync } from "@/store/modules/explore";
 import { Grid, makeStyles } from "@material-ui/core";
 import React, { useCallback, useEffect, useState } from "react";
-import InfiniteScroll from "react-infinite-scroller";
+// import InfiniteScroll from "react-infinite-scroller";
 import { useDispatch, useSelector } from "react-redux";
+import InfiniteScroll from "react-infinite-scroll-component";
 export default function Explore(props) {
   const { list, loading, hasMoreItems, page } = useSelector(
     (state) => state.explore
@@ -16,11 +17,10 @@ export default function Explore(props) {
     if (list.length === 0) dispatch(getListsAsync({ size: 10 }));
   }, []);
 
-  const fetchItems = useCallback(async () => {
-    if (loading) {
-      return;
-    }
-  }, [list, loading, hasMoreItems]);
+  const fetchItems = () => {
+    if(!loading) 
+    dispatch(getListsAsync({ size: 10 }));
+  };
 
   // const hasMoreItems = !!nextPageUrl;
   const loader = (
@@ -28,14 +28,15 @@ export default function Explore(props) {
       Loading ...
     </div>
   );
-
+console.log(hasMoreItems,list?.length)
   return (
     <>
       <FilterBox>
         <InfiniteScroll
-          loadMore={fetchItems}
+          dataLength={list?.length}
+          next={fetchItems}
           hasMore={hasMoreItems}
-          loader={loader}
+          // loader={loader}
         >
           <Grid className={classes.grid}>
             {list?.map((item, index) => (
