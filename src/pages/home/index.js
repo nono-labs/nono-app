@@ -5,9 +5,15 @@ import { Box, Grid, makeStyles } from "@material-ui/core";
 import clsx from "clsx";
 import React from "react";
 import TopCollections from "./top";
+import { shortenAddress } from "@/utils/tools";
+import { useDispatch, useSelector } from "react-redux";
+
 export default function Home(props) {
   console.log("home");
   const classes = useStyle();
+  const { address, chainType, currentIndex } = useSelector(
+    (state) => state.account
+  );
   return (
     <Box>
       <Box className={clsx(classes.itemCenter, classes.mb)}>

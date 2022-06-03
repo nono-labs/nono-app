@@ -27,12 +27,13 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useMemo, useCallback, useState, useEffect } from "react";
 import { NET_WORK_VERSION } from "@/utils/constant";
 import { setAddress } from "@/store/modules/account";
-// import Web3 from 'web3'
 import Web3 from "web3/dist/web3.min.js";
-
+import SwitchModal from "../SwitchModal";
 const SideBar = (props) => {
   const menuId = "primary-search-account-menu";
-  const { address } = useSelector((state) => state.account);
+  const { address, chainType, currentIndex } = useSelector(
+    (state) => state.account
+  );
   const dispatch = useDispatch();
   const { location } = props;
   const { pathname, state } = useLocation();
@@ -46,6 +47,7 @@ const SideBar = (props) => {
   const [isSearchShowingInMobile, setSearchShowing] = useState(false);
   const [connect, setConnect] = useState(false);
   const [open, setOpen] = useState(false);
+  const [isShowSwitchModal, setIsShowSwitchModal] = useState(false);
 
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
   const netArray = useMemo(
@@ -60,15 +62,26 @@ const SideBar = (props) => {
     ],
     []
   );
+
+  console.log(address, chainType, currentIndex, "address,chainType");
   useEffect(() => {
-    if (window.ethereum?.selectedAddress || window.ethereum?.isConnected()) {
+    if (window.ethereum) {
       injectWallet();
     }
-  }, [address, netArray, window?.ethereum]);
+  }, []);
+  useEffect(() => {
+    setIsShowSwitchModal(false);
+    if (address) {
+      console.log(chainType, "wallet");
+      if (chainType !== "ETH") {
+        setIsShowSwitchModal(true);
+      }
+    }
+  }, [window.ethereum, address]);
   const injectWallet = useCallback(async () => {
     let ethereum = window.ethereum;
     if (ethereum) {
-      const reqAccounts = await ethereum.request({
+      const reqAccounts = await ethereum?.request({
         method: "eth_requestAccounts",
       });
       const curAccount = ethereum?.selectedAddress || reqAccounts[0];
@@ -109,12 +122,13 @@ const SideBar = (props) => {
           address: accounts[0],
           chainType:
             NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
-            currentIndex,
+          currentIndex,
         };
         dispatch(setAddress(params));
       });
     }
   }, [address, netArray]);
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -124,7 +138,6 @@ const SideBar = (props) => {
   const handleIsConnect = () => {
     setOpen(true);
   };
-  console.log(routesList, address, "pathname");
   const drawer = (
     <Box className={classes.barWidth}>
       <Box onClick={() => goTo("/")} className={classes.logo}>
@@ -204,7 +217,7 @@ const SideBar = (props) => {
                 className={classes.rightBoxBtn}
                 startIcon={address && Images.asset}
                 text={address ? shortenAddress(address) : "Connect"}
-                onClick={()=>{
+                onClick={() => {
                   !address && handleIsConnect();
                 }}
               />
@@ -214,8 +227,13 @@ const SideBar = (props) => {
           <Hidden smUp>
             {isMobile && !isSearchShowingInMobile ? (
               <div className={classes.rightBoxMobile}>
-                <div className={classes.rightIcon}>
-                  <img src={Images.asset} />
+                <div
+                  onClick={() => {
+                    !address && handleIsConnect();
+                  }}
+                  className={classes.rightIcon}
+                >
+                  <img src={address ? Images.asset : Images.unConnect} />
                 </div>
                 <div className={cx(classes.rightIcon, classes.rightIcon1)}>
                   <img src={Images.eth} />
@@ -257,6 +275,13 @@ const SideBar = (props) => {
         </Hidden>
       </nav>
       <SwitchWallet open={open} setOpen={setOpen} />
+      <SwitchModal
+        open={isShowSwitchModal}
+        networkName={"BSC"}
+        onClose={() => {
+          setIsShowSwitchModal(false);
+        }}
+      />
     </div>
   );
 };

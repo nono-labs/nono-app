@@ -34,6 +34,8 @@ import noImg from '@/assets/img/collection_noImg.svg';
 import play from '@/assets/img/play.svg';
 import back from '@/assets/img/back.svg';
 import noData from '@/assets/img/noData.svg';
+import unConnect from '@/assets/img/unConnect.svg';
+
 export default {
     logo,
     home,
@@ -69,5 +71,6 @@ export default {
     play,
     back,
     noData,
+    unConnect
 }
   

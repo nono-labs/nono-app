@@ -30,6 +30,7 @@ export default function Explore(props) {
           dataLength={list?.length}
           next={fetchItems}
           hasMore={hasMoreItems}
+
           // loader={loader}
         >
           {!loading && !list?.length && (
