@@ -29,7 +29,7 @@ import SwitchModal from "../SwitchModal";
 import SwitchWallet from "../switchWallet";
 import SearchBar from "./searchBar";
 import Doc from "./doc";
-
+import Web3 from 'web3'
 const SideBar = (props) => {
   const menuId = "primary-search-account-menu";
   const { address, chainType, currentIndex } = useSelector(
@@ -38,7 +38,6 @@ const SideBar = (props) => {
   const dispatch = useDispatch();
   const { location } = props;
   const theme = useTheme();
-
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -78,11 +77,11 @@ const SideBar = (props) => {
       };
       dispatch(setAddress(defaultParams));
       //  监听节点切换
-      ethereum.on("chainChanged", (chainId) => {
-        window.location.reload();
-      });
+      // ethereum.on("chainChanged", (chainId) => {
+      //   window.location.reload();
+      // });
       // 监听网络切换
-      ethereum.on("networkChanged", (networkIDstring) => {
+      ethereum.on("chainChanged", (networkIDstring) => {
         console.log(networkIDstring, "networkIDstring");
         const currentIndex = SUPPORTED_CHAINS.findIndex(
           (item) => Number(item.network_id) === Number(networkIDstring)
@@ -95,6 +94,7 @@ const SideBar = (props) => {
         };
         // 存储address
         dispatch(setAddress(params));
+        window.location.reload();
       });
 
       // 监听账号切换

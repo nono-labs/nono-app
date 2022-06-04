@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import React, { useMemo, useCallback, useState, useEffect } from "react";
-// import WalletConnectProvider from '@walletconnect/web3-provider'
+import WalletConnectProvider from '@walletconnect/web3-provider'
 import Modal from "@/components/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { setAddress } from "@/store/modules/account";
