@@ -35,6 +35,8 @@ import play from '@/assets/img/play.svg';
 import back from '@/assets/img/back.svg';
 import noData from '@/assets/img/noData.svg';
 import unConnect from '@/assets/img/unConnect.svg';
+import discord from '@/assets/img/contract/discord.svg';
+
 
 export default {
     logo,
@@ -71,6 +73,7 @@ export default {
     play,
     back,
     noData,
-    unConnect
+    unConnect,
+    discord
 }
   

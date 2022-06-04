@@ -6,32 +6,18 @@ import {
   Typography,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import React,{useMemo,useCallback,useState,useEffect} from "react";
+import React, { useMemo, useCallback, useState, useEffect } from "react";
 // import WalletConnectProvider from '@walletconnect/web3-provider'
 import Modal from "@/components/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { setAddress } from "@/store/modules/account";
-import {  NET_WORK_VERSION } from '@/utils/constant'
+import { SUPPORTED_CHAINS, NET_WORK_VERSION } from "@/utils/constant";
+
 const SwitchWallet = (props) => {
   const { open, setOpen } = props;
   const dispatch = useDispatch();
-  const netArray = useMemo(
-    () => [
-      {
-        name: "Ethereum Mainnet",
-        // icon: selectEthSvg,
-        shortName: ["ETH", "Ethereum"],
-        // shortIcon: ethSvg,
-        netWorkId: 1,
-      },
-    ],
-    []
-  );
-  const { address } = useSelector(
-    (state) => state.account
-  );
+  const { address } = useSelector((state) => state.account);
   const classes = useStyles();
-
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -45,23 +31,26 @@ const SwitchWallet = (props) => {
         (async () => {
           try {
             let ethereum = window.ethereum;
-            handleClose()
+            handleClose();
             await ethereum.enable();
             const accounts = await ethereum.request({
               method: "eth_requestAccounts",
             });
 
             const account = accounts[0];
-            const currentIndex = netArray.findIndex(
-              (item) => Number(item.netWorkId) === Number(ethereum.networkVersion || ethereum.chainId),
-            )
+            const currentIndex = SUPPORTED_CHAINS.findIndex(
+              (item) =>
+                Number(item.network_id) ===
+                Number(ethereum.networkVersion || ethereum.chainId)
+            );
             let params = {
               address: account,
-              chainType: NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
+              chainType:
+                NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
               currentIndex,
-            }
+            };
 
-            dispatch(setAddress(params))
+            dispatch(setAddress(params));
             console.log(account, "account");
           } catch (e) {
             console.log(e, "e");
@@ -70,25 +59,27 @@ const SwitchWallet = (props) => {
         break;
       case "walletConnect":
         (async () => {
-          if (localStorage.getItem("walletconnect")) {
-            // const provider = new WalletConnectProvider({
-            //   infuraId: 'f65c0bbb601041e19fb6a106560bc9ac',
-            //   qrcode: true,
-            //   rpc: {
-            //     56: 'https://bsc-dataseed.binance.org/',
-            //     97: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
-            //   },
-            // })
-            // await provider.enable()
-            // window.walletProvider = provider
-            // const currentIndex = netArray.findIndex(
-            //   (item) => Number(item.netWorkId) === Number(provider.chainId),
-            // )
-            // let params = { address: provider.accounts[0], chainType: NET_WORK_VERSION[provider.chainId] }
-            // setCurrentNetIndex(currentIndex)
-            // setAddress(provider.accounts[0])
-            // dispatch(setProfileAddress(params))
-            // dispatch(setProfileToken(params))
+          try {
+          //   const provider = new WalletConnectProvider({
+          //     infuraId: "f65c0bbb601041e19fb6a106560bc9ac",
+          //     qrcode: true,
+          //     rpc: {
+          //       56: "https://bsc-dataseed.binance.org/",
+          //       97: "https://data-seed-prebsc-1-s1.binance.org:8545/",
+          //     },
+          //   });
+          //   await provider.enable();
+          //   window.walletProvider = provider;
+          //   const currentIndex = SUPPORTED_CHAINS.findIndex(
+          //     (item) => Number(item.netWorkId) === Number(provider.chainId)
+          //   );
+          //   let params = {
+          //     address: provider.accounts[0],
+          //     chainType: NET_WORK_VERSION[provider.chainId],
+          //   };
+          //  console.log(params,'params')
+          } catch (e) {
+            console.log(e, "e");
           }
         })();
         break;

@@ -1,6 +1,9 @@
 import TextBtn from "@/components/btn";
 import Images from "@/constant";
 import { routesList } from "@/router";
+import { setAddress } from "@/store/modules/account";
+import { SUPPORTED_CHAINS, NET_WORK_VERSION } from "@/utils/constant";
+import { shortenAddress } from "@/utils/tools";
 import {
   AppBar,
   Box,
@@ -19,16 +22,14 @@ import {
 } from "@material-ui/core";
 import { SearchOutlined as SearchIcon } from "@material-ui/icons";
 import cx from "clsx";
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import SwitchModal from "../SwitchModal";
 import SwitchWallet from "../switchWallet";
 import SearchBar from "./searchBar";
-import { shortenAddress } from "@/utils/tools";
-import { useDispatch, useSelector } from "react-redux";
-import React, { useMemo, useCallback, useState, useEffect } from "react";
-import { NET_WORK_VERSION } from "@/utils/constant";
-import { setAddress } from "@/store/modules/account";
-import Web3 from "web3/dist/web3.min.js";
-import SwitchModal from "../SwitchModal";
+import Doc from "./doc";
+
 const SideBar = (props) => {
   const menuId = "primary-search-account-menu";
   const { address, chainType, currentIndex } = useSelector(
@@ -36,48 +37,26 @@ const SideBar = (props) => {
   );
   const dispatch = useDispatch();
   const { location } = props;
-  const { pathname, state } = useLocation();
   const theme = useTheme();
-  const [currentNetIndex, setCurrentNetIndex] = useState(0);
 
   const classes = useStyles();
   const navigate = useNavigate();
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isSearchShowingInMobile, setSearchShowing] = useState(false);
-  const [connect, setConnect] = useState(false);
   const [open, setOpen] = useState(false);
   const [isShowSwitchModal, setIsShowSwitchModal] = useState(false);
 
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
-  const netArray = useMemo(
-    () => [
-      {
-        name: "Ethereum Mainnet",
-        // icon: selectEthSvg,
-        shortName: ["ETH", "Ethereum"],
-        // shortIcon: ethSvg,
-        netWorkId: 1,
-      },
-    ],
-    []
-  );
 
-  console.log(address, chainType, currentIndex, "address,chainType");
   useEffect(() => {
-    if (window.ethereum) {
-      injectWallet();
-    }
-  }, []);
+    if (window.ethereum) injectWallet();
+  }, [address]);
+  
   useEffect(() => {
     setIsShowSwitchModal(false);
-    if (address) {
-      console.log(chainType, "wallet");
-      if (chainType !== "ETH") {
-        setIsShowSwitchModal(true);
-      }
-    }
-  }, [window.ethereum, address]);
+    if (address && currentIndex !== 0) setIsShowSwitchModal(true);
+  }, [address, currentIndex]);
   const injectWallet = useCallback(async () => {
     let ethereum = window.ethereum;
     if (ethereum) {
@@ -85,11 +64,12 @@ const SideBar = (props) => {
         method: "eth_requestAccounts",
       });
       const curAccount = ethereum?.selectedAddress || reqAccounts[0];
-      const currentIndex = netArray.findIndex(
+      const currentIndex = SUPPORTED_CHAINS.findIndex(
         (item) =>
-          Number(item.netWorkId) ===
+          Number(item.network_id) ===
           Number(ethereum.networkVersion || ethereum.chainId)
       );
+      console.log(ethereum.networkVersion, ethereum.chainId);
       let defaultParams = {
         address: curAccount,
         chainType:
@@ -103,8 +83,9 @@ const SideBar = (props) => {
       });
       // 监听网络切换
       ethereum.on("networkChanged", (networkIDstring) => {
-        const currentIndex = netArray.findIndex(
-          (item) => Number(item.netWorkId) === Number(networkIDstring)
+        console.log(networkIDstring, "networkIDstring");
+        const currentIndex = SUPPORTED_CHAINS.findIndex(
+          (item) => Number(item.network_id) === Number(networkIDstring)
         );
         let params = {
           address: ethereum?.selectedAddress,
@@ -127,7 +108,8 @@ const SideBar = (props) => {
         dispatch(setAddress(params));
       });
     }
-  }, [address, netArray]);
+  }, [address]);
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -173,20 +155,20 @@ const SideBar = (props) => {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar classes={{ root: classes.toolBar }}>
-          <Box>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              className={classes.menuButton}
-            >
-              <img src={Images.menuIcon} />
-            </IconButton>
-            {isMobile && !isSearchShowingInMobile && (
+          {isMobile && !isSearchShowingInMobile && (
+            <Box>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                className={classes.menuButton}
+              >
+                <img src={Images.menuIcon} />
+              </IconButton>
               <IconButton
                 aria-label="search"
-                className={classes.searchIcon}
+                className={classes.searchIcon1}
                 aria-controls={menuId}
                 onClick={() => setSearchShowing(true)}
               >
@@ -194,8 +176,8 @@ const SideBar = (props) => {
                   htmlColor={theme.custom.palette.noteBackground.default}
                 />
               </IconButton>
-            )}
-          </Box>
+            </Box>
+          )}
           {isMobile ? (
             isSearchShowingInMobile && (
               <SearchContainer onSearchClose={() => setSearchShowing(false)} />
@@ -243,7 +225,7 @@ const SideBar = (props) => {
           </Hidden>
         </Toolbar>
       </AppBar>
-      <nav aria-label="mailbox folders">
+      <nav aria-label="mailbox folders" className={classes.nav}>
         <Hidden smUp implementation="css">
           <Drawer
             variant="temporary"
@@ -259,6 +241,7 @@ const SideBar = (props) => {
           >
             <div className={classes.toolbarBox} />
             {drawer}
+            <Doc />
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
@@ -271,6 +254,7 @@ const SideBar = (props) => {
             open
           >
             {drawer}
+            <Doc />
           </Drawer>
         </Hidden>
       </nav>
@@ -390,9 +374,8 @@ const useStyles = makeStyles((theme) => ({
   navLink: {
     textDecoration: "none",
   },
-  searchIcon: {
-    width: "32px",
-    height: "32px",
+  searchIcon1: {
+    padding: 2,
     borderRadius: 10,
     border: "2px solid #000",
   },
@@ -468,8 +451,12 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     boxSizing: "border-box",
     padding: "0 25px",
+    flex: 1,
     [theme.breakpoints.down("xs")]: {
       padding: 0,
     },
+  },
+  nav: {
+    position: "relative",
   },
 }));
