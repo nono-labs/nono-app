@@ -6,7 +6,6 @@ import clsx from "clsx";
 import React from "react";
 import TopCollections from "../home/top";
 export default function Home(props) {
-  console.log("home");
   const classes = useStyle();
   return (
     <Box>

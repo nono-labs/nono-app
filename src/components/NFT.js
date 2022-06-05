@@ -1,5 +1,5 @@
 import Images from "@/constant";
-// import { toDecimal } from "@/utils/web3Tools";
+import { toDecimal } from "@/utils/web3Tools";
 import {
   Box,
   Card, Grid,
@@ -65,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "18px",
     color: "#62929E",
     cursor: "pointer",
+    paddingRight: 2,
     [theme.breakpoints.down("xs")]: {
       fontSize: "12px",
       lineHeight: "14px",
@@ -148,8 +149,8 @@ export default function NFT(props) {
             </Box>
             <Box className={classes.collection}>
               <img src={Images.eth} />
-              {/* {toDecimal(item?.price)} */}
-              1.2
+              {toDecimal(item?.price)}
+              {/* 1.2 */}
             </Box>
             {/* <Typography className={clsx(classes.collection,classes.unlisted)} paragraph>
                     Unlisted

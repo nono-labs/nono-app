@@ -20,7 +20,6 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import React from "react";
 
 export default function TopCollections(props) {
-  console.log("home");
   const classes = useStyle();
   function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -85,6 +84,7 @@ export default function TopCollections(props) {
         {rows.map((row, index) => (
           <Accordion key={index}>
             <AccordionSummary
+              className={classes.expandIconBox}
               expandIcon={
                 <ExpandMoreIcon
                   className={classes.expandIcon}
@@ -255,11 +255,18 @@ const useStyle = makeStyles((theme) => ({
     borderRadius: "50%",
     width: 32,
     height: 32,
+   
   },
   label: {
     fontSize: 10,
     marginRight: 5,
   },
+  expandIconBox: {
+    '& .MuiAccordionSummary-expandIcon': {
+      position: 'absolute',
+      right: 0,
+    }
+  }
 }));
 
 const StyledTableCell = withStyles((theme) => ({
@@ -309,6 +316,5 @@ const AccordionSummary = withStyles({
 const AccordionDetails = withStyles((theme) => ({
   root: {
     padding: 0,
-    paddingRight: 44,
   },
 }))(MuiAccordionDetails);

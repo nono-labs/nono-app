@@ -60,24 +60,28 @@ const SwitchWallet = (props) => {
       case "walletConnect":
         (async () => {
           try {
-          //   const provider = new WalletConnectProvider({
-          //     infuraId: "f65c0bbb601041e19fb6a106560bc9ac",
-          //     qrcode: true,
-          //     rpc: {
-          //       56: "https://bsc-dataseed.binance.org/",
-          //       97: "https://data-seed-prebsc-1-s1.binance.org:8545/",
-          //     },
-          //   });
-          //   await provider.enable();
-          //   window.walletProvider = provider;
-          //   const currentIndex = SUPPORTED_CHAINS.findIndex(
-          //     (item) => Number(item.netWorkId) === Number(provider.chainId)
-          //   );
-          //   let params = {
-          //     address: provider.accounts[0],
-          //     chainType: NET_WORK_VERSION[provider.chainId],
-          //   };
-          //  console.log(params,'params')
+            handleClose();
+          	const provider = new WalletConnectProvider({
+              infuraId: 'f65c0bbb601041e19fb6a106560bc9ac',
+              qrcode: true,
+              // rpc: {
+              //   56: 'https://bsc-dataseed.binance.org/',
+              //   97: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+              // },
+            })
+            await provider.enable()
+            window.walletProvider = provider
+            const currentIndex = SUPPORTED_CHAINS.findIndex(
+              (item) => Number(item.network_id) === Number(provider.chainId)
+            );
+            let params = {
+              address: provider.accounts[0],
+              chainType: NET_WORK_VERSION[provider.chainId],
+              currentIndex
+            };
+            dispatch(setAddress(params));
+            
+           console.log(params,'params',provider.chainId)
           } catch (e) {
             console.log(e, "e");
           }

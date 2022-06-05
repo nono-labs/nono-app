@@ -29,7 +29,7 @@ import SwitchModal from "../SwitchModal";
 import SwitchWallet from "../switchWallet";
 import SearchBar from "./searchBar";
 import Doc from "./doc";
-import Web3 from 'web3'
+import Web3 from "web3";
 const SideBar = (props) => {
   const menuId = "primary-search-account-menu";
   const { address, chainType, currentIndex } = useSelector(
@@ -50,8 +50,8 @@ const SideBar = (props) => {
 
   useEffect(() => {
     if (window.ethereum) injectWallet();
-  }, [address]);
-  
+  }, [address, window.walletProvider]);
+
   useEffect(() => {
     setIsShowSwitchModal(false);
     if (address && currentIndex !== 0) setIsShowSwitchModal(true);
@@ -68,13 +68,14 @@ const SideBar = (props) => {
           Number(item.network_id) ===
           Number(ethereum.networkVersion || ethereum.chainId)
       );
-      console.log(ethereum.networkVersion, ethereum.chainId);
       let defaultParams = {
         address: curAccount,
         chainType:
           NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
         currentIndex,
       };
+      console.log(defaultParams,ethereum.networkVersion, ethereum.chainId);
+
       dispatch(setAddress(defaultParams));
       //  监听节点切换
       // ethereum.on("chainChanged", (chainId) => {
@@ -109,7 +110,6 @@ const SideBar = (props) => {
       });
     }
   }, [address]);
-
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
