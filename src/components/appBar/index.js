@@ -52,6 +52,7 @@ const SideBar = (props) => {
   useEffect(() => {
     (async function () {
       const accounts = await window.ethereum?.request({ method: 'eth_accounts' });
+      console.log(process.env,'process.env.APP_ENV')
       if (accounts?.length) injectWallet()
     })();
   }, [window.ethereum]);
