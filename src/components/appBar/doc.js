@@ -1,23 +1,14 @@
-import NFT from "@/components/NFT";
-import {
-  Grid,
-  Hidden,
-  makeStyles,
-  Box,
-  Typography,
-  Divider,
-  ClickAwayListener,
-} from "@material-ui/core";
-import React, { useState } from "react";
 import Images from "@/constant";
-import clsx from "clsx";
-import TextBtn from "@/components/btn";
-import Select from "@/components/select";
 import {
-  Twitter as TwitterIcon,
+  Box, Grid,
+  makeStyles,
+  Typography
+} from "@material-ui/core";
+import {
   GitHub as GitHubIcon,
-  Telegram as TelegramIcon,
+  Telegram as TelegramIcon, Twitter as TwitterIcon
 } from "@material-ui/icons";
+import React from "react";
 
 const contract = [
   { link: "1", avatar: <TwitterIcon /> },
@@ -25,7 +16,7 @@ const contract = [
   { link: "3", avatar: <TelegramIcon /> },
   { link: "4", avatar: <GitHubIcon /> },
 ];
-export default function Profile(props) {
+export default function Profile() {
   const classes = useStyle();
 
   return (
@@ -68,7 +59,6 @@ const useStyle = makeStyles((theme) => ({
     },
   },
   docBtn: {
-    // width: '100%',
     height: 32,
     cursor: "pointer",
     background: "#fff",

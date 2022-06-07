@@ -1,6 +1,6 @@
-export const NET_WORK_VERSION = {
-  1: "ETH",
-  3: "Ropsten"
+export const CHAIN_ID_NETWORK = {
+  '0x1': "ETH",
+  '0x3': "Ropsten"
 };
 export const SUPPORTED_CHAINS = [
   {

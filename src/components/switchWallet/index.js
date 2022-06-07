@@ -11,7 +11,7 @@ import WalletConnectProvider from '@walletconnect/web3-provider'
 import Modal from "@/components/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { setAddress } from "@/store/modules/account";
-import { SUPPORTED_CHAINS, NET_WORK_VERSION } from "@/utils/constant";
+import { SUPPORTED_CHAINS, CHAIN_ID_NETWORK } from "@/utils/constant";
 
 const SwitchWallet = (props) => {
   const { open, setOpen } = props;
@@ -32,26 +32,16 @@ const SwitchWallet = (props) => {
           try {
             let ethereum = window.ethereum;
             handleClose();
-            await ethereum.enable();
+            console.log('metamaskmetamask')
             const accounts = await ethereum.request({
               method: "eth_requestAccounts",
             });
+            const curChainId = await ethereum.request({ method: 'eth_chainId' })
 
-            const account = accounts[0];
-            const currentIndex = SUPPORTED_CHAINS.findIndex(
-              (item) =>
-                Number(item.network_id) ===
-                Number(ethereum.networkVersion || ethereum.chainId)
-            );
-            let params = {
-              address: account,
-              chainType:
-                NET_WORK_VERSION[ethereum.networkVersion || ethereum.chainId],
-              currentIndex,
-            };
-
-            dispatch(setAddress(params));
-            console.log(account, "account");
+            dispatch(setAddress({
+              address: accounts[0],
+              chainId: curChainId,
+            }));
           } catch (e) {
             console.log(e, "e");
           }
@@ -61,7 +51,7 @@ const SwitchWallet = (props) => {
         (async () => {
           try {
             handleClose();
-          	const provider = new WalletConnectProvider({
+            const provider = new WalletConnectProvider({
               infuraId: 'f65c0bbb601041e19fb6a106560bc9ac',
               qrcode: true,
               // rpc: {
@@ -76,12 +66,12 @@ const SwitchWallet = (props) => {
             );
             let params = {
               address: provider.accounts[0],
-              chainType: NET_WORK_VERSION[provider.chainId],
+              chainType: CHAIN_ID_NETWORK[provider.chainId],
               currentIndex
             };
             dispatch(setAddress(params));
-            
-           console.log(params,'params',provider.chainId)
+
+            console.log(params, 'params', provider.chainId)
           } catch (e) {
             console.log(e, "e");
           }

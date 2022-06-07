@@ -6,14 +6,13 @@ export const accountSlice = createSlice({
   name: "account",
   initialState: {
     address: null,
-    chainType: null,
-    currentIndex: null,
+    chainId: null,
+ 
   },
   reducers: {
     setAddress: (state, { payload }) => {
       state.address = payload.address;
-      state.chainType = payload.chainType;
-      state.currentIndex = payload.currentIndex;
+      state.chainId = payload.chainId;
     },
   },
 });
