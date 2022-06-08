@@ -14,11 +14,7 @@ export default function TextBtn(props) {
     icons,
     loading,
     bg, // 0 white ;1 #62929E
-    pd, //padding
-    md, //margin
-    mw, // max-width
-    width,
-    widthM, //mobile
+
   } = props;
   const classes = useStyle(props);
 

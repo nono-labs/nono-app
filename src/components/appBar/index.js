@@ -30,6 +30,9 @@ import SwitchWallet from "../switchWallet";
 import SearchBar from "./searchBar";
 import Doc from "./doc";
 import Web3 from "web3";
+import { mainnet } from "@/utils/smart-contract/mainnet";
+import WalletConnectProvider from '@walletconnect/web3-provider'
+
 const SideBar = (props) => {
   const menuId = "primary-search-account-menu";
   const { address, chainType, currentIndex, chainId } = useSelector(
@@ -52,13 +55,56 @@ const SideBar = (props) => {
   useEffect(() => {
     (async function () {
       const accounts = await window.ethereum?.request({ method: 'eth_accounts' });
-      console.log(process.env,'process.env.APP_ENV')
-      if (accounts?.length) injectWallet()
+      if (accounts?.length) injectWallet();
+      if (window.walletProvider?.connected) {
+        injectWalletConnect();
+      } else {
+        getWalletConnectFromStorage()
+      }
     })();
-  }, [window.ethereum]);
+  }, [window.ethereum, window.walletProvider, address]);
+  const injectWalletConnect = useCallback(async () => {
+    const provider = window.walletProvider
+    dispatch(setAddress({
+      address: provider.accounts[0],
+      chainId: provider.chainId,
+    }));
+    provider.wc.on('accountsChanged', (accounts) => {
+      dispatch(setAddress({
+        address: accounts[0],
+        chainId: provider.chainId,
+      }));
+    })
+    provider.on('disconnect', (payload) => {
+      localStorage.removeItem('walletconnect')
+      window.walletProvider = undefined
+      dispatch(setAddress({
+        address: undefined,
+        chainId: undefined,
+      }));
+    })
+  }, [address])
+  const getWalletConnectFromStorage = useCallback(async () => {
+    if (localStorage.getItem('walletconnect')) {
+      const provider = new WalletConnectProvider({
+        infuraId: '27e484dcd9e3efcfd25a83a78777cdf1',
+        qrcode: true,
+        rpc: {
+          1: mainnet.config.rpcUrls[0],
+        },
+      })
+      await provider.enable()
+      window.walletProvider = provider
+      dispatch(setAddress({
+        address: provider.accounts[0],
+        chainId: provider.chainId,
+      }));
+    }
+  }, [])
   useEffect(() => {
     setIsShowSwitchModal(false);
-    if (address && chainId !== '0x1') setIsShowSwitchModal(true);
+    console.log(address, chainId)
+    if (address && (chainId !== '0x1' && chainId !== 1)) setIsShowSwitchModal(true);
   }, [address, chainId]);
   const injectWallet = useCallback(async () => {
     let ethereum = window.ethereum;

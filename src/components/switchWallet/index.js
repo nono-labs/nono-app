@@ -7,11 +7,12 @@ import {
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import React, { useMemo, useCallback, useState, useEffect } from "react";
-import WalletConnectProvider from '@walletconnect/web3-provider'
 import Modal from "@/components/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { setAddress } from "@/store/modules/account";
 import { SUPPORTED_CHAINS, CHAIN_ID_NETWORK } from "@/utils/constant";
+import { mainnet } from "@/utils/smart-contract/mainnet";
+import WalletConnectProvider from '@walletconnect/web3-provider'
 
 const SwitchWallet = (props) => {
   const { open, setOpen } = props;
@@ -52,26 +53,19 @@ const SwitchWallet = (props) => {
           try {
             handleClose();
             const provider = new WalletConnectProvider({
-              infuraId: 'f65c0bbb601041e19fb6a106560bc9ac',
+              infuraId: '27e484dcd9e3efcfd25a83a78777cdf1',
               qrcode: true,
-              // rpc: {
-              //   56: 'https://bsc-dataseed.binance.org/',
-              //   97: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
-              // },
+              rpc: {
+                1: mainnet.config.rpcUrls[0],
+              },
             })
             await provider.enable()
             window.walletProvider = provider
-            const currentIndex = SUPPORTED_CHAINS.findIndex(
-              (item) => Number(item.network_id) === Number(provider.chainId)
-            );
-            let params = {
+            dispatch(setAddress({
               address: provider.accounts[0],
-              chainType: CHAIN_ID_NETWORK[provider.chainId],
-              currentIndex
-            };
-            dispatch(setAddress(params));
+              chainId: provider.chainId,
+            }));
 
-            console.log(params, 'params', provider.chainId)
           } catch (e) {
             console.log(e, "e");
           }

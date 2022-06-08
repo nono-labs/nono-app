@@ -9,7 +9,7 @@ const ArchivoBlack = {
       url(${ArchivoBlackRegularFont})
   `
 }
-const BarlowBold= {
+const BarlowBold = {
   fontFamily: "BarlowBold",
   src: `
       url(${BarlowBoldFont})

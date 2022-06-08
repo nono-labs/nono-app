@@ -3,7 +3,7 @@ import Route from "@/router";
 import { Box, CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router";
 import "./App.css";
 
@@ -41,10 +41,8 @@ const useStyle = makeStyles((theme) => ({
 function App() {
   const { pathname } = useLocation();
   const classes = useStyle();
-  const [rootPage, setRootPage] = useState("");
 
   useEffect(() => {
-    setRootPage(pathname.split("/")[1]);
     window.scrollTo(0, 0);
   }, [pathname]);
   return (
