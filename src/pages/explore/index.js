@@ -1,13 +1,13 @@
 import FilterBox from "@/components/filterBox";
 import NFT from "@/components/NFT";
 import { getListsAsync } from "@/store/modules/explore";
-import { Grid, makeStyles, Box } from "@material-ui/core";
+import { Grid, makeStyles, Box, CircularProgress } from "@material-ui/core";
 import React, { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";
 import Images from "@/constant";
 export default function Explore(props) {
-  const { list, loading, hasMoreItems } = useSelector((state) => state.explore);
+  const { list, loading, hasMoreItems, page } = useSelector((state) => state.explore);
   const dispatch = useDispatch();
   const classes = useStyle();
   useEffect(() => {
@@ -19,9 +19,9 @@ export default function Explore(props) {
   };
 
   const loader = (
-    <div key="loader" className={classes.loading}>
-      Loading ...
-    </div>
+    <Box key="loader" className={classes.loading}>
+      <CircularProgress />
+    </Box>
   );
   return (
     <>
@@ -30,24 +30,24 @@ export default function Explore(props) {
           dataLength={list?.length}
           next={fetchItems}
           hasMore={hasMoreItems}
-
-          // loader={loader}
+          loader={loader}
         >
           {!loading && !list?.length && (
             <Box className={classes.noData}>
               <img src={Images.noData} />
             </Box>
           )}
+          {page === 0 && loading && loader}
           <Grid className={classes.grid}>
             {list?.map((item, index) => (
               <NFT item={item} style={{ border: "0" }} key={index} />
             ))}
-            {loading &&
+            {/* {loading &&
               Array(10)
                 .fill()
                 .map((item, index) => (
                   <NFT style={{ border: "0" }} key={index + "-"} />
-                ))}
+                ))} */}
           </Grid>
         </InfiniteScroll>
       </FilterBox>
@@ -82,6 +82,10 @@ const useStyle = makeStyles((theme) => ({
   },
   loading: {
     textAlign: "center",
+    height: 60,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   noData: {
     display: "flex",

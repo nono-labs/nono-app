@@ -37,7 +37,7 @@ export const getListsAsync = (payload) => {
       sortOrder: "DESC",
       sortTag: "popular",
       coinTag: "DNFT",
-     size: 10,
+      size: 10,
       page: getState().explore.page,
     });
     dispatch(page(getState().explore.page + 1));

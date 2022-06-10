@@ -29,13 +29,12 @@ import SwitchModal from "../SwitchModal";
 import SwitchWallet from "../switchWallet";
 import SearchBar from "./searchBar";
 import Doc from "./doc";
-import Web3 from "web3";
 import { mainnet } from "@/utils/smart-contract/mainnet";
 import WalletConnectProvider from '@walletconnect/web3-provider'
-
+// import useWeb3 from '@/hooks/useWeb3'
 const SideBar = (props) => {
   const menuId = "primary-search-account-menu";
-  const { address, chainType, currentIndex, chainId } = useSelector(
+  const { address, chainId } = useSelector(
     (state) => state.account
   );
   console.log(chainId, 'chainId')
@@ -44,6 +43,7 @@ const SideBar = (props) => {
   const theme = useTheme();
   const classes = useStyles();
   const navigate = useNavigate();
+  // const web3 = useWeb3();
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isSearchShowingInMobile, setSearchShowing] = useState(false);
@@ -55,7 +55,10 @@ const SideBar = (props) => {
   useEffect(() => {
     (async function () {
       const accounts = await window.ethereum?.request({ method: 'eth_accounts' });
-      if (accounts?.length) injectWallet();
+      if (accounts?.length) {
+        injectWallet()
+        return;
+      }
       if (window.walletProvider?.connected) {
         injectWalletConnect();
       } else {

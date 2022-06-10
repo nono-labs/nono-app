@@ -100,7 +100,7 @@ export default function FilterItem(props) {
                   label={`Bored Ape ${i}`}
                   key={i}
                   icon={<img src={Images.avatar} />}
-                  onDelete={() => {}}
+                  onDelete={() => { }}
                   deleteIcon={
                     <Box className={classes.deleteIcon}>
                       {filterType === "Collection" && (

@@ -3,17 +3,22 @@ import TextBtn from "@/components/btn";
 
 import React from "react";
 const ComponentModal = (props) => {
-  const { open, onClose, children, maxWidth, title } = props;
+  const { open, onClose, chainId, maxWidth, title } = props;
   const classes = useStyles(maxWidth);
   const goToRightNetwork = async () => {
-    await window.ethereum?.request({
-      method: "wallet_switchEthereumChain",
-      params: [
-        {
-          chainId: "0x1",
-        },
-      ],
-    });
+    try{
+      await window.ethereum?.request({
+        method: "wallet_switchEthereumChain",
+        params: [
+          {
+            chainId: "0x1",
+          },
+        ],
+      });
+    }catch(e){
+
+    }
+   
   };
   return (
     <Dialog
