@@ -7,33 +7,23 @@ import {
   makeStyles,
   Typography,
   withStyles,
+  Accordion as MuiAccordion,
+  AccordionDetails as MuiAccordionDetails,
+  AccordionSummary as MuiAccordionSummary,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
 } from "@material-ui/core";
-import MuiAccordion from "@material-ui/core/Accordion";
-import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
-import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons/";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function TopCollections(props) {
   const classes = useStyle();
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-  const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
-    createData("Azuki", 356, 16.0, 49, 3.9),
-    createData("Azuki1", 356, 16.0, 49, 3.9),
-    createData("Azuki2", 356, 16.0, 49, 3.9),
-  ];
+  const { list, loading, page } = useSelector((state) => state.collection);
+
   return (
     <Card variant="outlined" className={classes.root}>
       <Typography style={{ textAlign: "center" }} className={classes.title}>
@@ -49,7 +39,7 @@ export default function TopCollections(props) {
           >
             <TextBtn
               width={200}
-              onClick={() => {}}
+              onClick={() => { }}
               className={classes.buttonAsset}
               text="TextBtn"
             />
@@ -66,22 +56,22 @@ export default function TopCollections(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {list.map((row) => (
             <TableRow key={row.name}>
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
               <StyledTableCell>{row.calories}</StyledTableCell>
-              <StyledTableCell>{row.fat}</StyledTableCell>
-              <StyledTableCell>{row.carbs}</StyledTableCell>
-              <StyledTableCell>{row.protein}</StyledTableCell>
-              <StyledTableCell>{row.protein}</StyledTableCell>
+              <StyledTableCell>{row.likeCount}</StyledTableCell>
+              <StyledTableCell>{row.likeCount}</StyledTableCell>
+              <StyledTableCell>{row.likeCount}</StyledTableCell>
+              <StyledTableCell>{row.likeCount}</StyledTableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
       <div className={classes.accordBox}>
-        {rows.map((row, index) => (
+        {list.map((row, index) => (
           <Accordion key={index}>
             <AccordionSummary
               className={classes.expandIconBox}
@@ -95,7 +85,7 @@ export default function TopCollections(props) {
               <div className={classes.accordion}>
                 <Box className={classes.heading}>
                   <span>{index + 1}</span>
-                  <img src={Images.avatar} />
+                  <img src={row.nftAvatorUrls?.[0] || Images?.avatar} />
                   <span>{row.name}</span>
                 </Box>
                 <Grid container>
@@ -124,7 +114,7 @@ export default function TopCollections(props) {
             </AccordionSummary>
             <AccordionDetails>
               <div className={classes.accordion}>
-              <Grid container>
+                <Grid container>
                   <Grid item xs={6}>
                     <Box className={classes.content}>
                       <span className={classes.label}>Total Vol</span>
@@ -152,7 +142,7 @@ export default function TopCollections(props) {
                       </div>
                     </Box>
                   </Grid>
-                
+
                 </Grid>
               </div>
             </AccordionDetails>
@@ -217,7 +207,7 @@ const useStyle = makeStyles((theme) => ({
     color: "#000",
     display: "flex",
     alignItems: "center",
- 
+
   },
   tableCell: {
     fontSize: "14px",
@@ -255,7 +245,7 @@ const useStyle = makeStyles((theme) => ({
     borderRadius: "50%",
     width: 32,
     height: 32,
-   
+
   },
   label: {
     fontSize: 10,

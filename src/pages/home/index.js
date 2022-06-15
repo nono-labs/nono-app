@@ -3,17 +3,25 @@ import NFT from "@/components/NFT";
 import Images from "@/constant";
 import { Box, Grid, makeStyles } from "@material-ui/core";
 import clsx from "clsx";
-import React from "react";
+import React, { useEffect } from "react";
 import TopCollections from "./top";
 import { shortenAddress } from "@/utils/tools";
+import { getListsAsync } from "@/store/modules/collection";
+
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Home(props) {
   console.log("home");
   const classes = useStyle();
+  const dispatch = useDispatch();
   const { address, chainType, currentIndex } = useSelector(
     (state) => state.account
   );
+
+  useEffect(() => {
+    address && dispatch(getListsAsync({ address }));
+  }, [address]);
+
   return (
     <Box>
       <Box className={clsx(classes.itemCenter, classes.mb)}>
@@ -34,7 +42,7 @@ export default function Home(props) {
             <TextBtn
               width={200}
               className={classes.btnSpace}
-              onClick={() => {}}
+              onClick={() => { }}
               text={"List an NFT"}
             />
             <TextBtn width={200} text={"Explore NFTs"} />
@@ -58,7 +66,7 @@ export default function Home(props) {
               width={200}
               widthM={180}
               className={classes.btnSpace}
-              onClick={() => {}}
+              onClick={() => { }}
               text={"Claim Your Rewards"}
             />
             <TextBtn width={200} text={"Learn More"} />
